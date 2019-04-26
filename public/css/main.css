@@ -1,0 +1,211 @@
+header, main, footer {
+    padding-left: 300px;
+}
+
+body {
+    background-image: url("../img/backg.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+#slide-out, .collapsible-body{
+    background: transparent !important;
+}
+
+.box{
+    background-color: rgba(255,255,255,0.2);
+    border-style: solid;
+    border-width: 1px;
+    border-color: gray;
+    border-radius: 30px;
+    padding: 10px 30px 0px !important;
+    margin-bottom: 20px;
+}
+
+.boxlogin{
+    background-color: rgba(255,255,255,0.2);
+    border-style: solid;
+    border-width: 1px;
+    border-color: gray;
+    border-radius: 30px;
+    padding: 10px 30px 10px !important;
+}
+
+@media only screen and (max-width : 992px) {
+    header, main, footer {
+        padding-left: 0;
+    }
+
+    #slide-out{
+        background: rgba(0,0,0,0.2) !important;
+    }
+
+    .collapsible>li.active{
+        background: rgba(0,0,0,0.2) !important;
+    }
+
+    .sidenav-overlay{
+        background: rgba(0,0,0,0.3) !important;
+    }
+}
+
+@media only screen and (max-width : 600px) {
+    h3#titleNav {
+        font-size: 1.5rem;
+        padding-top: 0.8rem;
+    }
+
+    .inner {
+        margin-left: auto;
+        margin-right: auto;
+        width: 80%;
+    }
+}
+
+.side-blur{
+    filter: blur(2px);
+}
+
+.principalcolor{
+    color: rgb(255, 255, 255)
+}
+
+.principal-textcolor{
+    color: rgb(255, 255, 255) !important
+}
+
+.principalBackgroundColor{
+    background-color: rgb(63, 63, 63) !important
+}
+
+label{
+    color: dimgray !important
+}
+
+html, body{
+    min-height:100%;
+}
+
+nav {
+    height: 70px;
+    box-shadow: none;
+    border-bottom: 1px solid rgba(0,0,0,0.14);
+    background-color: transparent;
+}
+
+a.sidenav-trigger.top-nav {
+    position: absolute;
+    text-align: center;
+    height: 60px;
+    width: 60px;
+    top: -5px;
+    left: -25px;
+    z-index: 2;
+}
+
+ul.sidenav.sidenav-fixed li a {
+    font-size: 13px;
+    line-height: 44px;
+    height: 44px;
+    padding: 0 30px;
+}
+
+ul.collapsible-accordion .collapsible-body li a {
+    font-weight: 400;
+    padding: 0 37.5px 0 45px;
+}
+
+.top-nav.container {
+    width: 100%;
+}
+
+.switch label input[type=checkbox]:checked+.lever {
+    background-color: rgb(215, 215, 215) !important
+}
+
+.switch label input[type=checkbox]:checked+.lever:after {
+    background-color: white !important
+}
+
+.switch label .lever:before {
+    background-color: rgba(255,255,255,0.2) !important
+}
+
+.backouter{
+    opacity:0.8;
+    background-color: rgb(20, 20, 20);
+}
+
+.outer {
+    display: table;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    z-index:10000;
+}
+  
+.middle {
+    display: table-cell;
+    vertical-align: middle;
+}
+  
+.inner {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 500px;
+}
+
+#mainRow{
+    margin-top: 1.3rem;
+    margin-bottom: 80px;
+}
+
+.material-icons.prefix.posfix{
+    right: 0rem !important
+}
+
+.input-field .prefix ~ input, .input-field .prefix ~ textarea, .input-field .prefix ~ label, .input-field .prefix ~ .validate ~ label, .input-field .prefix ~ .helper-text, .input-field .prefix ~ .autocomplete-content {
+    margin-left: 3rem;
+    margin-right: 1rem;
+    width: calc(100% - 65px);
+}
+
+.labelinput{
+    position: relative;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+}
+
+.labelWithSwitch{
+    position: relative;
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+hr{
+    margin-bottom: 0
+}
+
+.clSwitch{
+    margin-top: 1.4rem;
+}
+
+.btnInLine{
+    margin-top: 2rem;
+}
+
+.withSelect{
+    position: relative;
+    margin-top: 1rem;
+}
+
+.error_message{
+    color: #F44336 !important;
+}
+
+.success_message{
+    color: #4CAF50 !important;
+}
