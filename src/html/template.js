@@ -13,8 +13,8 @@ export function MainTemplate(viewBag) {
             ${ viewBag.body.reactDom ? viewBag.body.reactDom : ''}
         </div>
     </body>
-    <script src="./app.bundle.js"></script>
     ${ viewBag.scripts ? viewBag.scripts : ''}
+    <script src="./app.bundle.js"></script>
     
     </html>
     `)
