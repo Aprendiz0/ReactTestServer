@@ -3,23 +3,33 @@ import React from "react";
 import express from "express";
 import Layout from "./components/Layout";
 import { renderToString } from "react-dom/server";
-import { MainTemplate } from './html/template'
+import { MainTemplate } from './templates/template'
 
 const app = express();
 const fs = require('fs');
+const HTMLheader = fs.readFileSync('./src/templates/header.html', 'utf8')
+const HTMLscripts = fs.readFileSync('./src/templates/footer.html', 'utf8')
 
 app.use(express.static(path.resolve(__dirname, "../dist")));
 app.use(express.static(path.resolve(__dirname, "../public")));
 
+
+
+import { Provider } from 'react-redux';
+import { Store } from './store';
 app.get('*', (req, res) => {
 
-    const reactDom = renderToString(<Layout />);
+    const reactDom = renderToString((
+        <Provider store={Store}>
+            <Layout />
+        </Provider>
+    ));
+    
+    //const reactDom = renderToString(<Layout />);
 
     res.writeHead(200, { "Content-Type": "text/html" });
     //res.end(HtmlTemplate(reactDom, helmetData));
-    
-    let HTMLheader = fs.readFileSync('./src/html/header.html', 'utf8')
-    let HTMLscripts = fs.readFileSync('./src/html/footer.html', 'utf8')
+
     let context = {
         head: HTMLheader,
         body: {

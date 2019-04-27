@@ -1,17 +1,14 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { Provider as ReduxProvider } from "react-redux";
-
+import { Provider } from 'react-redux';
+import { Store } from './store';
 import Layout from "./components/Layout";
-import createStore from "./store";
-
-const store = createStore( window.REDUX_DATA );
 
 const jsx = (
-    <ReduxProvider store={ store }>
-            <Layout />
-    </ReduxProvider>
+    <Provider store={Store}>
+        <Layout />
+    </Provider>
 );
 
-const app = document.getElementById( "app" );
-ReactDOM.hydrate( <Layout />, app );
+const app = document.getElementById("app");
+ReactDOM.hydrate(jsx, app);

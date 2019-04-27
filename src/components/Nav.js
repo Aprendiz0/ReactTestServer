@@ -1,19 +1,14 @@
 import React from "react";
 import NavItens from './NavItens'
+import PageTest from './PageTest'
 
 export default class Nav extends React.Component {
     constructor() {
         super();
 
         this.state = {
-            title: "Room Control V0.6 Alpha",
-            host: "IP: XXX.XXX.XXX.X",
-            user: "Usuário teste",
+            userName: "Usuário teste"
         };
-    }
-
-    componentDidMount() {
-        M.AutoInit();
     }
 
     render() {
@@ -23,8 +18,8 @@ export default class Nav extends React.Component {
                     <li>
                         <div className="center principalcolor">
                             <div><a href="#!"> <i className="material-icons principalcolor" style={{ fontSize: '150px', marginTop: '40px' }}>settings_applications</i></a></div>
-                            <div>{this.state.title}</div>
-                            <div id="d_ip">{this.state.host}</div>
+                            <div>{this.props.title}</div>
+                            <div id="d_ip">{this.props.host}</div>
                         </div>
                     </li>
                     <li className="divider"></li>
@@ -37,13 +32,34 @@ export default class Nav extends React.Component {
                         </div>
                     </li>
                     <li className="divider"></li>
-                    <NavItens />
-                    <NavItens />
+                    <NavItens
+                        name='Cômodos'
+                        itens={[{
+                            name: 'Quarto Nathan',
+                            toPage: <PageTest />
+                        }]}
+                    />
+                    <NavItens
+                        name='Configurações'
+                    />
                     <li>
-                        <a id="b_lateral" className="waves-effect btn principalBackgroundColor" style={{ 'display': 'none' }}>
+                        <a id="b_lateral" className="waves-effect btn principalBackgroundColor" /*style={{ 'display': 'none' }}*/>
                             Aplicar Configurações </a>
                     </li>
                 </ul>
+                <nav className="top-nav">
+                    <div className="container">
+                        <div className="nav-wrapper principalcolor">
+                            <a href="#" data-target="slide-out" className="top-nav sidenav-trigger principalcolor"><i className="material-icons" style={{ fontSize: '35px' }}>menu</i></a>
+                            <h3 className="center" id="titleNav"> Room Control </h3>
+                        </div>
+                    </div>
+                </nav>
+                <div className="fixed-action-btn">
+                    <a id="b_flutuante" className="btn-floating btn-large waves-effect tooltipped green principalBackgroundColor" data-position="left" data-tooltip="Aplicar Configurações">
+                        <i className="large material-icons">check</i>
+                    </a>
+                </div>
             </header>
         );
     }

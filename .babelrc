@@ -7,7 +7,7 @@
           }
       ],
       "react",
-      "jest"
+      "stage-0"
   ],
   "env": {
       "test": {

@@ -1,0 +1,1 @@
+export const ALTER_MAIN_PAGE = 'ALTER_MAIN_PAGE';

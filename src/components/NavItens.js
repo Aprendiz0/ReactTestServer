@@ -1,29 +1,54 @@
 import React from "react";
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { alterMainPage } from '../actions'
 
-export default class NavItens extends React.Component {
-    constructor() {
-        super();
-
-        this.state = {
-            name: 'Cômodos'
-        };
+class NavItens extends React.Component {
+    constructor(props) {
+        super(props);
+        /*
+            props = {
+                type: 'collapsible' || 'normal'
+                name: 'Item Nav 1'
+                itens: [
+                    'Item 1',
+                    'Item 2'
+                ]
+            }
+        */
     }
 
     render() {
+
+        const { alterMainPage } = this.props;
+
         return (
             <li className="noPadding">
                 <ul className="collapsible collapsible-accordion">
                     <li>
-                        <a className="collapsible-header waves-effect principal-textcolor">{this.state.name}</a>
-                        <div className="collapsible-body">
-                            <ul>
-                                <li><a href="#!" className="principal-textcolor">Quarto  Nathan</a></li>
-                                <li><a href="#!" className="principal-textcolor">Site</a></li>
-                            </ul>
-                        </div>
+                        <a className={(this.props.itens ? "collapsible-header " : "") + "waves-effect principal-textcolor"}>{this.props.name}</a>
+                        {this.props.itens &&
+                            <div className="collapsible-body">
+                                <ul>
+                                    {this.props.itens.map((item, key) =>
+                                        <li key={key}>
+                                            <a onClick={() => alterMainPage(item.toPage)} href="#!" className="principal-textcolor">{item.name}</a>
+                                        </li>
+                                    )}
+                                </ul>
+                            </div>
+                        }
                     </li>
                 </ul>
             </li>
         );
     }
 }
+
+const mapStateToProps = (state) => ({
+    ...state
+});
+
+const mapDispatchToProps = (dispatch) => bindActionCreators({ alterMainPage }, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(NavItens);

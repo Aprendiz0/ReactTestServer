@@ -1,17 +1,32 @@
 import React from "react";
 import Nav from './Nav'
+import Main from './Main'
 
 export default class Layout extends React.Component {
     constructor() {
         super();
         this.state = {
-            title: "Welcome to React SSR!",
-        };
+            host: 'IP xxx.xxx.xxx.xxx'
+        }
+    }
+
+    componentDidMount() {
+        M.AutoInit();
+
+        this.setState({
+            host: window.location.host
+        });
     }
 
     render() {
         return (
-            <Nav />
+            <div>
+                <Nav
+                    title='Room Control V0.6 Alpha'
+                    host={this.state.host}
+                />
+                <Main />
+            </div>
         );
     }
 }
