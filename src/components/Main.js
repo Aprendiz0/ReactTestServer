@@ -18,8 +18,9 @@ class Main extends React.Component {
     }
 }
 
-const mapStateToProps = (store) => ({
-    mainPage: store.mainPageState.mainPage
+const mapStateToProps = (state) => ({
+    ...state,
+    mainPage: state.mainPageState.mainPage
 });
 
 export default connect(mapStateToProps)(Main);
