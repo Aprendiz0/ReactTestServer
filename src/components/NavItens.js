@@ -22,11 +22,13 @@ class NavItens extends React.Component {
 
         const { alterMainPage } = this.props;
 
+        const nothing = () => {};
+
         return (
             <li className="noPadding">
                 <ul className="collapsible collapsible-accordion">
                     <li>
-                        <a className={(this.props.itens ? "collapsible-header " : "") + "waves-effect principal-textcolor"}>{this.props.name}</a>
+                        <a onClick={this.props.toPage ? () => alterMainPage(this.props.toPage): () => nothing()} className={(this.props.itens ? "collapsible-header " : "") + "waves-effect principal-textcolor"}>{this.props.name}</a>
                         {this.props.itens &&
                             <div className="collapsible-body">
                                 <ul>

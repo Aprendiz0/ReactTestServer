@@ -1,7 +1,9 @@
+import React from 'react';
+import Home from '../components/Main/Home';
 import { ALTER_MAIN_PAGE } from '../actions/actionTypes';
 
 const initialState = {
-    mainPage: 'OPA'
+    mainPage: <Home />
 };
 
 export const mainPageReducer = (state = initialState, action) => {

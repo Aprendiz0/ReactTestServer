@@ -1,8 +1,12 @@
 import React from "react";
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { alterMainPage } from '../actions'
 import NavItens from './NavItens'
 import PageTest from './PageTest'
+import Home from './Main/Home'
 
-export default class Nav extends React.Component {
+export class Nav extends React.Component {
     constructor() {
         super();
 
@@ -11,13 +15,37 @@ export default class Nav extends React.Component {
         };
     }
 
+    componentDidMount() {
+        ajust();
+
+        $("#slide-out li").click(function () {
+            ajust();
+        });
+
+        function ajust() {
+            let aj = setInterval(ajustLastItem, 0);
+            setTimeout(function () { clearInterval(aj); }, 500);
+        }
+
+        function ajustLastItem() {
+            let last = $("#slide-out li").last();
+            if (!last.get(0)) return;
+
+            let margin = $(window).height() - last.position().top - last.children().outerHeight(true) + ((last.children().outerHeight(true) - last.children().outerHeight()) / 2);
+            if (margin >= 0) last.css("margin-top", margin);
+        }
+    }
+
     render() {
+
+        const { alterMainPage } = this.props;
+
         return (
             <header>
                 <ul id="slide-out" className="sidenav sidenav-fixed">
                     <li>
                         <div className="center principalcolor">
-                            <div><a href="#!"> <i className="material-icons principalcolor" style={{ fontSize: '150px', marginTop: '40px' }}>settings_applications</i></a></div>
+                            <div><a onClick={() => alterMainPage(< Home />)} href="#!"> <i className="material-icons principalcolor" style={{ fontSize: '150px', marginTop: '40px' }}>settings_applications</i></a></div>
                             <div>{this.props.title}</div>
                             <div id="d_ip">{this.props.host}</div>
                         </div>
@@ -41,6 +69,7 @@ export default class Nav extends React.Component {
                     />
                     <NavItens
                         name='Configurações'
+                        toPage={<PageTest />}
                     />
                     <li>
                         <a id="b_lateral" className="waves-effect btn principalBackgroundColor" /*style={{ 'display': 'none' }}*/>
@@ -64,3 +93,13 @@ export default class Nav extends React.Component {
         );
     }
 }
+
+
+
+const mapStateToProps = (state) => ({
+    ...state
+});
+
+const mapDispatchToProps = (dispatch) => bindActionCreators({ alterMainPage }, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(Nav);
