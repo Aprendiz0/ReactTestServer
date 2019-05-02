@@ -13,8 +13,6 @@ const HTMLscripts = fs.readFileSync('./src/templates/footer.html', 'utf8')
 app.use(express.static(path.resolve(__dirname, "../dist")));
 app.use(express.static(path.resolve(__dirname, "../public")));
 
-
-
 import { Provider } from 'react-redux';
 import { Store } from './store';
 app.get('*', (req, res) => {
@@ -41,3 +39,11 @@ app.get('*', (req, res) => {
 })
 
 app.listen(4000);
+
+const DB = require('./database/index');
+
+DB.save({
+    teste: 'kappa'
+}).then((testt)=>{
+    console.log(testt)
+});

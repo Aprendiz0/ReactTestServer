@@ -12,6 +12,9 @@
     "bundlesize": "bundlesize",
     "precommit": "eslint src --quiet"
   },
+  "nodemonConfig": {
+      "ignore": ["src/database/files/*"]
+  },
   "dependencies": {
     "isomorphic-fetch": "^2.2.1",
     "react": "^16.0.0",

@@ -9,12 +9,19 @@ class Main extends React.Component {
         return (
             <main style={{ height: '100%' }}>
                 <div className="container">
-                    <div id="mainRow" className="row">
+                    <div className="row" style={styles.mainRow}>
                         {mainPage}
                     </div>
                 </div>
             </main>
         );
+    }
+}
+
+const styles = {
+    mainRow: {
+        marginTop: '1.3rem',
+        marginBottom: '80px'
     }
 }
 
