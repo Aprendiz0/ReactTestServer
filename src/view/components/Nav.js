@@ -1,10 +1,11 @@
 import React from "react";
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { alterMainPage } from '../actions'
-import NavItens from './NavItens'
-import PageTest from './PageTest'
-import Home from './Main/Home'
+import { alterMainPage } from '../actions';
+import NavItens from './NavItens';
+import PageTest from './PageTest';
+import Home from './Main/Home';
+import Comodo from './Main/Comodo';
 
 export class Nav extends React.Component {
     constructor() {
@@ -75,7 +76,7 @@ export class Nav extends React.Component {
                         name='Cômodos'
                         itens={[{
                             name: 'Quarto Nathan',
-                            toPage: <PageTest />
+                            toPage: <Comodo />
                         }]}
                     />
                     <NavItens
@@ -87,6 +88,7 @@ export class Nav extends React.Component {
                             Aplicar Configurações </a>
                     </li>
                 </ul>
+
                 <nav className="top-nav" style={styles.nav}>
                     <div className="container" style={styles.topNavContainer}>
                         <div className="nav-wrapper principalcolor">
@@ -95,6 +97,7 @@ export class Nav extends React.Component {
                         </div>
                     </div>
                 </nav>
+
                 <div className="fixed-action-btn">
                     <a id="b_flutuante" className="btn-floating btn-large waves-effect tooltipped principalBackgroundColor" data-position="left" data-tooltip="Aplicar Configurações">
                         <i className="large material-icons">check</i>

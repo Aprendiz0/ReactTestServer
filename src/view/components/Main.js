@@ -7,13 +7,15 @@ class Main extends React.Component {
         const { mainPage } = this.props;
 
         return (
-            <main style={{ height: '100%' }}>
-                <div className="container">
-                    <div className="row" style={styles.mainRow}>
-                        {mainPage}
+            <div>
+                <main style={{ height: '100%' }}>
+                    <div className="container">
+                        <div className="row" style={styles.mainRow}>
+                            {mainPage}
+                        </div>
                     </div>
-                </div>
-            </main>
+                </main>
+            </div>
         );
     }
 }
