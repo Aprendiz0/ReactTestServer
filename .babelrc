@@ -1,19 +1,15 @@
+/*
 {
-  "presets": [
-      [ "env",
-          {
-              "modules": false,
-              "useBuiltIns": "usage"
-          }
-      ],
-      "react",
-      "stage-0" // npm install babel-preset-stage-0 --save
-  ],
-  "env": {
-      "test": {
-          "presets": ["react"],
-          "plugins": ["transform-es2015-modules-commonjs"]
-      }
-
-  }
+    "presets": [
+        "es2015",
+        "react",
+        "stage-0"
+    ]
+}
+*/
+{
+    "presets": [
+        "@babel/preset-env",
+        "@babel/preset-react"
+    ]
 }
