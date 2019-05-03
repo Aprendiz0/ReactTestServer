@@ -16,14 +16,15 @@
       "ignore": ["src/database/files/*"]
   },
   "dependencies": {
-    "isomorphic-fetch": "^2.2.1",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
     "react-helmet": "^5.2.0",
     "react-redux": "^5.0.7",
     "react-router-dom": "^4.2.2",
     "redux": "^3.7.2",
-    "redux-thunk": "^2.2.0"
+    "redux-thunk": "^2.2.0",
+    "jsonwebtoken": "^8.5.1",
+    "body-parser": "^1.19.0"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
@@ -69,13 +70,6 @@
       "maxSize": "110 kB"
     }
   ],
-  "jest": {
-    "transform": {
-      "^.+\\.jsx$": "babel-jest",
-      "^.+\\.js$": "babel-jest"
-    },
-    "setupTestFrameworkScriptFile": "<rootDir>/test-config/test-setup.js"
-  },
   "author": "",
   "license": "MIT"
 }
