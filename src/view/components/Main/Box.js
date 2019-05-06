@@ -2,6 +2,10 @@ import React from "react";
 import BoxItem from './BoxItem';
 
 class Box extends React.Component {
+    /*
+    boxName
+    titleSwitch
+    */
 
     render() {
         return (
@@ -10,16 +14,18 @@ class Box extends React.Component {
                     <div className="col left">
                         <h5 className="">{this.props.boxName}:</h5>
                     </div>
-                    <div className="right" style={styles.mSwitch}>
-                        <div className="switch">
-                            <label>
-                                Off
+                    {this.props.titleSwitch &&
+                        <div className="right" style={styles.mSwitch}>
+                            <div className="switch">
+                                <label>
+                                    Off
                                 <input type="checkbox" />
-                                <span className="lever"></span>
-                                On
+                                    <span className="lever"></span>
+                                    On
                             </label>
+                            </div>
                         </div>
-                    </div>
+                    }
                 </div>
                 <div className="row">
                     <hr />
@@ -27,6 +33,11 @@ class Box extends React.Component {
                 <form className="col s12">
                     <BoxItem
                         itemName='Principal'
+                        type='switch'
+                    />
+                    <BoxItem
+                        itemName='Principal'
+                        type='input'
                     />
                 </form>
             </div>
@@ -45,7 +56,8 @@ const styles = {
         marginBottom: '20px'
     },
     mSwitch: {
-        marginTop: '1.4rem'
+        marginTop: '1.4rem',
+        marginRight: '11px'
     }
 }
 

@@ -20,13 +20,13 @@ export default class Layout extends React.Component {
 
     render() {
         return (
-            <div>
+            <>
                 <Nav
                     title='Room Control V0.6 Alpha'
                     host={this.state.host}
                 />
                 <Main />
-            </div>
+            </>
         );
     }
 }

@@ -1,33 +1,50 @@
 import React from 'react';
+import BoxItemInput from './BoxItens/BoxItemInput';
+import BoxItemSwitch from './BoxItens/BoxItemSwitch';
 
 class BoxItem extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            inputValue: 0
+        }
+
+        this.handleInput = this.handleInput.bind(this);
+    }
+
+    handleInput(e) {
+        let value = e.target.value;
+
+        try {
+            if (!value) value = 0;
+            value = parseInt(value);
+            this.setState({ inputValue: value })
+        } catch (e) { console.warn(`${value} is not a number`) }
+    }
+
     render() {
+
+        let item;
+
+        switch (this.props.type) {
+            case 'switch':
+                item = <BoxItemSwitch
+                    name='Teste 2'
+                />
+                break;
+            case 'input':
+                item = <BoxItemInput
+                    name='Teste'
+                />
+                break;
+        }
+
         return (
             <div className="row">
-                <div className="col" style={styles.labelWithSwitch}>{this.props.itemName}</div>
-                <div className="right" style={styles.mSwitch}>
-                    <div className="switch">
-                        <label>
-                            Off
-                            <input type="checkbox" className="isvalue islighting" data-sendName="r0" />
-                            <span className="lever"></span>
-                            On
-                        </label>
-                    </div>
-                </div>
+                {item}
             </div>
         );
-    }
-}
-
-const styles = {
-    labelWithSwitch: {
-        position: 'relative',
-        marginTop: '1.5rem',
-        marginBottom: '1rem'
-    },
-    mSwitch: {
-        marginTop: '1.4rem'
     }
 }
 

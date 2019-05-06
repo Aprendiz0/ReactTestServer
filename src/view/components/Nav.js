@@ -88,7 +88,6 @@ export class Nav extends React.Component {
                             Aplicar Configurações </a>
                     </li>
                 </ul>
-
                 <nav className="top-nav" style={styles.nav}>
                     <div className="container" style={styles.topNavContainer}>
                         <div className="nav-wrapper principalcolor">

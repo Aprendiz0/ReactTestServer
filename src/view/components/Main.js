@@ -7,7 +7,7 @@ class Main extends React.Component {
         const { mainPage } = this.props;
 
         return (
-            <div>
+            <>
                 <main style={{ height: '100%' }}>
                     <div className="container">
                         <div className="row" style={styles.mainRow}>
@@ -15,7 +15,7 @@ class Main extends React.Component {
                         </div>
                     </div>
                 </main>
-            </div>
+            </>
         );
     }
 }

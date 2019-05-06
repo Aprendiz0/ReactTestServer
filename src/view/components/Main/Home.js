@@ -11,12 +11,10 @@ class Home extends React.Component {
                     Nesse site você tem total controle sobre os equipamentos conectados e configurados para trabalhar em conjunto
                     com
                     este site, como:
-
-                    <hl>
-                        <li>Iluminação</li>
-                        <li>Fitas de Led Controladas por arduino 1 e 2</li>
-                    </hl>
-
+                </p>
+                <p>
+                    <li>Iluminação (Em Dev)</li>
+                    <li>Fitas de Led Controladas por arduino 1 e 2 (Em Dev)</li>
                 </p>
                 <p className="right">
                     By Nathan Cardoso Barcelos

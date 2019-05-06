@@ -3,12 +3,16 @@ import Box from './Box';
 
 class Comodo extends React.Component {
     render() {
-        return(
-            <div>
-                <Box 
+        return (
+            <>
+                <Box
                     boxName='Iluminação'
                 />
-            </div>
+                <Box
+                    boxName='Iluminação'
+                    titleSwitch={true}
+                />
+            </>
         );
     }
 }

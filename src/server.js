@@ -1,9 +1,10 @@
 import path from "path";
 import express from "express";
 import bodyParser from 'body-parser';
-import cookieParser  from 'cookie-parser';
+import cookieParser from 'cookie-parser';
 
 const app = express();
+const port = 4000;
 
 app.use(express.static(path.resolve(__dirname, "../dist")));
 app.use(express.static(path.resolve(__dirname, "../public")));
@@ -15,4 +16,4 @@ require('./controller/authController')(app);
 require('./controller/projectController')(app);
 require('./api/index')(app);
 
-app.listen(4000);
+app.listen(port, () => console.log(`started on port: ${port}`));
