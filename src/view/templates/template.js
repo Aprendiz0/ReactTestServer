@@ -8,6 +8,17 @@ export function MainTemplate(viewBag) {
     </head>
     
     <body>
+        <div id="loadPage" class="outer backouter">
+            <div class="middle">
+                <div class="inner">
+    
+                    <div class="progress grey darken-2">
+                        <div class="indeterminate white"></div>
+                    </div>
+    
+                </div>
+            </div>
+        </div>
         ${ viewBag.body.nav ? viewBag.body.nav : ''}
         <div id="app">
             ${ viewBag.body.reactDom ? viewBag.body.reactDom : ''}
@@ -18,25 +29,4 @@ export function MainTemplate(viewBag) {
     
     </html>
     `)
-}
-
-export function HtmlTemplate(reactDom, helmetData) {
-    return `
-        <!DOCTYPE html>
-        <html>
-        
-        <head>
-            <meta charset="utf-8">
-            ${ helmetData.title.toString()}
-            ${ helmetData.meta.toString()}
-            <title>React SSR</title>
-        </head>
-        
-        <body>
-            <div id="app">${ reactDom}</div>
-            <script src="./app.bundle.js"></script>
-        </body>
-        
-        </html>
-    `;
 }

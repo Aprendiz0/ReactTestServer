@@ -2,20 +2,19 @@ import React from "react";
 import { renderToString } from "react-dom/server";
 import express from "express";
 import fs from 'fs'
-import Layout from "../view/components/Layout";
 import { MainTemplate } from '../view/templates/template';
+import Login from "../view/components/Login";
 
 const router = express.Router();
-const authMiddleware = require('../middlewares/auth');
 
 const HTMLheader = fs.readFileSync('./src/view/templates/header.html', 'utf8')
 const HTMLscripts = fs.readFileSync('./src/view/templates/footer.html', 'utf8')
 
-router.use(authMiddleware)
-
 router.get('*', (req, res) => {
 
-    const reactDom = renderToString(<Layout teste='oopa'/>);
+    const reactDom = renderToString((
+        <Login />
+    ));
 
     //const reactDom = renderToString(<Layout />);
 
@@ -32,4 +31,4 @@ router.get('*', (req, res) => {
     res.end(MainTemplate(context));
 })
 
-module.exports = (app) => app.use('/front', router); 
+module.exports = (app) => app.use('/login', router); 

@@ -1,0 +1,54 @@
+@media only screen and (max-width : 992px) {
+    #slide-out{
+        background: rgba(0,0,0,0.2) !important;
+    }
+
+    .collapsible>li.active{
+        background: rgba(0,0,0,0.2) !important;
+    }
+
+    .sidenav-overlay{
+        background: rgba(0,0,0,0.3) !important;
+    }
+}
+
+.principalcolor{
+    color: rgb(255, 255, 255)
+}
+
+.principal-textcolor{
+    color: rgb(255, 255, 255) !important
+}
+
+.principalBackgroundColor{
+    background-color: rgb(63, 63, 63) !important
+}
+
+label{
+    color: dimgray !important
+}
+
+.switch label input[type=checkbox]:checked+.lever {
+    background-color: rgb(215, 215, 215) !important
+}
+
+.switch label input[type=checkbox]:checked+.lever:after {
+    background-color: white !important
+}
+
+.switch label .lever:before {
+    background-color: rgba(255,255,255,0.2) !important
+}
+
+.backouter{
+    opacity:0.8;
+    background-color: rgb(20, 20, 20);
+}
+
+.error_message{
+    color: #F44336 !important;
+}
+
+.success_message{
+    color: #4CAF50 !important;
+}

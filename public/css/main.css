@@ -25,18 +25,6 @@ hr{
     header, main, footer {
         padding-left: 0;
     }
-
-    #slide-out{
-        background: rgba(0,0,0,0.2) !important;
-    }
-
-    .collapsible>li.active{
-        background: rgba(0,0,0,0.2) !important;
-    }
-
-    .sidenav-overlay{
-        background: rgba(0,0,0,0.3) !important;
-    }
 }
 
 @media only screen and (max-width : 600px) {
@@ -56,22 +44,6 @@ hr{
     filter: blur(2px);
 }
 
-.principalcolor{
-    color: rgb(255, 255, 255)
-}
-
-.principal-textcolor{
-    color: rgb(255, 255, 255) !important
-}
-
-.principalBackgroundColor{
-    background-color: rgb(63, 63, 63) !important
-}
-
-label{
-    color: dimgray !important
-}
-
 ul.sidenav.sidenav-fixed li a {
     font-size: 13px;
     line-height: 44px;
@@ -82,23 +54,6 @@ ul.sidenav.sidenav-fixed li a {
 ul.collapsible-accordion .collapsible-body li a {
     font-weight: 400;
     padding: 0 37.5px 0 45px;
-}
-
-.switch label input[type=checkbox]:checked+.lever {
-    background-color: rgb(215, 215, 215) !important
-}
-
-.switch label input[type=checkbox]:checked+.lever:after {
-    background-color: white !important
-}
-
-.switch label .lever:before {
-    background-color: rgba(255,255,255,0.2) !important
-}
-
-.backouter{
-    opacity:0.8;
-    background-color: rgb(20, 20, 20);
 }
 
 .outer {
@@ -132,12 +87,6 @@ ul.collapsible-accordion .collapsible-body li a {
     width: calc(100% - 65px);
 }
 
-.labelinput{
-    position: relative;
-    margin-top: 2rem;
-    margin-bottom: 1rem;
-}
-
 .btnInLine{
     margin-top: 2rem;
 }
@@ -145,12 +94,4 @@ ul.collapsible-accordion .collapsible-body li a {
 .withSelect{
     position: relative;
     margin-top: 1rem;
-}
-
-.error_message{
-    color: #F44336 !important;
-}
-
-.success_message{
-    color: #4CAF50 !important;
 }

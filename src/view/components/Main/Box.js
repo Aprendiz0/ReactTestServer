@@ -61,15 +61,4 @@ const styles = {
     }
 }
 
-/*
-.boxlogin{
-            background - color: rgba(255,255,255,0.2);
-        border-style: solid;
-        border-width: 1px;
-        border-color: gray;
-        border-radius: 30px;
-        padding: 10px 30px 10px !important;
-    }
-*/
-
 export default Box;
