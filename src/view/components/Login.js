@@ -1,6 +1,48 @@
 import React from 'react';
 
 class Login extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.signIn = this.signIn.bind(this);
+    }
+
+    signIn() {
+        let that = this;
+        let user = $('#user').val();
+        let password = $('#password').val();
+
+        $.ajax({
+            method: "POST",
+            url: "/auth/login",
+            cache: false,
+            data: { userName: user, userPassword: password }
+        }).done(function (response) {
+
+            $("#error_message")
+                .removeClass("error_message")
+                .addClass("success_message")
+                .html("Logado com sucesso");
+
+            $.cookie('authorization', response.token);
+
+            that.props.triggerLogin();
+
+        }).fail(function (jqXHR, status) {
+            let message;
+            if(jqXHR.status == 401){
+                message = 'Usuario/Senha não encontrado';
+            }else{
+                console.error(jqXHR);
+                message = 'Error, see console log';
+            }
+            $('#error_message')
+                .removeClass("success_message")
+                .addClass("error_message")
+                .html(message);
+        });
+    }
+
     render() {
         return (
             <div className="outer">
@@ -15,20 +57,19 @@ class Login extends React.Component {
                                     </div>
                                     <div className="row">
                                         <div className="input-field col s12">
-                                            <input id="email" type="email" className="validate" />
-                                            <label for="email">Email</label>
-                                            <span className="helper-text" data-error="E-mail incorreto"></span>
+                                            <input id="user" type="text" />
+                                            <label htmlFor="user">Usuário</label>
                                         </div>
                                     </div>
                                     <div className="row">
                                         <div className="input-field col s12">
-                                            <input id="password" type="password" className="validate" />
-                                            <label for="password">Password</label>
+                                            <input id="password" type="password" />
+                                            <label htmlFor="password">Senha</label>
                                         </div>
                                     </div>
                                     <div className="col s12">
                                         <label className="col s7 m8" id="error_message" className="left"></label>
-                                        <a onclick="signIn()" className="col s5 m4 waves-effect btn right principalBackgroundColor"><i className="material-icons left">change_history</i>Login</a>
+                                        <a onClick={this.signIn} className="col s5 m4 waves-effect btn right principalBackgroundColor"><i className="material-icons left">change_history</i>Login</a>
                                     </div>
                                 </form>
                             </div>

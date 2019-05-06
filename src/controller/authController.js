@@ -3,20 +3,33 @@ const router = express.Router();
 const jwt = require('jsonwebtoken');
 const authConfig = require('../config/authConfig.json');
 const DB = require('../database/index')
+const authMiddleware = require('../middlewares/auth');
 
 function generateToken(params = {}) {
-    return jwt.sign(params, authConfig.hashCodeSecret, {
-        expiresIn: 50000, // segundos
+    return 'Bearer ' + jwt.sign(params, authConfig.hashCodeSecret, {
+        expiresIn: 1000, // segundos
     })
 }
 
-router.post('/authenticate', (req, res) => {
-    let user = DB.findOne('user', { user: req.body.userName, pass: req.body.userPassword });
+router.post('/login', (req, res) => {
+    let user = DB.findOne('user', { userId: req.body.userName, password: req.body.userPassword });
 
     if (!user)
-        return res.status(400).json({ error: 'auth/not-authenticated', message: 'User not found' });
+        return res.status(401).json({ error: 'auth/not-authenticated', message: 'User not found' });
 
-    user.token = generateToken({ user: user.user });
+    user.token = generateToken({ userId: user.userId });
+    user.password = undefined;
+    return res.json(user);
+})
+
+router.post('/authenticate', authMiddleware, (req, res) => {
+    let user = DB.findOne('user', { userId: req.userId });
+
+    if (!user)
+        return res.status(401).json({ error: 'auth/not-authenticated', message: 'User not found' });
+
+    user.token = generateToken({ userId: user.userId });
+    user.password = undefined;
     return res.json(user);
 })
 

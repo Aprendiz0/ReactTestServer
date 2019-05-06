@@ -11,16 +11,11 @@ const authMiddleware = require('../middlewares/auth');
 const HTMLheader = fs.readFileSync('./src/view/templates/header.html', 'utf8')
 const HTMLscripts = fs.readFileSync('./src/view/templates/footer.html', 'utf8')
 
-router.use(authMiddleware)
-
 router.get('*', (req, res) => {
-
-    const reactDom = renderToString(<Layout teste='oopa'/>);
 
     //const reactDom = renderToString(<Layout />);
 
     res.writeHead(200, { "Content-Type": "text/html" });
-    //res.end(HtmlTemplate(reactDom, helmetData));
 
     let context = {
         head: HTMLheader,

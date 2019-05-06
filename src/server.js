@@ -13,8 +13,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 require('./controller/authController')(app);
-require('./controller/loginController')(app);
 require('./controller/projectController')(app);
 require('./api/index')(app);
 
-app.listen(port, () => console.log(`started on port: ${port}`));
+app.listen(port, () => console.log(`\nstarted on port: ${port}`));

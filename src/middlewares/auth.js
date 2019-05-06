@@ -3,10 +3,8 @@ const authConfig = require('../config/authConfig.json');
 
 module.exports = (req, res, next) => {
 
-    //console.log(req.cookies)
-    return next();
-    const authHeader = req.headers.authorization;
-
+    const authHeader = req.body.authorization;
+    
     if (!authHeader)
         return res.status(401).send({ error: 'auth/bad-token', message: 'No token provided' });
 
@@ -23,8 +21,8 @@ module.exports = (req, res, next) => {
     jwt.verify(token, authConfig.hashCodeSecret, (err, decoded) => {
         if(err) return res.status(401).send({ error: 'auth/bad-token', message: 'Invalid token' });
         
-        req.test = decoded.id;
-
+        req.userId = decoded.userId;
+        
         return next();
     });
 };
