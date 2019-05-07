@@ -2,6 +2,10 @@ import React from 'react';
 import Box from './Box';
 
 class Comodo extends React.Component {
+    constructor(){
+        
+    }
+    
     render() {
         return (
             <>

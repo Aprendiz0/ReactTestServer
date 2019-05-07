@@ -1,3 +1,5 @@
+const constants = require('fs').readFileSync('./src/view/templates/constants.html', 'utf8')
+
 export function MainTemplate(viewBag) {
     return (`
     <!DOCTYPE html>
@@ -8,17 +10,7 @@ export function MainTemplate(viewBag) {
     </head>
     
     <body>
-        <div id="loadPage" class="outer backouter">
-            <div class="middle">
-                <div class="inner">
-    
-                    <div class="progress grey darken-2">
-                        <div class="indeterminate white"></div>
-                    </div>
-    
-                </div>
-            </div>
-        </div>
+        ${ constants ? constants : ''}
         ${ viewBag.body.nav ? viewBag.body.nav : ''}
         <div id="app">
             ${ viewBag.body.reactDom ? viewBag.body.reactDom : ''}
@@ -26,6 +18,7 @@ export function MainTemplate(viewBag) {
     </body>
     ${ viewBag.scripts ? viewBag.scripts : ''}
     <script src="./app.bundle.js"></script>
+    <script src="./js/constants.js"></script>
     
     </html>
     `)

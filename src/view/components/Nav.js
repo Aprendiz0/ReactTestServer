@@ -29,6 +29,8 @@ export class Nav extends React.Component {
         $(window).resize(function () {
             that.ajustLastItem();
         });
+
+        $('.collapsible').collapsible();
     }
 
     ajust() {

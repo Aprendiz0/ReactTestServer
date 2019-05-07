@@ -11,6 +11,19 @@ class Login extends React.Component {
         this.signIn = this.signIn.bind(this);
     }
 
+    componentDidMount() {
+        let that = this;
+        $("#user,#password").bind("keypress", function (args) {
+            if (args.keyCode == 13) {
+                that.signIn();
+            }
+        });
+    }
+
+    componentWillUnmount() {
+        $("#user,#password").unbind("keypress");
+    }
+
     signIn() {
         if (this.state.onLogin) return;
         this.setState({ onLogin: true })
@@ -118,7 +131,7 @@ const styles = {
         borderWidth: '1px',
         borderColor: 'gray',
         borderRadius: '30px',
-        padding: '10px 30px 10px !important'
+        padding: '10px 30px 10px'
     }
 }
 
