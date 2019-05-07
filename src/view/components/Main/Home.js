@@ -7,7 +7,7 @@ class Home extends React.Component {
             <div className="s12">
                 <h3> Bem-Vindo</h3>
                 <p>
-                    ao Room Control, criado para especialmente para o controle dessa residência.<br />
+                    ao Room Control, criado especialmente para o controle dessa residência.<br />
                     Nesse site você tem total controle sobre os equipamentos conectados e configurados para trabalhar em conjunto
                     com
                     este site, como:

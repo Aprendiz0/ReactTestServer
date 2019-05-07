@@ -2,16 +2,20 @@ import React from 'react';
 import Box from './Box';
 
 class Comodo extends React.Component {
-    constructor(){
-        
+    constructor(props) {
+        super(props)
     }
-    
+
     render() {
         return (
             <>
-                <Box
-                    boxName='Iluminação'
-                />
+                {this.props.boxes.map((item, key) =>
+                    <Box
+                        key={key}
+                        boxName={item.boxName}
+                        subItens={item.subItens}
+                    />
+                )}
                 <Box
                     boxName='Iluminação'
                     titleSwitch={true}

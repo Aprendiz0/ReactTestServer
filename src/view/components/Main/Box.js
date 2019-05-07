@@ -31,14 +31,12 @@ class Box extends React.Component {
                     <hr />
                 </div>
                 <form className="col s12">
-                    <BoxItem
-                        itemName='Principal'
-                        type='switch'
-                    />
-                    <BoxItem
-                        itemName='Principal'
-                        type='input'
-                    />
+                    {this.props.subItens.map((item, key) =>
+                        <BoxItem
+                            itemName={item.itemName}
+                            type={item.type}
+                        />
+                    )}
                 </form>
             </div>
         );

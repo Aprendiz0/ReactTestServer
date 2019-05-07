@@ -2,39 +2,34 @@ import React from "react";
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { alterMainPage } from '../actions'
+import Comodo from "./Main/Comodo";
 
 class NavItens extends React.Component {
     constructor(props) {
         super(props);
-        /*
-            props = {
-                type: 'collapsible' || 'normal'
-                name: 'Item Nav 1'
-                itens: [
-                    'Item 1',
-                    'Item 2'
-                ]
-            }
-        */
     }
 
     render() {
 
         const { alterMainPage } = this.props;
 
-        const nothing = () => {};
+        const nothing = () => { };
 
         return (
             <li className="noPadding">
                 <ul className="collapsible collapsible-accordion">
                     <li>
-                        <a onClick={this.props.toPage ? () => alterMainPage(this.props.toPage): () => nothing()} className={(this.props.itens ? "collapsible-header " : "") + "waves-effect principal-textcolor"}>{this.props.name}</a>
+                        <a onClick={this.props.toPage ? () => alterMainPage(this.props.toPage) : () => nothing()} className={(this.props.itens ? "collapsible-header " : "") + "waves-effect principal-textcolor"}>{this.props.name}</a>
                         {this.props.itens &&
                             <div className="collapsible-body">
                                 <ul>
                                     {this.props.itens.map((item, key) =>
                                         <li key={key}>
-                                            <a onClick={() => alterMainPage(item.toPage)} href="#!" className="principal-textcolor">{item.name}</a>
+                                            <a onClick={() => alterMainPage(
+                                                <Comodo
+                                                    boxes={item.itens}
+                                                />
+                                            )} href="#!" className="principal-textcolor">{item.name}</a>
                                         </li>
                                     )}
                                 </ul>

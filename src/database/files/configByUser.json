@@ -1,0 +1,25 @@
+[
+    {
+        "userId": "teste",
+        "comodos": [
+            {
+                "name": "Quarto Nathan",
+                "itens": [
+                    {
+                        "boxName": "Iluminação",
+                        "subItens": [
+                            {
+                                "itemName": "Principal",
+                                "type": "switch"
+                            },
+                            {
+                                "itemName": "Sense",
+                                "type": "input"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+]

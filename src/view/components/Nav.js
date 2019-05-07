@@ -6,16 +6,19 @@ import NavItens from './NavItens';
 import PageTest from './PageTest';
 import Home from './Main/Home';
 import Comodo from './Main/Comodo';
+import Utils from '../ultils';
 
 export class Nav extends React.Component {
     constructor() {
         super();
 
         this.state = {
-            userName: "Usuário teste"
+            userName: "Usuário teste",
+            comodosRequest: []
         };
 
-        this.mobileMenuClick = this.mobileMenuClick.bind(this)
+        this.mobileMenuClick = this.mobileMenuClick.bind(this);
+        this.getComodos = this.getComodos.bind(this);
     }
 
     componentDidMount() {
@@ -31,6 +34,8 @@ export class Nav extends React.Component {
         });
 
         $('.collapsible').collapsible();
+
+        that.getComodos();
     }
 
     ajust() {
@@ -48,6 +53,27 @@ export class Nav extends React.Component {
 
     mobileMenuClick() {
         this.ajust()
+    }
+
+    getComodos() {
+        let that = this;
+
+        $.ajax({
+            method: "POST",
+            url: "/api/comodos",
+            cache: false,
+            data: { authorization: $.cookie('authorization') }
+        }).done(function (response) {
+
+            that.setState({ comodosRequest: response });
+            console.log(response)
+
+        }).fail(function (jqXHR, status) {
+
+            Utils.modal.error(jqXHR.status, jqXHR.statusText);
+            that.setState({ comodosRequest: [] });
+
+        });
     }
 
     render() {
@@ -76,14 +102,7 @@ export class Nav extends React.Component {
                     <li className="divider"></li>
                     <NavItens
                         name='Cômodos'
-                        itens={[{
-                            name: 'Quarto Nathan',
-                            toPage: <Comodo />
-                        }]}
-                    />
-                    <NavItens
-                        name='Configurações'
-                        toPage={<PageTest />}
+                        itens={this.state.comodosRequest}
                     />
                     <li>
                         <a id="b_lateral" className="waves-effect btn principalBackgroundColor">
