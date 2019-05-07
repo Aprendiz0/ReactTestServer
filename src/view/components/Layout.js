@@ -16,6 +16,7 @@ export default class Layout extends React.Component {
         }
 
         this.triggerLogin = this.triggerLogin.bind(this);
+        this.triggerLogout = this.triggerLogout.bind(this);
     }
 
     componentDidMount() {
@@ -24,30 +25,27 @@ export default class Layout extends React.Component {
         let that = this;
 
         $.ajax({
-            method: "POST",
+            type: "POST",
             url: "/auth/authenticate",
             cache: false,
-            data: { authorization: $.cookie('authorization') }
-        }).done(function (response) {
-            
-            $.cookie('authorization', response.token);
+            data: { authorization: $.cookie('authorization') },
+            success: function (response) {
 
-            that.setState({
-                logged: true
-            });
-
-            Utils.loadPage.hide();
-        }).fail(function (jqXHR, status) {
-            console.log(jqXHR)
-            that.setState({
-                logged: false
-            });
-
-            Utils.loadPage.hide();
-        });
-
-        this.setState({
-            host: window.location.host
+                $.cookie('authorization', response.token);
+    
+                that.setState({
+                    logged: true
+                });
+    
+                Utils.loadPage.hide();
+            },
+            error: function (xhr, status, err) {
+                that.setState({
+                    logged: false
+                });
+    
+                Utils.loadPage.hide();
+            }
         });
     }
 
@@ -55,24 +53,27 @@ export default class Layout extends React.Component {
         this.setState({ logged: true })
     }
 
+    triggerLogout() {
+        $.removeCookie('authorization');
+        if (!$.cookie('authorization'))
+            this.setState({ logged: false });
+    }
+
     render() {
-        let render;
-        if (this.state.logged) {
-            render = (
-                <>
-                    <Nav
-                        title='Room Control V0.6 Alpha'
-                        host={this.state.host}
-                    />
-                    <Main />
-                </>
-            );
-        } else {
-            render = (<Login triggerLogin={this.triggerLogin} />);
-        }
         return (
             <Provider store={Store}>
-                {render}
+                {this.state.logged ?
+                    <>
+                        <Nav
+                            title='Room Control V0.8 Alpha'
+                            host={this.state.host}
+                            triggerLogout={this.triggerLogout}
+                        />
+                        <Main />
+                    </>
+                    :
+                    <Login triggerLogin={this.triggerLogin} />
+                }
             </Provider>
         );
     }

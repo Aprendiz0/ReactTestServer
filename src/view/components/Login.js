@@ -4,10 +4,16 @@ class Login extends React.Component {
     constructor(props) {
         super(props);
 
+        this.state = {
+            onLogin: false
+        }
+
         this.signIn = this.signIn.bind(this);
     }
 
     signIn() {
+        if (this.state.onLogin) return;
+        this.setState({ onLogin: true })
         let that = this;
         let user = $('#user').val();
         let password = $('#password').val();
@@ -25,22 +31,28 @@ class Login extends React.Component {
                 .html("Logado com sucesso");
 
             $.cookie('authorization', response.token);
+            that.setState({ onLogin: false })
 
             that.props.triggerLogin();
 
         }).fail(function (jqXHR, status) {
             let message;
-            if(jqXHR.status == 401){
+
+            if (jqXHR.status == 401) {
                 message = 'Usuario/Senha não encontrado';
-            }else{
+            } else {
                 console.error(jqXHR);
                 message = 'Error, see console log';
             }
+
             $('#error_message')
                 .removeClass("success_message")
                 .addClass("error_message")
                 .html(message);
+
+            that.setState({ onLogin: false })
         });
+
     }
 
     render() {
@@ -69,7 +81,24 @@ class Login extends React.Component {
                                     </div>
                                     <div className="col s12">
                                         <label className="col s7 m8" id="error_message" className="left"></label>
-                                        <a onClick={this.signIn} className="col s5 m4 waves-effect btn right principalBackgroundColor"><i className="material-icons left">change_history</i>Login</a>
+                                        <a onClick={this.signIn} className="col s5 m4 waves-effect btn right principalBackgroundColor">
+                                            {this.state.onLogin ?
+                                                <div className="preloader-wrapper small active left">
+                                                    <div className="spinner-layer spinner-red-only">
+                                                        <div className="circle-clipper left">
+                                                            <div className="circle"></div>
+                                                        </div><div className="gap-patch">
+                                                            <div className="circle"></div>
+                                                        </div><div className="circle-clipper right">
+                                                            <div className="circle"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                :
+                                                <i className="material-icons left">change_history</i>
+                                            }
+                                            Login
+                                        </a>
                                     </div>
                                 </form>
                             </div>

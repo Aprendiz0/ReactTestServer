@@ -67,7 +67,7 @@ export class Nav extends React.Component {
                         <div className="center principalcolor">
                             <div id="d_name_connected">Conectado como: {this.state.userName}</div>
                             <div>
-                                <a id="signOut" className="waves-effect btn-small principalBackgroundColor"><i className="material-icons left">details</i> signOut </a>
+                                <a onClick={() => this.props.triggerLogout()} className="waves-effect btn-small principalBackgroundColor"><i className="material-icons left">details</i>signOut</a>
                             </div>
                         </div>
                     </li>

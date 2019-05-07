@@ -16,11 +16,11 @@ router.get('*', (req, res) => {
     //const reactDom = renderToString(<Layout />);
 
     res.writeHead(200, { "Content-Type": "text/html" });
-
+    //reactDom
     let context = {
         head: HTMLheader,
         body: {
-            reactDom: reactDom
+            reactDom: ''
         },
         scripts: HTMLscripts
     };
