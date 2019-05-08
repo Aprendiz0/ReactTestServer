@@ -30,12 +30,12 @@ class BoxItem extends React.Component {
         switch (this.props.type) {
             case 'switch':
                 item = <BoxItemSwitch
-                    name='Teste 2'
+                    name={this.props.itemName}
                 />
                 break;
             case 'input':
                 item = <BoxItemInput
-                    name='Teste'
+                    name={this.props.itemName}
                 />
                 break;
         }

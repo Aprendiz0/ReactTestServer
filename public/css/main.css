@@ -64,10 +64,6 @@ ul.collapsible-accordion .collapsible-body li a {
     height: 100%;
     width: 100%;
 }
-
-#loadPage {
-    z-index:10000;
-}
   
 .middle {
     display: table-cell;
@@ -82,6 +78,10 @@ ul.collapsible-accordion .collapsible-body li a {
 
 #loadPage .inner {
     max-width: 450px;
+}
+
+#loadPage {
+    z-index:10000;
 }
 
 .material-icons.prefix.posfix{

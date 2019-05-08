@@ -13,7 +13,52 @@
                                 "type": "switch"
                             },
                             {
+                                "itemName": "Led",
+                                "type": "switch"
+                            },
+                            {
+                                "itemName": "Cama",
+                                "type": "switch"
+                            }
+                        ]
+                    },
+                    {
+                        "boxName": "Cópia do Jean",
+                        "titleSwitch": true,
+                        "subItens": [
+                            {
                                 "itemName": "Sense",
+                                "type": "input"
+                            },
+                            {
+                                "itemName": "Test",
+                                "type": "input"
+                            },
+                            {
+                                "itemName": "Control Rate",
+                                "type": "input"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "name": "Quarto Jean",
+                "itens": [
+                    {
+                        "boxName": "Led",
+                        "titleSwitch": true,
+                        "subItens": [
+                            {
+                                "itemName": "Sense",
+                                "type": "input"
+                            },
+                            {
+                                "itemName": "Test",
+                                "type": "input"
+                            },
+                            {
+                                "itemName": "Control Rate",
                                 "type": "input"
                             }
                         ]

@@ -22,6 +22,10 @@ export class Nav extends React.Component {
     }
 
     componentDidMount() {
+
+        $('.collapsible').collapsible();
+        $('.sidenav').sidenav();
+        
         let that = this;
         that.ajust();
 
@@ -32,8 +36,6 @@ export class Nav extends React.Component {
         $(window).resize(function () {
             that.ajustLastItem();
         });
-
-        $('.collapsible').collapsible();
 
         that.getComodos();
     }
@@ -69,8 +71,8 @@ export class Nav extends React.Component {
             console.log(response)
 
         }).fail(function (jqXHR, status) {
-
-            Utils.modal.error(jqXHR.status, jqXHR.statusText);
+            
+            Utils.modal.error(jqXHR.status, jqXHR.statusText, jqXHR.responseText);
             that.setState({ comodosRequest: [] });
 
         });
@@ -117,16 +119,17 @@ export class Nav extends React.Component {
                         </div>
                     </div>
                 </nav>
-
-                <div className="fixed-action-btn">
-                    <a id="b_flutuante" className="btn-floating btn-large waves-effect tooltipped principalBackgroundColor" data-position="left" data-tooltip="Aplicar Configurações">
-                        <i className="large material-icons">check</i>
-                    </a>
-                </div>
             </header>
         );
     }
 }
+/*
+<div className="fixed-action-btn">
+                    <a id="b_flutuante" className="btn-floating btn-large waves-effect tooltipped principalBackgroundColor" data-position="left" data-tooltip="Aplicar Configurações">
+                        <i className="large material-icons">check</i>
+                    </a>
+                </div>
+*/
 
 const styles = {
     gearIcon: {

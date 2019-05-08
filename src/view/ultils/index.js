@@ -4,9 +4,9 @@ module.exports = {
         show: () => $("#loadPage").show(),
     },
     modal: {
-        error: (tittle, desc) => {
+        error: (tittle, desc, resText) => {
             $('#modalerror .modalTittle').html(tittle);
-            $('#modalerror .modalDesc').html(desc);
+            $('#modalerror .modalDesc').html(desc + resText);
             $('#modalerror').modal('open');
         }
     }

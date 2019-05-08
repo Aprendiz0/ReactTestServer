@@ -2,10 +2,6 @@ import React from "react";
 import BoxItem from './BoxItem';
 
 class Box extends React.Component {
-    /*
-    boxName
-    titleSwitch
-    */
 
     render() {
         return (
@@ -19,7 +15,7 @@ class Box extends React.Component {
                             <div className="switch">
                                 <label>
                                     Off
-                                <input type="checkbox" />
+                                    <input type="checkbox" />
                                     <span className="lever"></span>
                                     On
                             </label>
@@ -27,17 +23,22 @@ class Box extends React.Component {
                         </div>
                     }
                 </div>
-                <div className="row">
-                    <hr />
-                </div>
-                <form className="col s12">
-                    {this.props.subItens.map((item, key) =>
-                        <BoxItem
-                            itemName={item.itemName}
-                            type={item.type}
-                        />
-                    )}
-                </form>
+                {this.props.subItens &&
+                    <>
+                        <div className="row">
+                            <hr />
+                        </div>
+                        <form className="col s12">
+                            {this.props.subItens.map((item, key) =>
+                                <BoxItem
+                                    key={key}
+                                    itemName={item.itemName}
+                                    type={item.type}
+                                />
+                            )}
+                        </form>
+                    </>
+                }
             </div>
         );
     }
