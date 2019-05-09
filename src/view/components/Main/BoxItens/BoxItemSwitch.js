@@ -9,7 +9,7 @@ class BoxItemSwitch extends React.Component {
                     <div className="switch">
                         <label>
                             Off
-                            <input type="checkbox" className="islighting" data-sendName="r0" />
+                            <input type="checkbox" />
                             <span className="lever"></span>
                             On
                             </label>

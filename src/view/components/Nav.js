@@ -68,7 +68,6 @@ export class Nav extends React.Component {
         }).done(function (response) {
 
             that.setState({ comodosRequest: response });
-            console.log(response)
 
         }).fail(function (jqXHR, status) {
             
