@@ -9,5 +9,8 @@ module.exports = {
             $('#modalerror .modalDesc').html(desc + resText);
             $('#modalerror').modal('open');
         }
+    },
+    toast: (msg) => {
+        M.toast({ html: msg, classes: "rounded" });
     }
 }

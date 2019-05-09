@@ -1,9 +1,12 @@
 import React from 'react';
 import Box from './Box';
+import Utils from '../../ultils/index';
+import ModalBox from './ModalBox';
 
 class Comodo extends React.Component {
     constructor(props) {
         super(props)
+
         this.state = {
             ...props,
             pulseSave: false,
@@ -12,9 +15,13 @@ class Comodo extends React.Component {
             editMode: false
         }
 
-        this.editMode = this.editMode.bind(this);
+        this.idModal = 'modalBox';
+
+        this.saveState = this.saveState.bind(this);
         this.addNewBox = this.addNewBox.bind(this);
-        this.clearModalBox = this.clearModalBox.bind(this);
+        this.inEditMode = this.inEditMode.bind(this);
+        this.outEditMode = this.outEditMode.bind(this);
+        this.openModalBox = this.openModalBox.bind(this);
     }
 
     componentDidMount() {
@@ -24,24 +31,25 @@ class Comodo extends React.Component {
     }
 
     openModalBox() {
-        $('#modalBox').modal('open')
+        let idModal = this.idModal;
+        $(`#${idModal}`).modal('open')
     }
 
     openfloatingActionButton() {
         $('.fixed-action-btn').floatingActionButton('open');
     }
 
-    clearModalBox() {
-        this.setState({ newNameBox: '', chkbox: false });
-    }
-
-    editMode() {
+    inEditMode() {
         this.setState({ editMode: true });
     }
 
-    addNewBox() {
-        let boxName = this.state.newNameBox;
-        let chkbox = this.state.chkbox;
+    outEditMode() {
+        this.setState({ editMode: false });
+    }
+
+    addNewBox(itens) {
+        let boxName = itens.newNameBox;
+        let chkbox = itens.chkbox;
         let boxes = this.state.boxes;
 
         boxes.push({
@@ -56,11 +64,20 @@ class Comodo extends React.Component {
 
         });
 
+        this.setState({ boxes });
+    }
+
+    saveState() {
+        this.backupState = this.state;
+        this.outEditMode();
+        Utils.toast('Salvo');
+    }
+
+    cancelState() {
         this.setState({
-            boxes,
-            newNameBox: '',
-            chkbox: false
+            ...this.backupState
         });
+        this.outEditMode();
     }
 
     render() {
@@ -76,45 +93,22 @@ class Comodo extends React.Component {
                     />
                 )}
                 <div className="fixed-action-btn">
-                    <a onClick={() => this.openfloatingActionButton()} className={"btn-floating tooltipped btn-large grey darken-3" + (this.state.pulseSave ? " pulse" : "")} data-position="left" data-tooltip="Configurar">
+                    <a onClick={this.openfloatingActionButton} className={"btn-floating tooltipped btn-large grey darken-3" + (this.state.pulseSave ? " pulse" : "")} data-position="left" data-tooltip="Configurar">
                         <i className="large material-icons">settings</i>
                     </a>
                     <ul>
-                        <li><a className={"btn-floating tooltipped grey darken-1" + (this.state.pulseSave ? " pulse" : "")} data-position="left" data-tooltip="Salvar"><i className="material-icons">save</i></a></li>
+                        <li><a onClick={this.saveState} className={"btn-floating tooltipped grey darken-1" + (this.state.pulseSave ? " pulse" : "")} data-position="left" data-tooltip="Salvar"><i className="material-icons">save</i></a></li>
                         <li><a className="btn-floating tooltipped grey darken-1" data-position="left" data-tooltip="Cancelar"><i className="material-icons">clear</i></a></li>
-                        <li><a onClick={() => this.editMode()} className="btn-floating tooltipped grey darken-1" data-position="left" data-tooltip="Editar"><i className="material-icons">edit</i></a></li>
-                        <li><a onClick={() => this.openModalBox()} className="btn-floating tooltipped grey darken-1" data-position="left" data-tooltip="Editar"><i className="material-icons">add</i></a></li>
+                        <li><a onClick={this.inEditMode} className="btn-floating tooltipped grey darken-1" data-position="left" data-tooltip="Editar"><i className="material-icons">edit</i></a></li>
+                        <li><a onClick={this.openModalBox} className="btn-floating tooltipped grey darken-1" data-position="left" data-tooltip="Editar"><i className="material-icons">add</i></a></li>
                     </ul>
                 </div>
-                <div id="modalBox" className="modal bottom-sheet">
-                    <div className="modal-content center">
-                        <h4>Novo Item (Box)</h4>
-                        <br />
-                        <div className="row container">
-                            <div className="input-field col s12 m6 offset-m3">
-                                <input id="newNameItemBox" type="text" className="center" placeholder="Novo nome" value={this.state.newNameBox} onChange={(e) => this.setState({ newNameBox: e.target.value })} />
-                            </div>
-                            <div className="col s3 m3 offset-s4" style={styles.chkbox}>
-                                <label>
-                                    <input type="checkbox" className="filled-in" checked={this.state.chkbox} onChange={(e) => this.setState({ chkbox: e.target.checked })} />
-                                    <span>Switch</span>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="modal-footer">
-                        <a onClick={this.clearModalBox} className="modal-close waves-effect waves-green btn-flat">Cancel</a>
-                        <a onClick={() => this.addNewBox()} className="modal-close waves-effect waves-green btn-flat">Add</a>
-                    </div>
-                </div>
+                <ModalBox
+                    idModal={this.idModal}
+                    addNewBoxMethod={this.addNewBox}
+                />
             </>
         );
-    }
-}
-
-const styles = {
-    chkbox: {
-        marginTop: '30px'
     }
 }
 
