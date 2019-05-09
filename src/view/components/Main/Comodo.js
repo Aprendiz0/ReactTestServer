@@ -8,9 +8,11 @@ class Comodo extends React.Component {
             ...props,
             pulseSave: false,
             newNameBox: '',
-            chkbox: false
+            chkbox: false,
+            editMode: false
         }
 
+        this.editMode = this.editMode.bind(this);
         this.addNewBox = this.addNewBox.bind(this);
         this.clearModalBox = this.clearModalBox.bind(this);
     }
@@ -33,11 +35,15 @@ class Comodo extends React.Component {
         this.setState({ newNameBox: '', chkbox: false });
     }
 
+    editMode() {
+        this.setState({ editMode: true });
+    }
+
     addNewBox() {
         let boxName = this.state.newNameBox;
         let chkbox = this.state.chkbox;
         let boxes = this.state.boxes;
-        
+
         boxes.push({
             boxName,
             titleSwitch: chkbox,
@@ -66,6 +72,7 @@ class Comodo extends React.Component {
                         boxName={item.boxName}
                         subItens={item.subItens}
                         titleSwitch={item.titleSwitch}
+                        editMode={this.state.editMode}
                     />
                 )}
                 <div className="fixed-action-btn">
@@ -75,7 +82,7 @@ class Comodo extends React.Component {
                     <ul>
                         <li><a className={"btn-floating tooltipped grey darken-1" + (this.state.pulseSave ? " pulse" : "")} data-position="left" data-tooltip="Salvar"><i className="material-icons">save</i></a></li>
                         <li><a className="btn-floating tooltipped grey darken-1" data-position="left" data-tooltip="Cancelar"><i className="material-icons">clear</i></a></li>
-                        <li><a className="btn-floating tooltipped grey darken-1" data-position="left" data-tooltip="Editar"><i className="material-icons">edit</i></a></li>
+                        <li><a onClick={() => this.editMode()} className="btn-floating tooltipped grey darken-1" data-position="left" data-tooltip="Editar"><i className="material-icons">edit</i></a></li>
                         <li><a onClick={() => this.openModalBox()} className="btn-floating tooltipped grey darken-1" data-position="left" data-tooltip="Editar"><i className="material-icons">add</i></a></li>
                     </ul>
                 </div>
@@ -96,8 +103,8 @@ class Comodo extends React.Component {
                         </div>
                     </div>
                     <div className="modal-footer">
-                        <a onClick={this.clearModalBox} href="#!" className="modal-close waves-effect waves-green btn-flat">Cancel</a>
-                        <a onClick={() => this.addNewBox()} href="#!" className="modal-close waves-effect waves-green btn-flat">Add</a>
+                        <a onClick={this.clearModalBox} className="modal-close waves-effect waves-green btn-flat">Cancel</a>
+                        <a onClick={() => this.addNewBox()} className="modal-close waves-effect waves-green btn-flat">Add</a>
                     </div>
                 </div>
             </>

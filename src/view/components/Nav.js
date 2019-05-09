@@ -86,7 +86,7 @@ export class Nav extends React.Component {
                 <ul id="slide-out" className="sidenav sidenav-fixed">
                     <li>
                         <div className="center principalcolor">
-                            <div><a onClick={() => alterMainPage(< Home />)} href="#!"> <i className="material-icons principalcolor" style={styles.gearIcon}>settings_applications</i></a></div>
+                            <div><a onClick={() => alterMainPage(< Home />)} > <i className="material-icons principalcolor" style={styles.gearIcon}>settings_applications</i></a></div>
                             <div>{this.props.title}</div>
                             <div id="d_ip">{this.props.host}</div>
                         </div>
@@ -113,7 +113,7 @@ export class Nav extends React.Component {
                 <nav className="top-nav" style={styles.nav}>
                     <div className="container" style={styles.topNavContainer}>
                         <div className="nav-wrapper principalcolor">
-                            <a onClick={this.mobileMenuClick} href="#" data-target="slide-out" className="top-nav sidenav-trigger principalcolor" style={styles.mobileMenu}><i className="material-icons" style={{ fontSize: '35px' }}>menu</i></a>
+                            <a onClick={this.mobileMenuClick}  data-target="slide-out" className="top-nav sidenav-trigger principalcolor" style={styles.mobileMenu}><i className="material-icons" style={{ fontSize: '35px' }}>menu</i></a>
                             <h3 className="center" id="titleNav"> Room Control </h3>
                         </div>
                     </div>
