@@ -61,7 +61,6 @@ class Comodo extends React.Component {
                     type: "switch"
                 }
             ]
-
         });
 
         this.setState({ boxes });

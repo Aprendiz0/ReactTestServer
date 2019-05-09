@@ -1,5 +1,6 @@
 import React from 'react';
 import Utils from '../../ultils';
+import Box from './Box';
 
 class ModalBox extends React.Component {
     constructor(props) {
@@ -15,6 +16,10 @@ class ModalBox extends React.Component {
 
         this.addNewBox = this.addNewBox.bind(this);
         this.clearModalBox = this.clearModalBox.bind(this);
+    }
+
+    componentDidMount() {
+        $('select').formSelect();
     }
 
     clearModalBox() {
@@ -46,6 +51,24 @@ class ModalBox extends React.Component {
                                 <input type="checkbox" className="filled-in" checked={this.state.chkbox} onChange={(e) => this.setState({ chkbox: e.target.checked })} />
                                 <span>Switch</span>
                             </label>
+                        </div>
+                    </div>
+                    <div className="row">
+                        <hr />
+                    </div>
+                    <div className="row container center">
+                        <h5>Itens</h5>
+                        <div className="row">
+                            <div className="input-field col s3">
+                                <input placeholder="Nome" type="text" />
+                            </div>
+                            <div className="input-field col s4">
+                                <select>
+                                    <option value="1" selected>Input</option>
+                                    <option value="2">Switch</option>
+                                </select>
+                                <label>Tipo de item</label>
+                            </div>
                         </div>
                     </div>
                 </div>
