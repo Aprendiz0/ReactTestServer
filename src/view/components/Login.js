@@ -42,8 +42,7 @@ class Login extends React.Component {
                 .removeClass("error_message")
                 .addClass("success_message")
                 .html("Logado com sucesso");
-
-            $.cookie('authorization', response.token);
+                
             that.setState({ onLogin: false })
 
             that.props.triggerLogin();

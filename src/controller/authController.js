@@ -1,15 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const jwt = require('jsonwebtoken');
-const authConfig = require('../config/authConfig.json');
 const DB = require('../database/index')
 const authMiddleware = require('../middlewares/auth');
-
-function generateToken(params = {}) {
-    return 'Bearer ' + jwt.sign(params, authConfig.hashCodeSecret, {
-        expiresIn: 1000, // segundos
-    })
-}
+const serverUtils = require('../serverUtils')
 
 router.post('/login', (req, res) => {
     let user = DB.findOne('user', { userId: req.body.userName, password: req.body.userPassword });
@@ -17,9 +10,21 @@ router.post('/login', (req, res) => {
     if (!user)
         return res.status(401).json({ error: 'auth/not-authenticated', message: 'User not found' });
 
-    user.token = generateToken({ userId: user.userId });
+    serverUtils.renewToken(res, { userId: user.userId });
+
     user.password = undefined;
     return res.json(user);
+})
+
+router.post('/logout', (req, res) => {
+
+    res.cookie('authorization', {
+        maxAge: 0,
+        expires: Date.now(),
+        httpOnly: true
+    });
+
+    return res.json({ Ok_Code: 'Ok' });
 })
 
 router.post('/authenticate', authMiddleware, (req, res) => {
@@ -28,7 +33,8 @@ router.post('/authenticate', authMiddleware, (req, res) => {
     if (!user)
         return res.status(401).json({ error: 'auth/not-authenticated', message: 'User not found' });
 
-    user.token = generateToken({ userId: user.userId });
+    serverUtils.renewToken(res, { userId: user.userId });
+
     user.password = undefined;
     return res.json(user);
 })

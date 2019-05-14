@@ -64,7 +64,6 @@ export class Nav extends React.Component {
             method: "POST",
             url: "/api/comodos",
             cache: false,
-            data: { authorization: $.cookie('authorization') }
         }).done(function (response) {
 
             that.setState({ comodosRequest: response });

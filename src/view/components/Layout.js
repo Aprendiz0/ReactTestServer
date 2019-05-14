@@ -28,22 +28,19 @@ export default class Layout extends React.Component {
             type: "POST",
             url: "/auth/authenticate",
             cache: false,
-            data: { authorization: $.cookie('authorization') },
             success: function (response) {
 
-                $.cookie('authorization', response.token);
-    
                 that.setState({
                     logged: true
                 });
-    
+
                 Utils.loadPage.hide();
             },
             error: function (xhr, status, err) {
                 that.setState({
                     logged: false
                 });
-    
+
                 Utils.loadPage.hide();
             }
         });
@@ -54,9 +51,20 @@ export default class Layout extends React.Component {
     }
 
     triggerLogout() {
-        $.removeCookie('authorization');
-        if (!$.cookie('authorization'))
-            this.setState({ logged: false });
+        $.ajax({
+            type: "POST",
+            url: "/auth/logout",
+            cache: false,
+            success: function (response) {
+
+                this.setState({ logged: false });
+
+                Utils.loadPage.hide();
+            },
+            error: function (xhr, status, err) {
+                console.error(xhr)
+            }
+        });
     }
 
     render() {
