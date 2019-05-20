@@ -1,7 +1,6 @@
 import React from 'react';
 import Box from './Box';
 import Utils from '../../ultils/index';
-import ModalBox from './ModalBox';
 
 class Comodo extends React.Component {
     constructor(props) {
@@ -20,6 +19,7 @@ class Comodo extends React.Component {
         this.saveState = this.saveState.bind(this);
         this.addNewBox = this.addNewBox.bind(this);
         this.inEditMode = this.inEditMode.bind(this);
+        this.cancelState = this.cancelState.bind(this);
         this.outEditMode = this.outEditMode.bind(this);
         this.openModalBox = this.openModalBox.bind(this);
     }
@@ -77,6 +77,7 @@ class Comodo extends React.Component {
             ...this.backupState
         });
         this.outEditMode();
+        Utils.toast('Cancelado');
     }
 
     render() {
@@ -97,15 +98,11 @@ class Comodo extends React.Component {
                     </a>
                     <ul>
                         <li><a onClick={this.saveState} className={"btn-floating tooltipped grey darken-1" + (this.state.pulseSave ? " pulse" : "")} data-position="left" data-tooltip="Salvar"><i className="material-icons">save</i></a></li>
-                        <li><a className="btn-floating tooltipped grey darken-1" data-position="left" data-tooltip="Cancelar"><i className="material-icons">clear</i></a></li>
+                        <li><a onClick={this.cancelState} className="btn-floating tooltipped grey darken-1" data-position="left" data-tooltip="Cancelar"><i className="material-icons">clear</i></a></li>
                         <li><a onClick={this.inEditMode} className="btn-floating tooltipped grey darken-1" data-position="left" data-tooltip="Editar"><i className="material-icons">edit</i></a></li>
                         <li><a onClick={this.openModalBox} className="btn-floating tooltipped grey darken-1" data-position="left" data-tooltip="Editar"><i className="material-icons">add</i></a></li>
                     </ul>
                 </div>
-                <ModalBox
-                    idModal={this.idModal}
-                    addNewBoxMethod={this.addNewBox}
-                />
             </>
         );
     }

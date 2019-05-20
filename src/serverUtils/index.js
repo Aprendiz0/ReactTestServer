@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 const authConfig = require('../config/authConfig.json');
 
-const timeSession = 1000;
+const timeSession = 1000 * 1000; // milisegundos
 
 const generateToken = (params = {}) => {
     return 'Bearer ' + jwt.sign(params, authConfig.hashCodeSecret, {
@@ -16,7 +16,6 @@ module.exports = {
         res.cookie('authorization', generateToken({ userId: user.userId }),
         {
             maxAge: timeSession,
-            expires: Date.now() + timeSession,
             httpOnly: true
         }
     )
