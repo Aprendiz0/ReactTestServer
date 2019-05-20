@@ -7,7 +7,7 @@
                 "itens": [
                     {
                         "boxName": "Iluminação",
-                        "titleSwitch": false,
+                        "titleSwitch": true,
                         "subItens": [
                             {
                                 "itemName": "Principal",

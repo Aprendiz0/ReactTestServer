@@ -10,6 +10,11 @@ class Box extends React.Component {
                     <div className="col left">
                         <h5 className="">{this.props.boxName}:</h5>
                     </div>
+                    {this.props.editMode &&
+                        <div className="right" style={styles.settingBox}>
+                            <div><a onClick={() => console.log('teste')}><i className="material-icons small principalcolor" style={styles.gearIcon}>settings</i></a></div>
+                        </div>
+                    }
                     {this.props.titleSwitch &&
                         <div className="right" style={styles.mSwitch}>
                             <div className="switch">
@@ -57,6 +62,11 @@ const styles = {
     mSwitch: {
         marginTop: '1.4rem',
         marginRight: '11px'
+    },
+    settingBox: {
+        marginTop: '1.3rem',
+        marginRight: '11px',
+        height: '30px'
     }
 }
 
