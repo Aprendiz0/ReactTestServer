@@ -29,7 +29,7 @@ class NavItens extends React.Component {
                                                 <Comodo
                                                     boxes={item.itens}
                                                 />
-                                            )}  className="principal-textcolor">{item.name}</a>
+                                            )} href="#!" className="principal-textcolor">{item.name}</a>
                                         </li>
                                     )}
                                 </ul>

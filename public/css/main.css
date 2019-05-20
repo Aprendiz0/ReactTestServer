@@ -17,10 +17,6 @@ hr{
     margin-bottom: 0
 }
 
-a{
-    cursor:pointer;
-}
-
 #slide-out, .collapsible-body{
     background: transparent !important;
 }

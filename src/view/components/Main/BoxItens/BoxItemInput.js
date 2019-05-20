@@ -27,9 +27,9 @@ class BoxItemInput extends React.Component {
                 <div className="col s4 m4 l3" style={styles.labelInput}>{this.props.name}</div>
                 <div className="col s6 m4 l4">
                     <div className="input-field">
-                        <a  className="prefix" onClick={() => this.setState({ inputValue: --this.state.inputValue })}><i className="material-icons prefix">remove_circle_outline</i></a>
+                        <a href="#!" className="prefix" onClick={() => this.setState({ inputValue: --this.state.inputValue })}><i className="material-icons prefix">remove_circle_outline</i></a>
                         <input type="text" className="center" value={this.state.inputValue} onChange={this.handleInput} />
-                        <a  className="prefix" onClick={() => this.setState({ inputValue: ++this.state.inputValue })}><i className="material-icons prefix right">add_circle_outline</i></a>
+                        <a href="#!" className="prefix" onClick={() => this.setState({ inputValue: ++this.state.inputValue })}><i className="material-icons prefix right">add_circle_outline</i></a>
                     </div>
                 </div>
             </>
