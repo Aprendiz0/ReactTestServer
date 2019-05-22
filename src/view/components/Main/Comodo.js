@@ -151,6 +151,7 @@ class Comodo extends React.Component {
                         editMode={this.state.editMode}
                     />
                 )}
+                <div className="col s12" style={styles.bottom}></div>
                 <div className="fixed-action-btn">
                     <a onClick={this.openfloatingActionButton} className={"btn-floating tooltipped btn-large grey darken-3" + (this.state.pulseSave ? " pulse" : "")} data-position="left" data-tooltip="Configurar">
                         <i className="large material-icons">settings</i>
@@ -247,6 +248,9 @@ const styles = {
     },
     settingBox: {
         marginTop: '0.9rem',
+        height: '30px'
+    },
+    bottom: {
         height: '30px'
     }
 }

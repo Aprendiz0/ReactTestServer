@@ -37,7 +37,7 @@ export default class Layout extends React.Component {
                 Utils.loadPage.hide();
             },
             error: function (xhr, status, err) {
-                console.log(xhr);
+                console.error(xhr);
 
                 that.setState({
                     logged: false
