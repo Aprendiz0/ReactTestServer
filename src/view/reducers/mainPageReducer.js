@@ -7,7 +7,6 @@ const initialState = {
 };
 
 export const mainPageReducer = (state = initialState, action) => {
-
     switch (action.type) {
         case ALTER_MAIN_PAGE:
             return {
