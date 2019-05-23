@@ -9,10 +9,12 @@ class Comodo extends React.Component {
         this.state = {
             ...props,
             pulseSave: false,
-            newNameBox: '',
-            chkbox: false,
             editMode: false,
-            newBoxItens: [{}]
+            editModalBox: {
+                titleBox: '',
+                titleSwitch: false,
+                boxItens: [{}]
+            }
         }
 
         this.idModal = 'modalBox';
@@ -24,21 +26,26 @@ class Comodo extends React.Component {
         this.cancelState = this.cancelState.bind(this);
         this.outEditMode = this.outEditMode.bind(this);
         this.openModalBox = this.openModalBox.bind(this);
+        this.clearModalBox = this.clearModalBox.bind(this);
 
         this.onAddItem = this.onAddItem.bind(this);
         this.onChangeItem = this.onChangeItem.bind(this);
         this.onRemoveItem = this.onRemoveItem.bind(this);
         this.openModalConfigItem = this.openModalConfigItem.bind(this);
+        this.changeEditModalBox = this.changeEditModalBox.bind(this);
     }
 
     componentDidMount() {
-        let idModal = this.idModal;
-        let idModalC = this.idModalConfigItem;
+        let that = this;
 
         $('.fixed-action-btn').floatingActionButton();
         $('.tooltipped').tooltip();
-        $(`#${idModal}`).modal()
-        $(`#${idModalC}`).modal()
+        $(`#${that.idModal}`).modal({
+            onCloseEnd: () => {
+                that.clearModalBox();
+            }
+        })
+        $(`#${that.idModalConfigItem}`).modal()
         $('select').formSelect();
     }
 
@@ -68,23 +75,31 @@ class Comodo extends React.Component {
         this.setState({ editMode: false });
     }
 
-    addNewBox(itens) {
-        let boxName = itens.newNameBox;
-        let chkbox = itens.chkbox;
+    addNewBox() {
+        let boxName = this.state.editModalBox.titleBox;
+        let titleSwitch = this.state.editModalBox.titleSwitch;
+        let boxItens = this.state.editModalBox.boxItens;
+
+        let subItens = [];
+
+        boxItens.map((item) => {
+            subItens.push({
+                itemName: item.name,
+                type: item.type
+            });
+        });
+
         let boxes = this.state.boxes;
 
         boxes.push({
             boxName,
-            titleSwitch: chkbox,
-            subItens: [
-                {
-                    itemName: "Principal",
-                    type: "switch"
-                }
-            ]
+            titleSwitch,
+            subItens,
         });
 
         this.setState({ boxes });
+
+        this.clearModalBox();
     }
 
     saveState() {
@@ -101,43 +116,53 @@ class Comodo extends React.Component {
         Utils.toast('Cancelado');
     }
 
-    onAddItem(key) {
+    changeEditModalBox(fields) {
         this.setState(state => {
-            state.newBoxItens.splice(key + 1, 0, {});
+            let editModalBox = state.editModalBox;
+            for (const key in fields) {
+                editModalBox[key] = fields[key];
+            }
 
             return {
-                newBoxItens: state.newBoxItens,
+                editModalBox,
             };
         });
+    }
+
+    onAddItem(key) {
+        this.state.editModalBox.boxItens.splice(key + 1, 0, {});
+        this.changeEditModalBox({ boxItens: this.state.editModalBox.boxItens });
     }
 
     onChangeItem(key, fieldsItem) {
-        this.setState(state => {
-            const newBoxItens = state.newBoxItens.map((item, keyMap) => {
-                if (keyMap === key) {
-                    for (let field in fieldsItem) {
-                        item[field] = fieldsItem[field];
-                        return item;
-                    }
-                }
-                return item;
-            });
 
-            return {
-                newBoxItens,
-            };
+        const boxItens = this.state.editModalBox.boxItens.map((item, keyMap) => {
+            if (keyMap === key) {
+                for (let field in fieldsItem) {
+                    item[field] = fieldsItem[field];
+                    return item;
+                }
+            }
+            return item;
         });
+
+        this.changeEditModalBox({ boxItens });
     }
 
     onRemoveItem(key) {
-        this.setState(state => {
-            const newBoxItens = state.newBoxItens.filter((item, keyMap) => key !== keyMap);
 
-            return {
-                newBoxItens,
-            };
-        });
+        const boxItens = this.state.editModalBox.boxItens.filter((item, keyMap) => key !== keyMap);
+
+        this.changeEditModalBox({ boxItens });
     };
+
+    clearModalBox() {
+        this.changeEditModalBox({
+            titleBox: '',
+            titleSwitch: false,
+            boxItens: [{}]
+        });
+    }
 
     render() {
         return (
@@ -170,11 +195,11 @@ class Comodo extends React.Component {
                             <br />
                             <div className="row container">
                                 <div className="input-field col s10">
-                                    <input id="newNameItemBox" type="text" className="center" placeholder="Novo nome" value={this.state.newNameBox} onChange={(e) => this.setState({ newNameBox: e.target.value })} />
+                                    <input id="newNameItemBox" type="text" className="center" placeholder="Titulo" value={this.state.editModalBox.titleBox} onChange={(e) => this.changeEditModalBox({ titleBox: e.target.value })} />
                                 </div>
-                                <div className="col s2" style={styles.chkbox}>
+                                <div className="col s2" style={styles.chkboxEditSwitch}>
                                     <label>
-                                        <input type="checkbox" className="filled-in" checked={this.state.chkbox} onChange={(e) => this.setState({ chkbox: e.target.checked })} />
+                                        <input type="checkbox" className="filled-in" checked={this.state.editModalBox.titleSwitch} onChange={(e) => this.changeEditModalBox({ titleSwitch: e.target.checked })} />
                                         <span>Switch</span>
                                     </label>
                                 </div>
@@ -182,7 +207,7 @@ class Comodo extends React.Component {
                             <hr />
                             <h4>Itens</h4>
                             <br />
-                            {this.state.newBoxItens.length == 0 &&
+                            {this.state.editModalBox.boxItens.length == 0 &&
                                 <div className="row container">
                                     <div className="col s4 m2 offset-s4 offset-m5" style={styles.addRemoveItem}>
                                         <div className="col s6"><a onClick={() => this.onRemoveItem(0)}><i className="material-icons">clear</i></a></div>
@@ -191,7 +216,8 @@ class Comodo extends React.Component {
                                 </div>
                             }
                             {
-                                this.state.newBoxItens.map((item, key) => {
+                                this.state.editModalBox.boxItens.map((item, key) => {
+                                    if(!item.type) item.type = "input";
                                     return (
                                         <div className="row container" key={key}>
                                             <div className="input-field col s12 m8">
@@ -203,9 +229,9 @@ class Comodo extends React.Component {
                                                 </div>
                                             </div>
                                             <div className="input-field s8 col m2">
-                                                <select>
-                                                    <option value="0" selected>Input</option>
-                                                    <option value="1">Switch</option>
+                                                <select value={item.type} onChange={(e) => this.onChangeItem(key, { type: e.target.value })}>
+                                                    <option value="input">Input</option>
+                                                    <option value="switch">Switch</option>
                                                 </select>
                                                 <label>Tipo</label>
                                             </div>
@@ -240,7 +266,7 @@ class Comodo extends React.Component {
 }
 
 const styles = {
-    chkbox: {
+    chkboxEditSwitch: {
         marginTop: '30px'
     },
     addRemoveItem: {
