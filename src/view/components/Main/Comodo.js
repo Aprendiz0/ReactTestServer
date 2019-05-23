@@ -7,15 +7,23 @@ class Comodo extends React.Component {
         super(props)
 
         this.state = {
-            ...Utils.cloneJSON(this.props),
             pulseSave: false,
             editMode: false,
             editModalBox: {
                 titleBox: '',
                 titleSwitch: false,
                 boxItens: [{}]
-            }
-        }
+            },
+            editModalBoxKeyItem: undefined,
+            boxes: Utils.cloneJSON(this.props.boxes)
+            /*{
+                titleBox: '',
+                titleSwitch: false,
+                boxItens: [{}]
+            }*/
+        };
+
+        if (typeof this.state.boxes == 'undefined' || !this.state.boxes) this.state.boxes = [];
 
         this.backupState = Utils.cloneJSON(this.state);
 
@@ -23,7 +31,7 @@ class Comodo extends React.Component {
         this.idModalConfigItem = 'modalConfigItem';
 
         this.saveState = this.saveState.bind(this);
-        this.addNewBox = this.addNewBox.bind(this);
+        this.saveEditBox = this.saveEditBox.bind(this);
         this.inEditMode = this.inEditMode.bind(this);
         this.cancelState = this.cancelState.bind(this);
         this.outEditMode = this.outEditMode.bind(this);
@@ -35,6 +43,8 @@ class Comodo extends React.Component {
         this.onRemoveItem = this.onRemoveItem.bind(this);
         this.openModalConfigItem = this.openModalConfigItem.bind(this);
         this.changeEditModalBox = this.changeEditModalBox.bind(this);
+        this.setBoxToEdit = this.setBoxToEdit.bind(this);
+        this.setBoxToAdd = this.setBoxToAdd.bind(this);
     }
 
     componentDidMount() {
@@ -77,27 +87,35 @@ class Comodo extends React.Component {
         this.setState({ editMode: false });
     }
 
-    addNewBox() {
-        let boxName = this.state.editModalBox.titleBox;
+    saveEditBox() {
+        let titleBox = this.state.editModalBox.titleBox;
         let titleSwitch = this.state.editModalBox.titleSwitch;
-        let boxItens = this.state.editModalBox.boxItens;
+        let boxItensEdit = this.state.editModalBox.boxItens;
 
-        let subItens = [];
+        let boxItens = [];
 
-        boxItens.map((item) => {
-            subItens.push({
-                itemName: item.name,
+        boxItensEdit.map((item) => {
+            boxItens.push({
+                name: item.name,
                 type: item.type
             });
         });
 
         let boxes = this.state.boxes;
 
-        boxes.push({
-            boxName,
-            titleSwitch,
-            subItens,
-        });
+        if (typeof this.state.editModalBoxKeyItem == 'undefined') {
+            boxes.push({
+                titleBox,
+                titleSwitch,
+                boxItens,
+            });
+        } else {
+            boxes[this.state.editModalBoxKeyItem] = {
+                titleBox,
+                titleSwitch,
+                boxItens,
+            };
+        }
 
         this.setState({ boxes });
 
@@ -166,16 +184,31 @@ class Comodo extends React.Component {
         });
     }
 
+    setBoxToEdit(key) {
+        this.setState({
+            editModalBoxKeyItem: key,
+            editModalBox: Utils.cloneJSON(this.state.boxes[key])
+        });
+        this.openModalBox();
+    }
+
+    setBoxToAdd() {
+        this.setState({ editModalBoxKeyItem: undefined });
+        this.openModalBox();
+    }
+
     render() {
         return (
             <>
                 {this.state.boxes.map((item, key) =>
                     <Box
                         key={key}
-                        boxName={item.boxName}
-                        subItens={item.subItens}
+                        itemKey={key}
+                        titleBox={item.titleBox}
+                        boxItens={item.boxItens}
                         titleSwitch={item.titleSwitch}
                         editMode={this.state.editMode}
+                        parentFuncSetEdit={this.setBoxToEdit}
                     />
                 )}
                 <div className="col s12" style={styles.bottom}></div>
@@ -187,7 +220,7 @@ class Comodo extends React.Component {
                         <li><a onClick={this.saveState} className={"btn-floating tooltipped grey darken-1" + (this.state.pulseSave ? " pulse" : "")} data-position="left" data-tooltip="Salvar"><i className="material-icons">save</i></a></li>
                         <li><a onClick={this.cancelState} className="btn-floating tooltipped grey darken-1" data-position="left" data-tooltip="Cancelar"><i className="material-icons">clear</i></a></li>
                         <li><a onClick={this.inEditMode} className="btn-floating tooltipped grey darken-1" data-position="left" data-tooltip="Editar"><i className="material-icons">edit</i></a></li>
-                        <li><a onClick={this.openModalBox} className="btn-floating tooltipped grey darken-1" data-position="left" data-tooltip="Editar"><i className="material-icons">add</i></a></li>
+                        <li><a onClick={this.setBoxToAdd} className="btn-floating tooltipped grey darken-1" data-position="left" data-tooltip="Editar"><i className="material-icons">add</i></a></li>
                     </ul>
                 </div>
                 <div id={this.idModal} className="modal bottom-sheet">
@@ -219,7 +252,7 @@ class Comodo extends React.Component {
                             }
                             {
                                 this.state.editModalBox.boxItens.map((item, key) => {
-                                    if(!item.type) item.type = "input";
+                                    if (!item.type) item.type = "input";
                                     return (
                                         <div className="row container" key={key}>
                                             <div className="input-field col s12 m8">
@@ -249,7 +282,14 @@ class Comodo extends React.Component {
                     </div>
                     <div className="modal-footer">
                         <a onClick={this.clearModalBox} className="modal-close waves-effect waves-green btn-flat">Cancel</a>
-                        <a onClick={() => this.addNewBox()} className="modal-close waves-effect waves-green btn-flat">Add</a>
+                        <a onClick={() => this.saveEditBox()} className="modal-close waves-effect waves-green btn-flat">
+                            {typeof this.state.editModalBoxKeyItem != 'undefined' ?
+                                'Edit'
+                                :
+                                'Add'
+                            }
+
+                        </a>
                     </div>
                 </div>
                 <div id={this.idModalConfigItem} className="modal">
@@ -259,7 +299,7 @@ class Comodo extends React.Component {
                     </div>
                     <div className="modal-footer">
                         <a onClick={this.clearModalBox} className="modal-close waves-effect waves-green btn-flat">Cancel</a>
-                        <a onClick={() => this.addNewBox()} className="modal-close waves-effect waves-green btn-flat">Add</a>
+                        <a onClick={() => this.saveEditBox()} className="modal-close waves-effect waves-green btn-flat">Test</a>
                     </div>
                 </div>
             </>

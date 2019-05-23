@@ -8,11 +8,11 @@ class Box extends React.Component {
             <div className="col s12" style={styles.box}>
                 <div className="row">
                     <div className="col left">
-                        <h5 className="">{this.props.boxName}:</h5>
+                        <h5 className="">{this.props.titleBox}:</h5>
                     </div>
                     {this.props.editMode &&
                         <div className="right" style={styles.settingBox}>
-                            <div><a onClick={() => console.log('teste')}><i className="material-icons small principalcolor">settings</i></a></div>
+                            <div><a onClick={() => this.props.parentFuncSetEdit(this.props.itemKey)}><i className="material-icons small principalcolor">settings</i></a></div>
                         </div>
                     }
                     {this.props.titleSwitch &&
@@ -28,16 +28,16 @@ class Box extends React.Component {
                         </div>
                     }
                 </div>
-                {this.props.subItens &&
+                {this.props.boxItens &&
                     <>
                         <div className="row">
                             <hr />
                         </div>
                         <form className="col s12">
-                            {this.props.subItens.map((item, key) =>
+                            {this.props.boxItens.map((item, key) =>
                                 <BoxItem
                                     key={key}
-                                    itemName={item.itemName}
+                                    name={item.name}
                                     type={item.type}
                                 />
                             )}

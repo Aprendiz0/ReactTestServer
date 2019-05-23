@@ -6,37 +6,37 @@
                 "name": "Quarto Nathan",
                 "itens": [
                     {
-                        "boxName": "Iluminação",
+                        "titleBox": "Iluminação",
                         "titleSwitch": true,
-                        "subItens": [
+                        "boxItens": [
                             {
-                                "itemName": "Principal",
+                                "name": "Principal",
                                 "type": "switch"
                             },
                             {
-                                "itemName": "Led",
+                                "name": "Led",
                                 "type": "switch"
                             },
                             {
-                                "itemName": "Cama",
+                                "name": "Cama",
                                 "type": "switch"
                             }
                         ]
                     },
                     {
-                        "boxName": "Cópia do Jean",
+                        "titleBox": "Cópia do Jean",
                         "titleSwitch": true,
-                        "subItens": [
+                        "boxItens": [
                             {
-                                "itemName": "Sense",
+                                "name": "Sense",
                                 "type": "input"
                             },
                             {
-                                "itemName": "Test",
+                                "name": "Test",
                                 "type": "input"
                             },
                             {
-                                "itemName": "Control Rate",
+                                "name": "Control Rate",
                                 "type": "input"
                             }
                         ]
@@ -47,19 +47,19 @@
                 "name": "Quarto Jean",
                 "itens": [
                     {
-                        "boxName": "Led",
+                        "titleBox": "Led",
                         "titleSwitch": true,
-                        "subItens": [
+                        "boxItens": [
                             {
-                                "itemName": "Sense",
+                                "name": "Sense",
                                 "type": "input"
                             },
                             {
-                                "itemName": "Test",
+                                "name": "Test",
                                 "type": "input"
                             },
                             {
-                                "itemName": "Control Rate",
+                                "name": "Control Rate",
                                 "type": "input"
                             }
                         ]
