@@ -84,7 +84,7 @@ class Comodo extends React.Component {
     }
 
     outEditMode() {
-        this.setState({ editMode: false });
+        this.setState({ editMode: false, pulseSave: false });
     }
 
     saveEditBox() {
@@ -117,7 +117,7 @@ class Comodo extends React.Component {
             };
         }
 
-        this.setState({ boxes });
+        this.setState({ boxes, pulseSave: true });
 
         this.clearModalBox();
     }
