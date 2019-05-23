@@ -12,5 +12,8 @@ module.exports = {
     },
     toast: (msg) => {
         M.toast({ html: msg, classes: "rounded" });
+    },
+    cloneJSON: (json) => {
+        return JSON.parse(JSON.stringify(json));
     }
 }

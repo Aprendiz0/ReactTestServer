@@ -7,7 +7,7 @@ class Comodo extends React.Component {
         super(props)
 
         this.state = {
-            ...props,
+            ...Utils.cloneJSON(this.props),
             pulseSave: false,
             editMode: false,
             editModalBox: {
@@ -16,6 +16,8 @@ class Comodo extends React.Component {
                 boxItens: [{}]
             }
         }
+
+        this.backupState = Utils.cloneJSON(this.state);
 
         this.idModal = 'modalBox';
         this.idModalConfigItem = 'modalConfigItem';
@@ -103,14 +105,14 @@ class Comodo extends React.Component {
     }
 
     saveState() {
-        this.backupState = this.state;
+        this.backupState = Utils.cloneJSON(this.state);
         this.outEditMode();
         Utils.toast('Salvo');
     }
 
     cancelState() {
         this.setState({
-            ...this.backupState
+            ...Utils.cloneJSON(this.backupState)
         });
         this.outEditMode();
         Utils.toast('Cancelado');
