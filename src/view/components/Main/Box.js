@@ -12,7 +12,7 @@ class Box extends React.Component {
                     </div>
                     {this.props.editMode &&
                         <div className="right" style={styles.settingBox}>
-                            <div><a onClick={() => console.log('teste')}><i className="material-icons small principalcolor" style={styles.gearIcon}>settings</i></a></div>
+                            <div><a onClick={() => console.log('teste')}><i className="material-icons small principalcolor">settings</i></a></div>
                         </div>
                     }
                     {this.props.titleSwitch &&

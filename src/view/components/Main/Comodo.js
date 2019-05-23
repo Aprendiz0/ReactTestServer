@@ -1,7 +1,6 @@
 import React from 'react';
 import Box from './Box';
 import Utils from '../../ultils/index';
-import ModalBox from './ModalBox';
 
 class Comodo extends React.Component {
     constructor(props) {
@@ -12,26 +11,48 @@ class Comodo extends React.Component {
             pulseSave: false,
             newNameBox: '',
             chkbox: false,
-            editMode: false
+            editMode: false,
+            newBoxItens: [{}]
         }
 
         this.idModal = 'modalBox';
+        this.idModalConfigItem = 'modalConfigItem';
 
         this.saveState = this.saveState.bind(this);
         this.addNewBox = this.addNewBox.bind(this);
         this.inEditMode = this.inEditMode.bind(this);
+        this.cancelState = this.cancelState.bind(this);
         this.outEditMode = this.outEditMode.bind(this);
         this.openModalBox = this.openModalBox.bind(this);
+
+        this.onAddItem = this.onAddItem.bind(this);
+        this.onChangeItem = this.onChangeItem.bind(this);
+        this.onRemoveItem = this.onRemoveItem.bind(this);
+        this.openModalConfigItem = this.openModalConfigItem.bind(this);
     }
 
     componentDidMount() {
+        let idModal = this.idModal;
+        let idModalC = this.idModalConfigItem;
+
         $('.fixed-action-btn').floatingActionButton();
         $('.tooltipped').tooltip();
-        $('#modalBox').modal()
+        $(`#${idModal}`).modal()
+        $(`#${idModalC}`).modal()
+        $('select').formSelect();
+    }
+
+    componentDidUpdate() {
+        $('select').formSelect();
     }
 
     openModalBox() {
         let idModal = this.idModal;
+        $(`#${idModal}`).modal('open')
+    }
+
+    openModalConfigItem() {
+        let idModal = this.idModalConfigItem;
         $(`#${idModal}`).modal('open')
     }
 
@@ -77,7 +98,46 @@ class Comodo extends React.Component {
             ...this.backupState
         });
         this.outEditMode();
+        Utils.toast('Cancelado');
     }
+
+    onAddItem(key) {
+        this.setState(state => {
+            state.newBoxItens.splice(key + 1, 0, {});
+
+            return {
+                newBoxItens: state.newBoxItens,
+            };
+        });
+    }
+
+    onChangeItem(key, fieldsItem) {
+        this.setState(state => {
+            const newBoxItens = state.newBoxItens.map((item, keyMap) => {
+                if (keyMap === key) {
+                    for (let field in fieldsItem) {
+                        item[field] = fieldsItem[field];
+                        return item;
+                    }
+                }
+                return item;
+            });
+
+            return {
+                newBoxItens,
+            };
+        });
+    }
+
+    onRemoveItem(key) {
+        this.setState(state => {
+            const newBoxItens = state.newBoxItens.filter((item, keyMap) => key !== keyMap);
+
+            return {
+                newBoxItens,
+            };
+        });
+    };
 
     render() {
         return (
@@ -91,23 +151,107 @@ class Comodo extends React.Component {
                         editMode={this.state.editMode}
                     />
                 )}
+                <div className="col s12" style={styles.bottom}></div>
                 <div className="fixed-action-btn">
                     <a onClick={this.openfloatingActionButton} className={"btn-floating tooltipped btn-large grey darken-3" + (this.state.pulseSave ? " pulse" : "")} data-position="left" data-tooltip="Configurar">
                         <i className="large material-icons">settings</i>
                     </a>
                     <ul>
                         <li><a onClick={this.saveState} className={"btn-floating tooltipped grey darken-1" + (this.state.pulseSave ? " pulse" : "")} data-position="left" data-tooltip="Salvar"><i className="material-icons">save</i></a></li>
-                        <li><a className="btn-floating tooltipped grey darken-1" data-position="left" data-tooltip="Cancelar"><i className="material-icons">clear</i></a></li>
+                        <li><a onClick={this.cancelState} className="btn-floating tooltipped grey darken-1" data-position="left" data-tooltip="Cancelar"><i className="material-icons">clear</i></a></li>
                         <li><a onClick={this.inEditMode} className="btn-floating tooltipped grey darken-1" data-position="left" data-tooltip="Editar"><i className="material-icons">edit</i></a></li>
                         <li><a onClick={this.openModalBox} className="btn-floating tooltipped grey darken-1" data-position="left" data-tooltip="Editar"><i className="material-icons">add</i></a></li>
                     </ul>
                 </div>
-                <ModalBox
-                    idModal={this.idModal}
-                    addNewBoxMethod={this.addNewBox}
-                />
+                <div id={this.idModal} className="modal bottom-sheet">
+                    <div className="modal-content center">
+                        <div className="container">
+                            <h4>Novo Item (Box)</h4>
+                            <br />
+                            <div className="row container">
+                                <div className="input-field col s10">
+                                    <input id="newNameItemBox" type="text" className="center" placeholder="Novo nome" value={this.state.newNameBox} onChange={(e) => this.setState({ newNameBox: e.target.value })} />
+                                </div>
+                                <div className="col s2" style={styles.chkbox}>
+                                    <label>
+                                        <input type="checkbox" className="filled-in" checked={this.state.chkbox} onChange={(e) => this.setState({ chkbox: e.target.checked })} />
+                                        <span>Switch</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <hr />
+                            <h4>Itens</h4>
+                            <br />
+                            {this.state.newBoxItens.length == 0 &&
+                                <div className="row container">
+                                    <div className="col s4 m2 offset-s4 offset-m5" style={styles.addRemoveItem}>
+                                        <div className="col s6"><a onClick={() => this.onRemoveItem(0)}><i className="material-icons">clear</i></a></div>
+                                        <div className="col s6"><a onClick={() => this.onAddItem(0)}><i className="material-icons">add</i></a></div>
+                                    </div>
+                                </div>
+                            }
+                            {
+                                this.state.newBoxItens.map((item, key) => {
+                                    return (
+                                        <div className="row container" key={key}>
+                                            <div className="input-field col s12 m8">
+                                                <div className="left col s12 m2" style={styles.settingBox}>
+                                                    <a onClick={this.openModalConfigItem}><i className="material-icons small">settings</i></a>
+                                                </div>
+                                                <div className="col s12 m10">
+                                                    <input type="text" className="center" placeholder="Nome do item" value={item.name || ''} onChange={(e) => this.onChangeItem(key, { name: e.target.value })} />
+                                                </div>
+                                            </div>
+                                            <div className="input-field s8 col m2">
+                                                <select>
+                                                    <option value="0" selected>Input</option>
+                                                    <option value="1">Switch</option>
+                                                </select>
+                                                <label>Tipo</label>
+                                            </div>
+                                            <div className="col s4 m2 input-field" style={styles.addRemoveItem}>
+                                                <div className="col s6"><a onClick={() => this.onRemoveItem(key)}><i className="material-icons">clear</i></a></div>
+                                                <div className="col s6"><a onClick={() => this.onAddItem(key)}><i className="material-icons">add</i></a></div>
+                                            </div>
+                                        </div>
+                                    )
+                                })
+                            }
+                        </div>
+                    </div>
+                    <div className="modal-footer">
+                        <a onClick={this.clearModalBox} className="modal-close waves-effect waves-green btn-flat">Cancel</a>
+                        <a onClick={() => this.addNewBox()} className="modal-close waves-effect waves-green btn-flat">Add</a>
+                    </div>
+                </div>
+                <div id={this.idModalConfigItem} className="modal">
+                    <div className="modal-content">
+                        <h4>Modal Header</h4>
+                        <p>A bunch of text</p>
+                    </div>
+                    <div className="modal-footer">
+                        <a onClick={this.clearModalBox} className="modal-close waves-effect waves-green btn-flat">Cancel</a>
+                        <a onClick={() => this.addNewBox()} className="modal-close waves-effect waves-green btn-flat">Add</a>
+                    </div>
+                </div>
             </>
         );
+    }
+}
+
+const styles = {
+    chkbox: {
+        marginTop: '30px'
+    },
+    addRemoveItem: {
+        marginTop: '30px'
+    },
+    settingBox: {
+        marginTop: '0.9rem',
+        height: '30px'
+    },
+    bottom: {
+        height: '30px'
     }
 }
 

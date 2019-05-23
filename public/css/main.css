@@ -48,6 +48,10 @@ a{
     filter: blur(2px);
 }
 
+.modal-overlay{
+    filter: blur(2px);
+}
+
 ul.sidenav.sidenav-fixed li a {
     font-size: 13px;
     line-height: 44px;
