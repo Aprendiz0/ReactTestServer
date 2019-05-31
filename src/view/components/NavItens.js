@@ -28,7 +28,8 @@ class NavItens extends React.Component {
                                             <a onClick={() => alterMainPage(
                                                 <Comodo
                                                     key={key}
-                                                    boxes={item.itens}
+                                                    id={key}
+                                                    item={item}
                                                 />
                                             )} className="principal-textcolor">{item.name}</a>
                                         </li>

@@ -15,7 +15,7 @@ class Comodo extends React.Component {
                 boxItens: [{}]
             },
             editModalBoxKeyItem: undefined,
-            boxes: Utils.cloneJSON(this.props.boxes)
+            boxes: Utils.cloneJSON(this.props.item.itens)
             /*{
                 titleBox: '',
                 titleSwitch: false,
@@ -123,9 +123,19 @@ class Comodo extends React.Component {
     }
 
     saveState() {
+        let that = this;
         this.backupState = Utils.cloneJSON(this.state);
         this.outEditMode();
-        Utils.toast('Salvo');
+        let comodo = this.props.itens;
+        comodo.itens = that.backupState.boxes;
+        $.ajax({
+            type: "POST",
+            url: "/project/saveComodo",
+            cache: false,
+            data: { positionKey: that.props.id, comodo }
+        }).done(function (response) {
+            Utils.toast('Salvo');
+        }).fail(Utils.modal.errorFunc);
     }
 
     cancelState() {

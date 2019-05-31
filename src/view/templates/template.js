@@ -11,10 +11,7 @@ export function MainTemplate(viewBag) {
     
     <body>
         ${ constants ? constants : ''}
-        ${ viewBag.body.nav ? viewBag.body.nav : ''}
-        <div id="app">
-            ${ viewBag.body.reactDom ? viewBag.body.reactDom : ''}
-        </div>
+        <div id="app"></div>
     </body>
     ${ viewBag.scripts ? viewBag.scripts : ''}
     <script src="./app.bundle.js"></script>

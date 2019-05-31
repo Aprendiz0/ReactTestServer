@@ -1,4 +1,4 @@
-module.exports = {
+functions = {
     loadPage: {
         hide: () => $("#loadPage").hide(),
         show: () => $("#loadPage").show(),
@@ -8,6 +8,13 @@ module.exports = {
             $('#modalerror .modalTittle').html(tittle);
             $('#modalerror .modalDesc').html(desc + resText);
             $('#modalerror').modal('open');
+        },
+        errorFunc: (jqXHR, status) => {
+            functions.modal.error(jqXHR.status, jqXHR.statusText, jqXHR.responseText);
+        },
+        errorFuncCallback: (callback) => {
+            callback();
+            return functions.modal.errorFunc;
         }
     },
     toast: (msg) => {
@@ -17,3 +24,5 @@ module.exports = {
         return JSON.parse(JSON.stringify(json));
     }
 }
+
+module.exports = functions;

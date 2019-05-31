@@ -25,7 +25,7 @@ export class Nav extends React.Component {
 
         $('.collapsible').collapsible();
         $('.sidenav').sidenav();
-        
+
         let that = this;
         that.ajust();
 
@@ -62,18 +62,15 @@ export class Nav extends React.Component {
 
         $.ajax({
             method: "POST",
-            url: "/api/comodos",
+            url: "/project/getComodos",
             cache: false,
         }).done(function (response) {
 
             that.setState({ comodosRequest: response });
 
-        }).fail(function (jqXHR, status) {
-            
-            Utils.modal.error(jqXHR.status, jqXHR.statusText, jqXHR.responseText);
-            that.setState({ comodosRequest: [] });
-
-        });
+        }).fail(Utils.modal.errorFuncCallback(
+            () => that.setState({ comodosRequest: [] })
+        ));
     }
 
     render() {
@@ -112,7 +109,7 @@ export class Nav extends React.Component {
                 <nav className="top-nav" style={styles.nav}>
                     <div className="container" style={styles.topNavContainer}>
                         <div className="nav-wrapper principalcolor">
-                            <a onClick={this.mobileMenuClick}  data-target="slide-out" className="top-nav sidenav-trigger principalcolor" style={styles.mobileMenu}><i className="material-icons" style={{ fontSize: '35px' }}>menu</i></a>
+                            <a onClick={this.mobileMenuClick} data-target="slide-out" className="top-nav sidenav-trigger principalcolor" style={styles.mobileMenu}><i className="material-icons" style={{ fontSize: '35px' }}>menu</i></a>
                             <h3 className="center" id="titleNav"> Room Control </h3>
                         </div>
                     </div>

@@ -9,11 +9,11 @@ const port = 4000;
 app.use(express.static(path.resolve(__dirname, "../dist")));
 app.use(express.static(path.resolve(__dirname, "../public")));
 app.use(cookieParser())
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
 
+require('./controller/indexController')(app);
 require('./controller/authController')(app);
 require('./controller/projectController')(app);
-require('./api/index')(app);
 
 app.listen(port, () => console.log(`\nstarted on port: ${port}`));

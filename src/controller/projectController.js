@@ -1,30 +1,28 @@
-import React from "react";
-import { renderToString } from "react-dom/server";
 import express from "express";
-import fs from 'fs'
-import Layout from "../view/components/Layout";
-import { MainTemplate } from '../view/templates/template';
 
 const router = express.Router();
 const authMiddleware = require('../middlewares/auth');
+const DB = require('../database/index');
 
-const HTMLheader = fs.readFileSync('./src/view/templates/header.html', 'utf8')
-const HTMLscripts = fs.readFileSync('./src/view/templates/footer.html', 'utf8')
+router.use(authMiddleware);
 
-router.get('*', (req, res) => {
-
-    //const reactDom = renderToString(<Layout />);
-
-    res.writeHead(200, { "Content-Type": "text/html" });
-    //reactDom
-    let context = {
-        head: HTMLheader,
-        body: {
-            reactDom: ''
-        },
-        scripts: HTMLscripts
-    };
-    res.end(MainTemplate(context));
+router.post('/getComodos', (req, res) => {
+    let configByUser = DB.findOne('configByUser', { userId: req.userId });
+    if (!configByUser || !configByUser.comodos) res.status(428).send({ error: 'file/not-found', message: 'File not found' });
+    else res.json(configByUser.comodos);
 })
 
-module.exports = (app) => app.use('/front', router); 
+router.post('/saveComodo', (req, res) => {
+    let positionKey = req.body.positionKey;
+    let comodo = req.body.comodo;
+
+    let configByUser = DB.findOne('configByUser', { userId: req.userId });
+
+    configByUser.comodos[positionKey] = comodo;
+
+    let is_saved = DB.saveOne('configByUser', { userId: req.userId }, configByUser);
+
+    res.json({ ok_code: is_saved })
+})
+
+module.exports = (app) => app.use('/project', router); 

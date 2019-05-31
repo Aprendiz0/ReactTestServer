@@ -3,10 +3,10 @@ const pathFile = './src/database/files/';
 
 const nullFilename = 'temp';
 
-const save = (content, filename) => new Promise((resolve) => {
+const saveAll = (filename, content) => new Promise((resolve) => {
     if (!filename) filename = nullFilename;
     fs.writeFile(`${pathFile + filename}.json`, JSON.stringify(content), () => {
-        resolve(content)
+        resolve(true)
     })
 })
 
@@ -47,8 +47,32 @@ const findOne = (filename, jsonMacth) => {
     return undefined;
 }
 
+const saveOne = (filename, jsonMacth, content) => {
+    if (!filename) filename = nullFilename;
+    let contentFile = readSync(filename);
+
+    for (const k in contentFile) {
+        let el = contentFile[k]
+        let match = true;
+        for (const key in jsonMacth) {
+            if (el[key] != jsonMacth[key]) {
+                match = false;
+                break;
+            }
+        }
+        if (match) {
+            contentFile[k] = content
+            saveAll(filename, contentFile);
+            return true;
+        }
+    }
+
+    return false;
+}
+
 module.exports = {
-    save,
+    saveAll,
+    saveOne,
     read,
     readSync,
     findOne
