@@ -1,11 +1,9 @@
 import React from "react";
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { alterMainPage } from '../actions';
+import { alterMainPage } from '../reduxStore/actions';
 import NavItens from './NavItens';
-import PageTest from './PageTest';
 import Home from './Main/Home';
-import Comodo from './Main/Comodo';
 import Utils from '../ultils';
 
 export class Nav extends React.Component {

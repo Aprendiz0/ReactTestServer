@@ -1,4 +1,4 @@
-import { ALTER_MAIN_PAGE } from '../actions/actionTypes';
+import { ALTER_MAIN_PAGE } from './actionTypes';
 
 export const alterMainPage = value => {
     return ({

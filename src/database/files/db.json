@@ -24,10 +24,30 @@
         },
         {
           "titleBox": "Teste Save",
+          "titleSwitch": "true"
+        },
+        {
+          "titleBox": "Luz Frente",
+          "titleSwitch": "true"
+        },
+        {
+          "titleBox": "Luz piscina",
+          "titleSwitch": "true"
+        },
+        {
+          "titleBox": "Quarto mamãe",
           "titleSwitch": "false",
           "boxItens": [
             {
-              "name": "dios mio",
+              "name": "Luz do quarto",
+              "type": "switch"
+            },
+            {
+              "name": "TV",
+              "type": "switch"
+            },
+            {
+              "name": "Volume do som",
               "type": "input"
             }
           ]
@@ -37,7 +57,8 @@
   ],
   "user": [
     {
-      "userId": "teste"
+      "userId": "teste",
+      "password": "teste"
     }
   ]
 }

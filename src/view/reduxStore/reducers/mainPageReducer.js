@@ -1,5 +1,5 @@
 import React from 'react';
-import Home from '../components/Main/Home';
+import Home from '../../components/Main/Home';
 import { ALTER_MAIN_PAGE } from '../actions/actionTypes';
 
 const initialState = {
@@ -11,7 +11,7 @@ export const mainPageReducer = (state = initialState, action) => {
         case ALTER_MAIN_PAGE:
             return {
                 ...state,
-                mainPage: action.mainPage
+                ...action
             }
     }
 

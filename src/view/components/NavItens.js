@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { alterMainPage } from '../actions'
+import { alterMainPage } from '../reduxStore/actions'
 import Comodo from "./Main/Comodo";
 
 class NavItens extends React.Component {
