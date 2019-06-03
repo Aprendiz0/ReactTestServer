@@ -1,4 +1,5 @@
 import React from 'react';
+import Utils from '../ultils';
 
 class Login extends React.Component {
     constructor(props) {
@@ -42,19 +43,18 @@ class Login extends React.Component {
                 .removeClass("error_message")
                 .addClass("success_message")
                 .html("Logado com sucesso");
-                
+
             that.setState({ onLogin: false })
 
             that.props.triggerLogin();
 
-        }).fail(function (jqXHR, status) {
+        }).fail((jqXHR) => {
             let message;
 
             if (jqXHR.status == 401) {
                 message = 'Usuario/Senha não encontrado';
             } else {
-                console.error(jqXHR);
-                message = 'Error, see console log';
+                Utils.modal.errorFunc(jqXHR);
             }
 
             $('#error_message')

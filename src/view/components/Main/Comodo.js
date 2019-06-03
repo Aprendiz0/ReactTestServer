@@ -126,15 +126,19 @@ class Comodo extends React.Component {
         let that = this;
         this.backupState = Utils.cloneJSON(this.state);
         this.outEditMode();
-        let comodo = this.props.itens;
-        comodo.itens = that.backupState.boxes;
+        let comodo = this.props.item;
+        comodo.itens = this.backupState.boxes;
         $.ajax({
             type: "POST",
             url: "/project/saveComodo",
             cache: false,
-            data: { positionKey: that.props.id, comodo }
+            data: { comodo }
         }).done(function (response) {
-            Utils.toast('Salvo');
+            if(response){
+                Utils.toast('Salvo');
+            }else{
+                Utils.toast('Erro');
+            }
         }).fail(Utils.modal.errorFunc);
     }
 
@@ -230,7 +234,7 @@ class Comodo extends React.Component {
                         <li><a onClick={this.saveState} className={"btn-floating tooltipped grey darken-1" + (this.state.pulseSave ? " pulse" : "")} data-position="left" data-tooltip="Salvar"><i className="material-icons">save</i></a></li>
                         <li><a onClick={this.cancelState} className="btn-floating tooltipped grey darken-1" data-position="left" data-tooltip="Cancelar"><i className="material-icons">clear</i></a></li>
                         <li><a onClick={this.inEditMode} className="btn-floating tooltipped grey darken-1" data-position="left" data-tooltip="Editar"><i className="material-icons">edit</i></a></li>
-                        <li><a onClick={this.setBoxToAdd} className="btn-floating tooltipped grey darken-1" data-position="left" data-tooltip="Editar"><i className="material-icons">add</i></a></li>
+                        <li><a onClick={this.setBoxToAdd} className="btn-floating tooltipped grey darken-1" data-position="left" data-tooltip="Adicionar"><i className="material-icons">add</i></a></li>
                     </ul>
                 </div>
                 <div id={this.idModal} className="modal bottom-sheet">

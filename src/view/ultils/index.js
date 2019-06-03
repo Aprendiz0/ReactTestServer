@@ -11,9 +11,10 @@ functions = {
         },
         errorFunc: (jqXHR, status) => {
             functions.modal.error(jqXHR.status, jqXHR.statusText, jqXHR.responseText);
+            console.trace();
         },
         errorFuncCallback: (callback) => {
-            callback();
+            if(callback) callback();
             return functions.modal.errorFunc;
         }
     },

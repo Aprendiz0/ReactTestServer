@@ -17,6 +17,7 @@ export default class Layout extends React.Component {
 
         this.triggerLogin = this.triggerLogin.bind(this);
         this.triggerLogout = this.triggerLogout.bind(this);
+        this.setIntervalAuth = this.setIntervalAuth.bind(this);
     }
 
     componentDidMount() {
@@ -26,26 +27,41 @@ export default class Layout extends React.Component {
 
         $.ajax({
             type: "POST",
-            url: "/auth/authenticate",
-            cache: false,
-            success: function (response) {
+            url: "/auth/authenticate"
+        }).done((response) => {
+            that.setState({
+                logged: true
+            });
 
-                that.setState({
-                    logged: true
-                });
+            Utils.loadPage.hide();
+            this.setIntervalAuth()
+        }).fail(() => {
 
-                Utils.loadPage.hide();
-            },
-            error: function (xhr, status, err) {
-                console.error(xhr);
+            that.setState({
+                logged: false
+            });
 
-                that.setState({
-                    logged: false
-                });
-
-                Utils.loadPage.hide();
-            }
+            Utils.loadPage.hide();
         });
+
+
+    }
+
+    setIntervalAuth() {
+        let that = this;
+        if (!this.intervalAuth) this.intervalAuth = setInterval(() => {
+            $.ajax({
+                type: "POST",
+                url: "/auth/authenticate",
+                cache: false,
+                error: (jqXHR) => {
+                    Utils.modal.errorFunc(jqXHR)
+                    that.setState({
+                        logged: false
+                    });
+                }
+            });
+        }, 5000);
     }
 
     triggerLogin() {

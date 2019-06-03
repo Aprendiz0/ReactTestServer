@@ -7,22 +7,18 @@ const DB = require('../database/index');
 router.use(authMiddleware);
 
 router.post('/getComodos', (req, res) => {
-    let configByUser = DB.findOne('configByUser', { userId: req.userId });
-    if (!configByUser || !configByUser.comodos) res.status(428).send({ error: 'file/not-found', message: 'File not found' });
-    else res.json(configByUser.comodos);
+    let comodos = DB.find('comodos', { userId: req.userId });
+    if(!comodos) comodos = [];
+    res.json(comodos);
 })
 
 router.post('/saveComodo', (req, res) => {
-    let positionKey = req.body.positionKey;
     let comodo = req.body.comodo;
 
-    let configByUser = DB.findOne('configByUser', { userId: req.userId });
+    let is_saved = DB.saveOne('comodos', { userId: req.userId, name: comodo.name }, comodo);
 
-    configByUser.comodos[positionKey] = comodo;
-
-    let is_saved = DB.saveOne('configByUser', { userId: req.userId }, configByUser);
-
-    res.json({ ok_code: is_saved })
+    if(is_saved) res.json({ ok_code: is_saved });
+    else res.status(409).json({ error: 'DB/conflit', message: 'Error interno, verificar' })
 })
 
 module.exports = (app) => app.use('/project', router); 

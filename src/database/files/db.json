@@ -1,0 +1,43 @@
+{
+  "comodos": [
+    {
+      "userId": "teste",
+      "name": "Quarto Nathan",
+      "itens": [
+        {
+          "titleBox": "Iluminação",
+          "titleSwitch": "false",
+          "boxItens": [
+            {
+              "name": "Kappa",
+              "type": "switch"
+            },
+            {
+              "name": "Led",
+              "type": "switch"
+            },
+            {
+              "name": "Cama",
+              "type": "switch"
+            }
+          ]
+        },
+        {
+          "titleBox": "Teste Save",
+          "titleSwitch": "false",
+          "boxItens": [
+            {
+              "name": "dios mio",
+              "type": "input"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "user": [
+    {
+      "userId": "teste"
+    }
+  ]
+}

@@ -22,7 +22,7 @@ router.post('/logout', (req, res) => {
         maxAge: 0,
         expires: Date.now(),
         httpOnly: true
-    });
+    }); 
 
     return res.json({ Ok_Code: 'Ok' });
 })

@@ -21,6 +21,7 @@
     "cookie-parser": "^1.4.4",
     "express": "^4.16.4",
     "jsonwebtoken": "^8.5.1",
+    "lowdb": "^1.0.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-redux": "^7.0.3",

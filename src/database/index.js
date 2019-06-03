@@ -1,68 +1,60 @@
-const fs = require('fs');
-const pathFile = './src/database/files/';
+const low = require('lowdb')
+const FileSync = require('lowdb/adapters/FileSync')
 
-const nullFilename = 'temp';
+const adapter = new FileSync('./src/database/files/db.json')
+const db = low(adapter)
 
-const saveAll = (filename, content) => new Promise((resolve) => {
-    if (!filename) filename = nullFilename;
-    fs.writeFile(`${pathFile + filename}.json`, JSON.stringify(content), () => {
-        resolve(true)
-    })
-})
+// Set some defaults
+db.defaults({ user: [], comodos: [] })
+    .write()
 
-const readSync = (filename) => {
-    if (!filename) filename = nullFilename;
-    let content;
-    try {
-        content = fs.readFileSync(`${pathFile + filename}.json`, 'utf8');
-    } catch (err) {
-        content = undefined
+const tratativaBoolean = (obj) => {
+    for (const key in obj) {
+        var item = obj[key];
+        if (typeof item === "object") tratativaBoolean(item);
+        else if (typeof item === "string") {
+            if (item === "true") obj[key] = true;
+            else if (item === "false") obj[key] = false;
+        }
     }
-    return JSON.parse(content);
 }
 
-const read = (filename) => new Promise((resolve) => {
-    if (!filename) filename = nullFilename;
-    fs.readFile(`${pathFile + filename}.json`, 'utf8', (content) => {
-        resolve(JSON.parse(content))
-    })
-})
+const findOne = (attr, jsonMacth) => {
+    if (db.has(attr).value()) {
+        let find = db.get(attr)
+            .filter(jsonMacth)
+            .take(1)
+            .value();
 
-const findOne = (filename, jsonMacth) => {
-    if (!filename) filename = nullFilename;
-    let content = readSync(filename);
-
-    for (const k in content) {
-        const el = content[k]
-        let match = true;
-        for (const key in jsonMacth) {
-            if (el[key] != jsonMacth[key]) {
-                match = false;
-                break;
-            }
+        if (find.length > 0) {
+            return find[0];
         }
-        if (match) return el;
     }
 
     return undefined;
 }
 
-const saveOne = (filename, jsonMacth, content) => {
-    if (!filename) filename = nullFilename;
-    let contentFile = readSync(filename);
+const find = (attr, jsonMacth) => {
+    if (db.has(attr).value()) {
+        let find = db.get(attr)
+            .filter(jsonMacth)
+            .value();
 
-    for (const k in contentFile) {
-        let el = contentFile[k]
-        let match = true;
-        for (const key in jsonMacth) {
-            if (el[key] != jsonMacth[key]) {
-                match = false;
-                break;
-            }
-        }
-        if (match) {
-            contentFile[k] = content
-            saveAll(filename, contentFile);
+        tratativaBoolean(find)
+        return find;
+    }
+
+    return undefined;
+}
+
+const saveOne = (attr, jsonMacth, content) => {
+
+    if (db.has(attr).value()) {
+        let indexFind = db.get(attr)
+            .findIndex(jsonMacth).value();
+
+        if (indexFind != -1) {
+            db.set(`${attr}[${indexFind}]`, content).write();
             return true;
         }
     }
@@ -71,9 +63,7 @@ const saveOne = (filename, jsonMacth, content) => {
 }
 
 module.exports = {
-    saveAll,
     saveOne,
-    read,
-    readSync,
-    findOne
+    findOne,
+    find
 }
