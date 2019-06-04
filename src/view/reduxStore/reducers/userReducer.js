@@ -9,10 +9,12 @@ const initialState = {
 
 export const userReducer = (state = initialState, action) => {
     switch (action.type) {
-        case USER_LOGIN:
-            return {
+        case USER_LOGIN:  
+        return {
                 ...state,
-                user: (action.user ? action.user : initialState.user),
+                user: {
+                    name: action.user.userId
+                },
                 logged: action.logged
             }
     }

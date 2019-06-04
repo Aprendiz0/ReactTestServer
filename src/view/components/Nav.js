@@ -9,11 +9,6 @@ export class Nav extends React.Component {
     constructor() {
         super();
 
-        this.state = {
-            userName: "Usuário teste",
-            comodos: []
-        };
-
         this.mobileMenuClick = this.mobileMenuClick.bind(this);
         this.getComodos = this.getComodos.bind(this);
     }
@@ -61,7 +56,7 @@ export class Nav extends React.Component {
 
     render() {
 
-        const { alterMainPage, comodos } = this.props;
+        const { alterMainPage, comodos, user } = this.props;
 
         return (
             <header>
@@ -76,7 +71,7 @@ export class Nav extends React.Component {
                     <li className="divider"></li>
                     <li>
                         <div className="center principalcolor">
-                            <div id="d_name_connected">Conectado como: {this.state.userName}</div>
+                            <div id="d_name_connected">Conectado como: {user.name}</div>
                             <div>
                                 <a onClick={() => this.props.userLogout()} className="waves-effect btn-small principalBackgroundColor"><i className="material-icons left">details</i>signOut</a>
                             </div>
@@ -140,7 +135,8 @@ const styles = {
 const mapStateToProps = (state) => ({
     ...state.alterMainPage,
     ...state.loadComodos,
-    ...state.comodoState
+    ...state.comodoState,
+    ...state.userState
 });
 
 export default connect(
