@@ -6,7 +6,7 @@ const serverUtils = require('../serverUtils')
 
 router.post('/login', (req, res) => {
     let user = DB.findOne('user', { userId: req.body.userName, password: req.body.userPassword });
-
+    
     if (!user)
         return res.status(401).json({ error: 'auth/not-authenticated', message: 'User not found' });
 

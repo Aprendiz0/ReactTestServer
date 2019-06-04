@@ -1,5 +1,7 @@
 import React from 'react';
 import Utils from '../ultils';
+import { connect } from 'react-redux';
+import { userLogin } from '../reduxStore/actions'
 
 class Login extends React.Component {
     constructor(props) {
@@ -26,44 +28,39 @@ class Login extends React.Component {
     }
 
     signIn() {
-        if (this.state.onLogin) return;
+        if (this.props.onLogin) return;
         this.setState({ onLogin: true })
         let that = this;
         let user = $('#user').val();
         let password = $('#password').val();
 
-        $.ajax({
-            method: "POST",
-            url: "/auth/login",
-            cache: false,
-            data: { userName: user, userPassword: password }
-        }).done(function (response) {
+        this.props.userLogin({ user, password },
+            () => {
+                $("#error_message")
+                    .removeClass("error_message")
+                    .addClass("success_message")
+                    .html("Logado com sucesso");
+                this.setState({ onLogin: false })
+            },
+            (jqXHR) => {
+                let message;
 
-            $("#error_message")
-                .removeClass("error_message")
-                .addClass("success_message")
-                .html("Logado com sucesso");
+                if (jqXHR.status == 401) {
+                    message = 'Usuario/Senha não encontrado';
+                } else {
+                    Utils.modal.errorFunc(jqXHR);
+                    message = "Server Error";
+                }
 
-            that.setState({ onLogin: false })
-
-            that.props.triggerLogin();
-
-        }).fail((jqXHR) => {
-            let message;
-
-            if (jqXHR.status == 401) {
-                message = 'Usuario/Senha não encontrado';
-            } else {
-                Utils.modal.errorFunc(jqXHR);
+                $('#error_message')
+                    .removeClass("success_message")
+                    .addClass("error_message")
+                    .html(message);
+                this.setState({ onLogin: false })
             }
+        )
 
-            $('#error_message')
-                .removeClass("success_message")
-                .addClass("error_message")
-                .html(message);
 
-            that.setState({ onLogin: false })
-        });
 
     }
 
@@ -134,4 +131,7 @@ const styles = {
     }
 }
 
-export default Login;
+export default connect(
+    null,
+    Utils.bindMapDispatchToProps({ userLogin })
+)(Login);

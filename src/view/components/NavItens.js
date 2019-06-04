@@ -1,8 +1,8 @@
 import React from "react";
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import { alterMainPage } from '../reduxStore/actions'
 import Comodo from "./Main/Comodo";
+import Utils from '../ultils';
 
 class NavItens extends React.Component {
     constructor(props) {
@@ -13,13 +13,11 @@ class NavItens extends React.Component {
 
         const { alterMainPage } = this.props;
 
-        const nothing = () => { };
-
         return (
             <li className="noPadding">
                 <ul className="collapsible collapsible-accordion">
                     <li>
-                        <a onClick={this.props.toPage ? () => alterMainPage(this.props.toPage) : () => nothing()} className={(this.props.itens ? "collapsible-header " : "") + "waves-effect principal-textcolor"}>{this.props.name}</a>
+                        <a onClick={this.props.toPage ? () => alterMainPage(this.props.toPage) : () => { }} className={(this.props.itens ? "collapsible-header " : "") + "waves-effect principal-textcolor"}>{this.props.name}</a>
                         {this.props.itens &&
                             <div className="collapsible-body">
                                 <ul>
@@ -45,9 +43,10 @@ class NavItens extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-    ...state
+    ...state.alterMainPage
 });
 
-const mapDispatchToProps = (dispatch) => bindActionCreators({ alterMainPage }, dispatch);
-
-export default connect(mapStateToProps, mapDispatchToProps)(NavItens);
+export default connect(
+    mapStateToProps,
+    Utils.bindMapDispatchToProps({ alterMainPage })
+)(NavItens);

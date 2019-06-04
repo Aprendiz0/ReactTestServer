@@ -1,226 +1,13 @@
-import React from 'react';
-import Box from './Box';
-import Utils from '../../ultils/index';
+import React from "react";
+import { connect } from 'react-redux';
 
-class Comodo extends React.Component {
-    constructor(props) {
-        super(props)
-
-        this.state = {
-            pulseSave: false,
-            editMode: false,
-            editModalBox: {
-                titleBox: '',
-                titleSwitch: false,
-                boxItens: [{}]
-            },
-            editModalBoxKeyItem: undefined,
-            boxes: Utils.cloneJSON(this.props.item.itens)
-        };
-
-        if (typeof this.state.boxes == 'undefined' || !this.state.boxes) this.state.boxes = [];
-
-        this.backupState = Utils.cloneJSON(this.state);
-
-        this.idModal = 'modalBox';
-        this.idModalConfigItem = 'modalConfigItem';
-
-        this.saveState = this.saveState.bind(this);
-        this.saveEditBox = this.saveEditBox.bind(this);
-        this.inEditMode = this.inEditMode.bind(this);
-        this.cancelState = this.cancelState.bind(this);
-        this.outEditMode = this.outEditMode.bind(this);
-        this.openModalBox = this.openModalBox.bind(this);
-        this.clearModalBox = this.clearModalBox.bind(this);
-
-        this.onAddItem = this.onAddItem.bind(this);
-        this.onChangeItem = this.onChangeItem.bind(this);
-        this.onRemoveItem = this.onRemoveItem.bind(this);
-        this.openModalConfigItem = this.openModalConfigItem.bind(this);
-        this.changeEditModalBox = this.changeEditModalBox.bind(this);
-        this.setBoxToEdit = this.setBoxToEdit.bind(this);
-        this.setBoxToAdd = this.setBoxToAdd.bind(this);
-    }
-
-    componentDidMount() {
-        let that = this;
-
-        $('.fixed-action-btn').floatingActionButton();
-        $('.tooltipped').tooltip();
-        $(`#${that.idModal}`).modal({
-            onCloseEnd: () => {
-                that.clearModalBox();
-            }
-        })
-        $(`#${that.idModalConfigItem}`).modal()
-        $('select').formSelect();
-    }
-
-    componentDidUpdate() {
-        $('select').formSelect();
-    }
-
-    openModalBox() {
-        let idModal = this.idModal;
-        $(`#${idModal}`).modal('open')
-    }
-
-    openModalConfigItem() {
-        let idModal = this.idModalConfigItem;
-        $(`#${idModal}`).modal('open')
-    }
-
-    openfloatingActionButton() {
-        $('.fixed-action-btn').floatingActionButton('open');
-    }
-
-    inEditMode() {
-        this.setState({ editMode: true });
-    }
-
-    outEditMode() {
-        this.setState({ editMode: false, pulseSave: false });
-    }
-
-    saveEditBox() {
-        let titleBox = this.state.editModalBox.titleBox;
-        let titleSwitch = this.state.editModalBox.titleSwitch;
-        let boxItensEdit = this.state.editModalBox.boxItens;
-
-        let boxItens = [];
-
-        boxItensEdit.map((item) => {
-            boxItens.push({
-                name: item.name,
-                type: item.type
-            });
-        });
-
-        let boxes = this.state.boxes;
-
-        if (typeof this.state.editModalBoxKeyItem == 'undefined') {
-            boxes.push({
-                titleBox,
-                titleSwitch,
-                boxItens,
-            });
-        } else {
-            boxes[this.state.editModalBoxKeyItem] = {
-                titleBox,
-                titleSwitch,
-                boxItens,
-            };
-        }
-
-        this.setState({ boxes, pulseSave: true });
-
-        this.clearModalBox();
-    }
-
-    saveState() {
-        let that = this;
-        this.backupState = Utils.cloneJSON(this.state);
-        this.outEditMode();
-        let comodo = this.props.item;
-        comodo.itens = this.backupState.boxes;
-        $.ajax({
-            type: "POST",
-            url: "/project/saveComodo",
-            cache: false,
-            data: { comodo }
-        }).done(function (response) {
-            if(response){
-                Utils.toast('Salvo');
-            }else{
-                Utils.toast('Erro');
-            }
-        }).fail(Utils.modal.errorFunc);
-    }
-
-    cancelState() {
-        this.setState({
-            ...Utils.cloneJSON(this.backupState)
-        });
-        this.outEditMode();
-        Utils.toast('Cancelado');
-    }
-
-    changeEditModalBox(fields) {
-        this.setState(state => {
-            let editModalBox = state.editModalBox;
-            for (const key in fields) {
-                editModalBox[key] = fields[key];
-            }
-
-            return {
-                editModalBox,
-            };
-        });
-    }
-
-    onAddItem(key) {
-        this.state.editModalBox.boxItens.splice(key + 1, 0, {});
-        this.changeEditModalBox({ boxItens: this.state.editModalBox.boxItens });
-    }
-
-    onChangeItem(key, fieldsItem) {
-
-        const boxItens = this.state.editModalBox.boxItens.map((item, keyMap) => {
-            if (keyMap === key) {
-                for (let field in fieldsItem) {
-                    item[field] = fieldsItem[field];
-                    return item;
-                }
-            }
-            return item;
-        });
-
-        this.changeEditModalBox({ boxItens });
-    }
-
-    onRemoveItem(key) {
-
-        const boxItens = this.state.editModalBox.boxItens.filter((item, keyMap) => key !== keyMap);
-
-        this.changeEditModalBox({ boxItens });
-    };
-
-    clearModalBox() {
-        this.changeEditModalBox({
-            titleBox: '',
-            titleSwitch: false,
-            boxItens: [{}]
-        });
-    }
-
-    setBoxToEdit(key) {
-        this.setState({
-            editModalBoxKeyItem: key,
-            editModalBox: Utils.cloneJSON(this.state.boxes[key])
-        });
-        this.openModalBox();
-    }
-
-    setBoxToAdd() {
-        this.setState({ editModalBoxKeyItem: undefined });
-        this.openModalBox();
-    }
+class Modals extends React.Component {
 
     render() {
+        const { mainPage } = this.props;
+
         return (
             <>
-                {this.state.boxes.map((item, key) =>
-                    <Box
-                        key={key}
-                        itemKey={key}
-                        titleBox={item.titleBox}
-                        boxItens={item.boxItens}
-                        titleSwitch={item.titleSwitch}
-                        editMode={this.state.editMode}
-                        parentFuncSetEdit={this.setBoxToEdit}
-                    />
-                )}
-                <div className="col s12" style={styles.bottom}></div>
                 <div className="fixed-action-btn">
                     <a onClick={this.openfloatingActionButton} className={"btn-floating tooltipped btn-large grey darken-3" + (this.state.pulseSave ? " pulse" : "")} data-position="left" data-tooltip="Configurar">
                         <i className="large material-icons">settings</i>
@@ -317,19 +104,14 @@ class Comodo extends React.Component {
 }
 
 const styles = {
-    chkboxEditSwitch: {
-        marginTop: '30px'
-    },
-    addRemoveItem: {
-        marginTop: '30px'
-    },
-    settingBox: {
-        marginTop: '0.9rem',
-        height: '30px'
-    },
-    bottom: {
-        height: '30px'
+    mainRow: {
+        marginTop: '1.3rem',
+        marginBottom: '80px'
     }
 }
 
-export default Comodo;
+const mapStateToProps = (state) => ({
+    mainPage: state.mainPageState.mainPage
+});
+
+export default connect(mapStateToProps)(Modals);

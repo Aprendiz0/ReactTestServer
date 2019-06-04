@@ -1,7 +1,6 @@
 import React from "react";
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { alterMainPage } from '../reduxStore/actions';
+import { alterMainPage, loadComodos, userLogout } from '../reduxStore/actions';
 import NavItens from './NavItens';
 import Home from './Main/Home';
 import Utils from '../ultils';
@@ -12,7 +11,7 @@ export class Nav extends React.Component {
 
         this.state = {
             userName: "Usuário teste",
-            comodosRequest: []
+            comodos: []
         };
 
         this.mobileMenuClick = this.mobileMenuClick.bind(this);
@@ -56,24 +55,13 @@ export class Nav extends React.Component {
     }
 
     getComodos() {
-        let that = this;
-
-        $.ajax({
-            method: "POST",
-            url: "/project/getComodos",
-            cache: false,
-        }).done(function (response) {
-
-            that.setState({ comodosRequest: response });
-
-        }).fail(Utils.modal.errorFuncCallback(
-            () => that.setState({ comodosRequest: [] })
-        ));
+        const { loadComodos } = this.props;
+        loadComodos();
     }
 
     render() {
 
-        const { alterMainPage } = this.props;
+        const { alterMainPage, comodos } = this.props;
 
         return (
             <header>
@@ -90,14 +78,14 @@ export class Nav extends React.Component {
                         <div className="center principalcolor">
                             <div id="d_name_connected">Conectado como: {this.state.userName}</div>
                             <div>
-                                <a onClick={() => this.props.triggerLogout()} className="waves-effect btn-small principalBackgroundColor"><i className="material-icons left">details</i>signOut</a>
+                                <a onClick={() => this.props.userLogout()} className="waves-effect btn-small principalBackgroundColor"><i className="material-icons left">details</i>signOut</a>
                             </div>
                         </div>
                     </li>
                     <li className="divider"></li>
                     <NavItens
                         name='Cômodos'
-                        itens={this.state.comodosRequest}
+                        itens={comodos}
                     />
                     <li>
                         <a id="b_lateral" className="waves-effect btn principalBackgroundColor">
@@ -150,9 +138,12 @@ const styles = {
 }
 
 const mapStateToProps = (state) => ({
-    ...state
+    ...state.alterMainPage,
+    ...state.loadComodos,
+    ...state.comodoState
 });
 
-const mapDispatchToProps = (dispatch) => bindActionCreators({ alterMainPage }, dispatch);
-
-export default connect(mapStateToProps, mapDispatchToProps)(Nav);
+export default connect(
+    mapStateToProps,
+    Utils.bindMapDispatchToProps({ alterMainPage, loadComodos, userLogout })
+)(Nav);

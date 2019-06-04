@@ -11,7 +11,7 @@ export const mainPageReducer = (state = initialState, action) => {
         case ALTER_MAIN_PAGE:
             return {
                 ...state,
-                ...action
+                mainPage: action.mainPage
             }
     }
 

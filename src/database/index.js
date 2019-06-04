@@ -25,7 +25,7 @@ const findOne = (attr, jsonMacth) => {
             .filter(jsonMacth)
             .take(1)
             .value();
-
+            
         if (find.length > 0) {
             return find[0];
         }

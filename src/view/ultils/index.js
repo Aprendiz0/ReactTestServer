@@ -1,4 +1,5 @@
-functions = {
+import { bindActionCreators } from 'redux';
+let Utils = {
     loadPage: {
         hide: () => $("#loadPage").hide(),
         show: () => $("#loadPage").show(),
@@ -10,12 +11,12 @@ functions = {
             $('#modalerror').modal('open');
         },
         errorFunc: (jqXHR, status) => {
-            functions.modal.error(jqXHR.status, jqXHR.statusText, jqXHR.responseText);
+            Utils.modal.error(jqXHR.status, jqXHR.statusText, jqXHR.responseText);
             console.trace();
         },
         errorFuncCallback: (callback) => {
-            if(callback) callback();
-            return functions.modal.errorFunc;
+            if (callback) callback();
+            return Utils.modal.errorFunc;
         }
     },
     toast: (msg) => {
@@ -23,7 +24,10 @@ functions = {
     },
     cloneJSON: (json) => {
         return JSON.parse(JSON.stringify(json));
+    },
+    bindMapDispatchToProps: (actions) => {
+        return (dispatch) => bindActionCreators(actions, dispatch);
     }
 }
 
-module.exports = functions;
+export default Utils;

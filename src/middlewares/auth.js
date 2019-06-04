@@ -15,7 +15,7 @@ module.exports = (req, res, next) => {
 
     const authHeader = req.cookies.authorization;
 
-    if (!authHeader)
+    if (!authHeader || typeof authHeader !== "string")
         return res.status(401).send({ error: 'auth/bad-token', message: 'No token provided' });
 
     const parts = authHeader.split(' ');

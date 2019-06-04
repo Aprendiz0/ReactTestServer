@@ -28,8 +28,7 @@ const styles = {
 }
 
 const mapStateToProps = (state) => ({
-    ...state,
-    mainPage: state.mainPageState.mainPage
+    ...state.mainPageState
 });
 
 export default connect(mapStateToProps)(Main);
