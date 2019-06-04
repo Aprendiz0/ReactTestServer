@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import Box from './Box';
 import Utils from '../../ultils/index';
 
@@ -332,4 +333,8 @@ const styles = {
     }
 }
 
-export default Comodo;
+const mapStateToProps = (state) => {
+
+}
+
+export default connect(null)(Comodo);
