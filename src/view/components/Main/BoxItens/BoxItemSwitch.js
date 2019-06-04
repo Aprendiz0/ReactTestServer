@@ -27,7 +27,7 @@ class BoxItemSwitch extends React.Component {
                             <input type="checkbox" checked={this.state.switchValue} onChange={this.handleSwitch} />
                             <span className="lever"></span>
                             On
-                            </label>
+                        </label>
                     </div>
                 </div>
             </>
