@@ -1,6 +1,21 @@
 import React from 'react';
 
 class BoxItemSwitch extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            switchValue: 0
+        }
+
+        this.handleSwitch = this.handleSwitch.bind(this);
+    }
+
+    handleSwitch(e) {
+        let value = e.target.checked;
+        this.setState({ switchValue: value })
+    }
+
     render() {
         return (
             <>
@@ -9,7 +24,7 @@ class BoxItemSwitch extends React.Component {
                     <div className="switch">
                         <label>
                             Off
-                            <input type="checkbox" />
+                            <input type="checkbox" checked={this.state.switchValue} onChange={this.handleSwitch} />
                             <span className="lever"></span>
                             On
                             </label>

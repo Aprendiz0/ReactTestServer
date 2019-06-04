@@ -12,7 +12,7 @@ let Utils = {
         },
         errorFunc: (jqXHR, status) => {
             Utils.modal.error(jqXHR.status, jqXHR.statusText, jqXHR.responseText);
-            console.trace();
+            console.warn(`Error: ${jqXHR.status}, ${jqXHR.responseText}`);
         },
         errorFuncCallback: (callback) => {
             if (callback) callback();

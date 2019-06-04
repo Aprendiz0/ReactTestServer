@@ -14,9 +14,9 @@ export const loadComodos = () => {
             method: "POST",
             url: "/project/getComodos",
             cache: false,
-        }).done(function (response) {
-            dispatch(setComodos(response))
-        }).fail(Utils.modal.errorFuncCallback(
+        }).done(
+            (response) => dispatch(setComodos(response))
+        ).fail(Utils.modal.errorFuncCallback(
             () => dispatch(setComodos([]))
         ));
     }

@@ -13,7 +13,7 @@ export const userReducer = (state = initialState, action) => {
         return {
                 ...state,
                 user: {
-                    name: action.user.userId
+                    name: (action.user ? action.user.userId : state.user.name)
                 },
                 logged: action.logged
             }
