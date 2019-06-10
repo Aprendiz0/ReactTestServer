@@ -12,7 +12,6 @@ class Comodo extends React.Component {
             editMode: false,
             editModalBox: {
                 titleBox: '',
-                titleSwitch: false,
                 boxItens: [{}]
             },
             editModalBoxKeyItem: undefined,
@@ -85,7 +84,6 @@ class Comodo extends React.Component {
 
     saveEditBox() {
         let titleBox = this.state.editModalBox.titleBox;
-        let titleSwitch = this.state.editModalBox.titleSwitch;
         let boxItensEdit = this.state.editModalBox.boxItens;
 
         let boxItens = [];
@@ -102,13 +100,11 @@ class Comodo extends React.Component {
         if (typeof this.state.editModalBoxKeyItem == 'undefined') {
             boxes.push({
                 titleBox,
-                titleSwitch,
                 boxItens,
             });
         } else {
             boxes[this.state.editModalBoxKeyItem] = {
                 titleBox,
-                titleSwitch,
                 boxItens,
             };
         }
@@ -130,9 +126,9 @@ class Comodo extends React.Component {
             cache: false,
             data: { comodo }
         }).done(function (response) {
-            if(response){
+            if (response) {
                 Utils.toast('Salvo');
-            }else{
+            } else {
                 Utils.toast('Erro');
             }
         }).fail(Utils.modal.errorFunc);
@@ -189,16 +185,22 @@ class Comodo extends React.Component {
     clearModalBox() {
         this.changeEditModalBox({
             titleBox: '',
-            titleSwitch: false,
             boxItens: [{}]
         });
     }
 
     setBoxToEdit(key) {
+        let editModalBoxClone = Utils.cloneJSON(this.state.boxes[key]);
+
+        if (!editModalBoxClone.boxItens) {
+            editModalBoxClone.boxItens = [];
+        }
+
         this.setState({
             editModalBoxKeyItem: key,
-            editModalBox: Utils.cloneJSON(this.state.boxes[key])
+            editModalBox: editModalBoxClone
         });
+
         this.openModalBox();
     }
 
@@ -216,7 +218,6 @@ class Comodo extends React.Component {
                         itemKey={key}
                         titleBox={item.titleBox}
                         boxItens={item.boxItens}
-                        titleSwitch={item.titleSwitch}
                         editMode={this.state.editMode}
                         parentFuncSetEdit={this.setBoxToEdit}
                     />
@@ -239,14 +240,8 @@ class Comodo extends React.Component {
                             <h4>Novo Item (Box)</h4>
                             <br />
                             <div className="row container">
-                                <div className="input-field col s10">
+                                <div className="input-field col s12">
                                     <input id="newNameItemBox" type="text" className="center" placeholder="Titulo" value={this.state.editModalBox.titleBox} onChange={(e) => this.changeEditModalBox({ titleBox: e.target.value })} />
-                                </div>
-                                <div className="col s2" style={styles.chkboxEditSwitch}>
-                                    <label>
-                                        <input type="checkbox" className="filled-in" checked={this.state.editModalBox.titleSwitch} onChange={(e) => this.changeEditModalBox({ titleSwitch: e.target.checked })} />
-                                        <span>Switch</span>
-                                    </label>
                                 </div>
                             </div>
                             <hr />
@@ -318,9 +313,6 @@ class Comodo extends React.Component {
 }
 
 const styles = {
-    chkboxEditSwitch: {
-        marginTop: '30px'
-    },
     addRemoveItem: {
         marginTop: '30px'
     },

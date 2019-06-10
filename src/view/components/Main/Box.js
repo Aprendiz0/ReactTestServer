@@ -15,20 +15,8 @@ class Box extends React.Component {
                             <div><a onClick={() => this.props.parentFuncSetEdit(this.props.itemKey)}><i className="material-icons small principalcolor">settings</i></a></div>
                         </div>
                     }
-                    {this.props.titleSwitch &&
-                        <div className="right" style={styles.mSwitch}>
-                            <div className="switch">
-                                <label>
-                                    Off
-                                    <input type="checkbox" />
-                                    <span className="lever"></span>
-                                    On
-                            </label>
-                            </div>
-                        </div>
-                    }
                 </div>
-                {this.props.boxItens &&
+                {(this.props.boxItens && this.props.boxItens.length > 0) &&
                     <>
                         <div className="row">
                             <hr />
