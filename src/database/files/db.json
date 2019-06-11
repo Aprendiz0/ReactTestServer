@@ -23,7 +23,13 @@
           ]
         },
         {
-          "titleBox": "Teste Save"
+          "titleBox": "Teste Save",
+          "boxItens": [
+            {
+              "name": "nada",
+              "type": "switch"
+            }
+          ]
         },
         {
           "titleBox": "Luz Frente",
@@ -56,7 +62,8 @@
   ],
   "user": [
     {
-      "userId": "teste"
+      "userId": "teste",
+      "password": "teste"
     }
   ]
 }

@@ -6,9 +6,11 @@ const serverUtils = require('../serverUtils')
 
 router.post('/login', (req, res) => {
     let user = DB.findOne('user', { userId: req.body.userName, password: req.body.userPassword });
-    
+
     if (!user)
         return res.status(401).json({ error: 'auth/not-authenticated', message: 'User not found' });
+
+    user = serverUtils.cloneJSON(user);
 
     serverUtils.renewToken(res, { userId: user.userId });
 
@@ -22,7 +24,7 @@ router.post('/logout', (req, res) => {
         maxAge: 0,
         expires: Date.now(),
         httpOnly: true
-    }); 
+    });
 
     return res.json({ Ok_Code: 'Ok' });
 })
@@ -32,6 +34,8 @@ router.post('/authenticate', authMiddleware, (req, res) => {
 
     if (!user)
         return res.status(401).json({ error: 'auth/not-authenticated', message: 'User not found' });
+
+    user = serverUtils.cloneJSON(user);
 
     serverUtils.renewToken(res, { userId: user.userId });
 

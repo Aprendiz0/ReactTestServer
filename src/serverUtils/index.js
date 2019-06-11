@@ -19,5 +19,8 @@ module.exports = {
             httpOnly: true
         }
     )
+    },
+    cloneJSON: (json) => {
+        return JSON.parse(JSON.stringify(json));
     }
 }

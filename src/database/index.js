@@ -6,7 +6,7 @@ const db = low(adapter)
 
 // Set some defaults
 db.defaults({ user: [], comodos: [] })
-    .write()
+    .write();
 
 const tratativaBoolean = (obj) => {
     for (const key in obj) {
@@ -25,7 +25,7 @@ const findOne = (attr, jsonMacth) => {
             .filter(jsonMacth)
             .take(1)
             .value();
-            
+
         if (find.length > 0) {
             return find[0];
         }
