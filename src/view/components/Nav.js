@@ -82,6 +82,10 @@ export class Nav extends React.Component {
                         name='Cômodos'
                         itens={comodos}
                     />
+                    <NavItens
+                        name='Jobs'
+                        toPage={undefined}
+                    />
                     <li>
                         <a id="b_lateral" className="waves-effect btn principalBackgroundColor">
                             Aplicar Configurações </a>

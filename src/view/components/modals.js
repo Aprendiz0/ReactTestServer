@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 class Modals extends React.Component {
 
     render() {
-        const { mainPage } = this.props;
 
         return (
             <>

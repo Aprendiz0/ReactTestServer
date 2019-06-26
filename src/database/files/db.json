@@ -21,41 +21,6 @@
               "type": "switch"
             }
           ]
-        },
-        {
-          "titleBox": "Teste Save",
-          "boxItens": [
-            {
-              "name": "nada",
-              "type": "switch"
-            }
-          ]
-        },
-        {
-          "titleBox": "Luz Frente",
-          "titleSwitch": "true"
-        },
-        {
-          "titleBox": "Luz piscina",
-          "titleSwitch": "true"
-        },
-        {
-          "titleBox": "Quarto mamãe",
-          "titleSwitch": "false",
-          "boxItens": [
-            {
-              "name": "Luz do quarto",
-              "type": "switch"
-            },
-            {
-              "name": "TV",
-              "type": "switch"
-            },
-            {
-              "name": "Volume do som",
-              "type": "input"
-            }
-          ]
         }
       ]
     }
