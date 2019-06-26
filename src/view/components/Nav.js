@@ -4,6 +4,7 @@ import { alterMainPage, loadComodos, userLogout } from '../reduxStore/actions';
 import NavItens from './NavItens';
 import Home from './Main/Home';
 import Utils from '../ultils';
+import Jobs from "./Jobs";
 
 export class Nav extends React.Component {
     constructor() {
@@ -84,7 +85,7 @@ export class Nav extends React.Component {
                     />
                     <NavItens
                         name='Jobs'
-                        toPage={undefined}
+                        toPage={<Jobs />}
                     />
                     <li>
                         <a id="b_lateral" className="waves-effect btn principalBackgroundColor">

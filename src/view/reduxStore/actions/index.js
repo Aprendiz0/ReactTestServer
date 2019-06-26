@@ -1,4 +1,4 @@
-import { ALTER_MAIN_PAGE, SET_COMODOS, USER_LOGIN } from './actionTypes';
+import { ALTER_MAIN_PAGE, SET_COMODOS, USER_LOGIN, TOGGLE_DAY } from './actionTypes';
 import Utils from '../../ultils';
 
 export const alterMainPage = value => {
@@ -98,5 +98,13 @@ export const setComodos = value => {
     return ({
         type: SET_COMODOS,
         comodos: value
+    })
+};
+
+export const toggleDay = value => {
+    return ({
+        type: TOGGLE_DAY,
+        jobKey: value.key,
+        day: value.day
     })
 };
