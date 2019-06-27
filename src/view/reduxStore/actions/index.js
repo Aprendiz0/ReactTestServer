@@ -1,4 +1,4 @@
-import { ALTER_MAIN_PAGE, SET_COMODOS, USER_LOGIN, TOGGLE_DAY, CHANGE_JOB_NAME, ADD_JOB } from './actionTypes';
+import { ALTER_MAIN_PAGE, SET_COMODOS, USER_LOGIN, TOGGLE_DAY, CHANGE_JOB_NAME, ADD_JOB, CHANGE_TIME, DELETE_JOB } from './actionTypes';
 import Utils from '../../ultils';
 
 export const alterMainPage = value => {
@@ -120,5 +120,21 @@ export const changeJobName = value => {
 export const addJob = () => {
     return ({
         type: ADD_JOB
+    })
+};
+
+export const deleteJob = value => {
+    return ({
+        type: DELETE_JOB,
+        jobKey: value.key
+    })
+};
+
+export const changeTime = value => {
+    return ({
+        type: CHANGE_TIME,
+        jobKey: value.key,
+        timeAttr: value.timeAttr,
+        value: value.value
     })
 };
