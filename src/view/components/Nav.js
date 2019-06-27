@@ -64,7 +64,7 @@ export class Nav extends React.Component {
                 <ul id="slide-out" className="sidenav sidenav-fixed">
                     <li>
                         <div className="center principalcolor">
-                            <div><a onClick={() => alterMainPage(< Home />)} > <i className="material-icons principalcolor" style={styles.gearIcon}>settings_applications</i></a></div>
+                            <div><a onClick={() => alterMainPage(<Home />)} > <i className="material-icons principalcolor" style={styles.gearIcon}>settings_applications</i></a></div>
                             <div>{this.props.title}</div>
                             <div id="d_ip">{this.props.host}</div>
                         </div>

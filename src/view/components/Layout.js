@@ -1,7 +1,6 @@
 import React from "react";
 import { connect } from 'react-redux';
 import Nav from './Nav';
-import Main from './Main';
 import Utils from '../ultils';
 import Login from "./Login";
 import { userTestAuth } from '../reduxStore/actions';
@@ -28,7 +27,6 @@ class Layout extends React.Component {
     }
 
     setIntervalAuth() {
-        let that = this;
         if (!this.intervalAuth) this.intervalAuth = setInterval(() => {
             this.props.userTestAuth();
         }, 5000);
@@ -45,7 +43,13 @@ class Layout extends React.Component {
                                 host={this.state.host}
                                 triggerLogout={this.triggerLogout}
                             />
-                            <Main />
+                            <main style={{ height: '100%' }}>
+                                <div className="container">
+                                    <div className="row" style={styles.mainRow}>
+                                        {this.props.mainPage}
+                                    </div>
+                                </div>
+                            </main>
                         </>
                         :
                         <Login triggerLogin={this.triggerLogin} />
@@ -55,8 +59,16 @@ class Layout extends React.Component {
     }
 }
 
+const styles = {
+    mainRow: {
+        marginTop: '1.3rem',
+        marginBottom: '80px'
+    }
+}
+
 const mapStateToProps = (state) => ({
-    logged: state.userState.logged
+    logged: state.userState.logged,
+    ...state.mainPageState
 })
 
 export default connect(
