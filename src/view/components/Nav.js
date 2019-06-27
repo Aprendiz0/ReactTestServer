@@ -81,7 +81,7 @@ export class Nav extends React.Component {
                     <li className="divider"></li>
                     <NavItens
                         name='Cômodos'
-                        itens={comodos}
+                        comodos={comodos}
                     />
                     <NavItens
                         name='Jobs'

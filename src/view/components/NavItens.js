@@ -11,19 +11,26 @@ class NavItens extends React.Component {
 
     render() {
 
-        const { alterMainPage } = this.props;
+        let haveItens = false;
+        let itens = [];
+
+        if(typeof this.props.comodos === 'object'){
+            itens = this.props.comodos;
+        }
+
+        if(itens.length > 0) haveItens = true;
 
         return (
             <li className="noPadding">
                 <ul className="collapsible collapsible-accordion">
                     <li>
-                        <a onClick={this.props.toPage ? () => alterMainPage(this.props.toPage) : () => { }} className={(this.props.itens ? "collapsible-header " : "") + "waves-effect principal-textcolor"}>{this.props.name}</a>
-                        {this.props.itens &&
+                        <a onClick={this.props.toPage ? () => this.props.alterMainPage(this.props.toPage) : () => { }} className={(haveItens ? "collapsible-header " : "") + "waves-effect principal-textcolor"}>{this.props.name}</a>
+                        {haveItens &&
                             <div className="collapsible-body">
                                 <ul>
-                                    {this.props.itens.map((item, key) =>
+                                    {itens.map((item, key) =>
                                         <li key={key}>
-                                            <a onClick={() => alterMainPage(
+                                            <a onClick={() => this.props.alterMainPage(
                                                 <Comodo
                                                     key={key}
                                                     id={key}
