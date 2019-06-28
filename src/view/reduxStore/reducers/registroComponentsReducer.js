@@ -1,4 +1,4 @@
-import { CHANGE_COMPONENT_NAME, CHANGE_COMPONENT_NODE, CHANGE_COMPONENT_PORT, CHANGE_NAME_ICON } from '../actions/actionTypes';
+import { ADD_COMPONENT, DELETE_COMPONENT, CHANGE_COMPONENT_NAME, CHANGE_COMPONENT_NODE, CHANGE_COMPONENT_PORT, CHANGE_NAME_ICON } from '../actions/actionTypes';
 import update from 'immutability-helper';
 
 const initialState = {
@@ -20,6 +20,18 @@ const initialState = {
 export const registroComponentsReducer = (state = initialState, action) => {
 
     switch (action.type) {
+        case ADD_COMPONENT:
+            return update(state, {
+                components: {
+                    $push: initialState.components
+                }
+            });
+        case DELETE_COMPONENT:
+            return update(state, {
+                components: {
+                    $splice: [[action.componentKey], 1]
+                }
+            });
         case CHANGE_COMPONENT_NAME:
             return update(state, {
                 components: {

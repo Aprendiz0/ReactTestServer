@@ -33,7 +33,7 @@ class Jobs extends React.Component {
         this.setTimePicker();
     }
 
-    setTimePicker(){
+    setTimePicker() {
         let that = this;
         $('.timepicker').timepicker({
             twelveHour: false,

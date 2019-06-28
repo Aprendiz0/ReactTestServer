@@ -8,6 +8,8 @@ import {
     CHANGE_TIME,
     ADD_GENERAL_GROUP,
     DELETE_GENERAL_GROUP,
+    ADD_COMPONENT,
+    DELETE_COMPONENT,
     CHANGE_COMPONENT_NAME,
     CHANGE_COMPONENT_NODE,
     CHANGE_COMPONENT_PORT,
@@ -134,6 +136,20 @@ export const deleteGeneralGroup = value => {
     return ({
         type: DELETE_GENERAL_GROUP,
         groupKey: value.key
+    })
+};
+
+
+export const addComponent = () => {
+    return ({
+        type: ADD_COMPONENT
+    })
+}
+
+export const deleteComponent = value => {
+    return ({
+        type: DELETE_COMPONENT,
+        componentKey: value.key
     })
 };
 

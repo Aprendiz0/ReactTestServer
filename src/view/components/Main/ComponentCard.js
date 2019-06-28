@@ -29,16 +29,18 @@ class ComponentCard extends React.Component {
 
     render() {
 
+        let { component, componentKey } = this.props;
+
         let listNodes = this.props.availableNodePorts;
         let listPortsOfNode = [];
         let nodeObj = listNodes.filter(value => value.node === component.node)[0];
 
         if (typeof nodeObj !== "undefined") listPortsOfNode = nodeObj.ports;
-        if (!listPortsOfNode.includes(component.port) && listPortsOfNode[0] !== undefined) this.props.changeComponentPort({ componentKey, value: listPortsOfNode[0] });
+        if (!listPortsOfNode.includes(component.port) && listPortsOfNode[0] !== undefined) this.props.changeComponentPort({ key: componentKey, value: listPortsOfNode[0] });
 
         return (
-            <div className="card indigo lighten-2" style={styles.cardSize}>
-                <div className="card-image waves-effect waves-block waves-light activator center indigo lighten-1" style={{ width: "100%" }}>
+            <div className="card" style={{ ...styles.cardSize, ...styles.background }}>
+                <div className="card-image waves-effect waves-block waves-light activator center" style={styles.backgroundTittle}>
                     <i className="material-icons large" style={styles.iconNP}>{component.nameIcon}</i>
                 </div>
                 <div className="card-content">
@@ -54,15 +56,17 @@ class ComponentCard extends React.Component {
                         </div>
                     </div>
                 </div>
-                <div className="card-reveal">
-                    <div className="card-title">
-                        <input className="input-field" placeholder="Component Name" style={styles.inputName} value={component.name} onChange={(e) => this.props.changeComponentName({ componentKey, value: e.target.value })} />
-                        <i className="material-icons right">expand_more</i>
+                <div className="card-reveal" style={styles.backgroundReveal}>
+                    <div className="row">
+                        <div className="card-title">
+                            <input className="input-field" placeholder="Component Name" style={styles.inputName} value={component.name} onChange={(e) => this.props.changeComponentName({ key: componentKey, value: e.target.value })} />
+                            <i className="material-icons right">expand_more</i>
+                        </div>
                     </div>
                     <div className="row">
                         <div className="input-field col s12">
                             <i className="material-icons prefix">call_split</i>
-                            <select value={component.node} onChange={(e) => this.props.changeComponentNode({ componentKey, value: e.target.value })}>
+                            <select value={component.node} onChange={(e) => this.props.changeComponentNode({ key: componentKey, value: e.target.value })}>
                                 {
                                     listNodes.map((item, key) => {
                                         return (
@@ -75,7 +79,7 @@ class ComponentCard extends React.Component {
                         </div>
                         <div className="input-field col s12">
                             <i className="material-icons prefix">settings_input_component</i>
-                            <select value={component.port} onChange={(e) => this.props.changeComponentPort({ componentKey, value: e.target.value })}>
+                            <select value={component.port} onChange={(e) => this.props.changeComponentPort({ key: componentKey, value: e.target.value })}>
                                 {
                                     listPortsOfNode.map((item, key) => {
                                         return (
@@ -90,7 +94,7 @@ class ComponentCard extends React.Component {
                     <div className="row">
                         <div className="input-field col s12">
                             <i className="material-icons prefix">star</i>
-                            <input id="nameIcon" type="text" value={component.nameIcon} onChange={(e) => this.props.changeNameIcon({ componentKey, value: e.target.value })} />
+                            <input id="nameIcon" type="text" value={component.nameIcon} onChange={(e) => this.props.changeNameIcon({ key: componentKey, value: e.target.value })} />
                             <label htmlFor="nameIcon" className="active">Nome do Icone</label>
                             <a href="https://material.io/tools/icons/" target="_blank">Mais ícones</a>
                         </div>
@@ -122,6 +126,17 @@ const styles = {
     rowContentCard: {
         paddingTop: "5px",
         paddingBottom: "5px"
+    },
+    background: {
+        backgroundColor: "rgba(0,0,0,0.1)"
+
+    },
+    backgroundTittle: {
+        backgroundColor: "rgba(0, 0, 0, 0.1)"
+    },
+    backgroundReveal: {
+        backgroundColor: "rgba(255, 255, 255, 0.9)"
+
     }
 }
 
