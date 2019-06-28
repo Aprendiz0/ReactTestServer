@@ -1,25 +1,18 @@
-import { ALTER_MAIN_PAGE, SET_COMODOS, USER_LOGIN, TOGGLE_DAY, CHANGE_JOB_NAME, ADD_JOB, CHANGE_TIME, DELETE_JOB } from './actionTypes';
-import Utils from '../../ultils';
+import {
+    ALTER_MAIN_PAGE,
+    USER_LOGIN,
+    TOGGLE_DAY,
+    CHANGE_JOB_NAME,
+    ADD_JOB,
+    CHANGE_TIME,
+    DELETE_JOB
+} from './actionTypes';
 
 export const alterMainPage = value => {
     return ({
         type: ALTER_MAIN_PAGE,
-        mainPage: value
+        page: value
     })
-};
-
-export const loadComodos = () => {
-    return dispatch => {
-        $.ajax({
-            method: "POST",
-            url: "/project/getComodos",
-            cache: false,
-        }).done(
-            (response) => dispatch(setComodos(response))
-        ).fail(Utils.modal.errorFuncCallback(
-            () => dispatch(setComodos([]))
-        ));
-    }
 };
 
 export const userLogin = (context, doneCallback, failCallback) => {
@@ -86,20 +79,6 @@ export const userTestAuth = (doneCallback, failCallback) => {
         });
     }
 }
-
-export const onLogin = value => {
-    return ({
-        type: ON_LOGIN,
-        comodos: value
-    })
-};
-
-export const setComodos = value => {
-    return ({
-        type: SET_COMODOS,
-        comodos: value
-    })
-};
 
 export const toggleDay = value => {
     return ({

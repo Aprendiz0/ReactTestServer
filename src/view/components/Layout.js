@@ -46,7 +46,7 @@ class Layout extends React.Component {
                             <main style={{ height: '100%' }}>
                                 <div className="container">
                                     <div className="row" style={styles.mainRow}>
-                                        {this.props.mainPage}
+                                        {this.props.page}
                                     </div>
                                 </div>
                             </main>
@@ -68,7 +68,7 @@ const styles = {
 
 const mapStateToProps = (state) => ({
     logged: state.userState.logged,
-    ...state.mainPageState
+    ...state.mainState
 })
 
 export default connect(

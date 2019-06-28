@@ -1,7 +1,6 @@
 import React from "react";
 import { connect } from 'react-redux';
 import { alterMainPage } from '../reduxStore/actions'
-import Comodo from "./Main/Comodo";
 import Utils from '../ultils';
 
 class NavItens extends React.Component {
@@ -13,10 +12,6 @@ class NavItens extends React.Component {
 
         let haveItens = false;
         let itens = [];
-
-        if(typeof this.props.comodos === 'object'){
-            itens = this.props.comodos;
-        }
 
         if(itens.length > 0) haveItens = true;
 
@@ -30,13 +25,7 @@ class NavItens extends React.Component {
                                 <ul>
                                     {itens.map((item, key) =>
                                         <li key={key}>
-                                            <a onClick={() => this.props.alterMainPage(
-                                                <Comodo
-                                                    key={key}
-                                                    id={key}
-                                                    item={item}
-                                                />
-                                            )} className="principal-textcolor">{item.name}</a>
+                                            <a className="principal-textcolor">{item.name}</a>
                                         </li>
                                     )}
                                 </ul>
@@ -48,6 +37,10 @@ class NavItens extends React.Component {
         );
     }
 }
+
+/*
+
+*/
 
 const mapStateToProps = (state) => ({
     ...state.alterMainPage

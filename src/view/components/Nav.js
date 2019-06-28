@@ -1,17 +1,17 @@
 import React from "react";
 import { connect } from 'react-redux';
-import { alterMainPage, loadComodos, userLogout } from '../reduxStore/actions';
+import { alterMainPage, userLogout } from '../reduxStore/actions';
 import NavItens from './NavItens';
 import Home from './Main/Home';
 import Utils from '../ultils';
-import Jobs from "./Jobs";
+import Jobs from "./Main/Jobs";
+import ControleGeral from "./Main/ControleGeral";
 
 export class Nav extends React.Component {
     constructor() {
         super();
 
         this.mobileMenuClick = this.mobileMenuClick.bind(this);
-        this.getComodos = this.getComodos.bind(this);
     }
 
     componentDidMount() {
@@ -29,8 +29,6 @@ export class Nav extends React.Component {
         $(window).resize(function () {
             that.ajustLastItem();
         });
-
-        that.getComodos();
     }
 
     ajust() {
@@ -50,21 +48,13 @@ export class Nav extends React.Component {
         this.ajust()
     }
 
-    getComodos() {
-        const { loadComodos } = this.props;
-        loadComodos();
-    }
-
     render() {
-
-        const { alterMainPage, comodos, user } = this.props;
-
         return (
             <header>
                 <ul id="slide-out" className="sidenav sidenav-fixed">
                     <li>
                         <div className="center principalcolor">
-                            <div><a onClick={() => alterMainPage(<Home />)} > <i className="material-icons principalcolor" style={styles.gearIcon}>settings_applications</i></a></div>
+                            <div><a onClick={() => this.props.alterMainPage(<Home />)} > <i className="material-icons principalcolor" style={styles.gearIcon}>settings_applications</i></a></div>
                             <div>{this.props.title}</div>
                             <div id="d_ip">{this.props.host}</div>
                         </div>
@@ -72,7 +62,7 @@ export class Nav extends React.Component {
                     <li className="divider"></li>
                     <li>
                         <div className="center principalcolor">
-                            <div id="d_name_connected">Conectado como: {user.name}</div>
+                            <div id="d_name_connected">Conectado como: {this.props.user.name}</div>
                             <div>
                                 <a onClick={() => this.props.userLogout()} className="waves-effect btn-small principalBackgroundColor"><i className="material-icons left">details</i>signOut</a>
                             </div>
@@ -80,8 +70,8 @@ export class Nav extends React.Component {
                     </li>
                     <li className="divider"></li>
                     <NavItens
-                        name='Cômodos'
-                        comodos={comodos}
+                        name='Controle Geral'
+                        toPage={<ControleGeral />}
                     />
                     <NavItens
                         name='Jobs'
@@ -138,13 +128,11 @@ const styles = {
 }
 
 const mapStateToProps = (state) => ({
-    ...state.alterMainPage,
-    ...state.loadComodos,
     ...state.comodoState,
     ...state.userState
 });
 
 export default connect(
     mapStateToProps,
-    Utils.bindMapDispatchToProps({ alterMainPage, loadComodos, userLogout })
+    Utils.bindMapDispatchToProps({ alterMainPage, userLogout })
 )(Nav);

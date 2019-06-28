@@ -1,7 +1,7 @@
 import React from 'react';
-import Utils from '../ultils';
+import Utils from '../../ultils';
 import { connect } from 'react-redux';
-import { toggleDay, changeJobName, addJob, changeTime, deleteJob } from '../reduxStore/actions'
+import { toggleDay, changeJobName, addJob, changeTime, deleteJob } from '../../reduxStore/actions'
 
 class Jobs extends React.Component {
     constructor(props) {

@@ -1,12 +1,10 @@
-import { mainPageReducer } from './mainPageReducer';
-import { comodoReducer } from './comodoReducer';
+import { mainReducer } from './mainReducer';
 import { userReducer } from './userReducer';
 import { jobReducer } from './jobReducer';
 import { combineReducers } from 'redux';
 
 export const rootReducer = combineReducers({
-    mainPageState: mainPageReducer,
-    comodoState: comodoReducer,
+    mainState: mainReducer,
     userState: userReducer,
     jobState: jobReducer
 });
