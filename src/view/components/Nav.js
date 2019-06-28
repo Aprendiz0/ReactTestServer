@@ -6,6 +6,7 @@ import Home from './Main/Home';
 import Utils from '../ultils';
 import Jobs from "./Main/Jobs";
 import ControleGeral from "./Main/ControleGeral";
+import RegistroComponents from "./Main/RegistroComponents";
 
 export class Nav extends React.Component {
     constructor() {
@@ -54,7 +55,11 @@ export class Nav extends React.Component {
                 <ul id="slide-out" className="sidenav sidenav-fixed">
                     <li>
                         <div className="center principalcolor">
-                            <div><a onClick={() => this.props.alterMainPage(<Home />)} > <i className="material-icons principalcolor" style={styles.gearIcon}>settings_applications</i></a></div>
+                            <div>
+                                <a onClick={() => this.props.alterMainPage(<Home />)}>
+                                    <i className="material-icons principalcolor" style={styles.gearIcon}>polymer{/*settings_applications*/}</i>
+                                </a>
+                            </div>
                             <div>{this.props.title}</div>
                             <div id="d_ip">{this.props.host}</div>
                         </div>
@@ -69,6 +74,10 @@ export class Nav extends React.Component {
                         </div>
                     </li>
                     <li className="divider"></li>
+                    <NavItens
+                        name='Registro de Componentes'
+                        toPage={<RegistroComponents />}
+                    />
                     <NavItens
                         name='Controle Geral'
                         toPage={<ControleGeral />}

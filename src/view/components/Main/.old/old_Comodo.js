@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Box from './Box';
-import Utils from '../../ultils/index';
+import Utils from '../../../ultils/index';
 
 class Comodo extends React.Component {
     constructor(props) {
