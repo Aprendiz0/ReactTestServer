@@ -34,7 +34,7 @@ class ControleGeral extends React.Component {
         return (
             <>
                 <a className="waves-effect btn-small principalBackgroundColor" onClick={() => this.props.addGeneralGroup()} style={styles.headerBtn}><i className="material-icons left">add</i>Novo Grupo</a>
-                <a className="waves-effect btn-small principalBackgroundColor" onClick={this.toggleDelete} style={styles.headerBtn}><i style={(this.state.onDeleteMode ? styles.iconDelete : {})} className="material-icons left">delete</i>Deletar Job</a>
+                <a className="waves-effect btn-small principalBackgroundColor" onClick={this.toggleDelete} style={styles.headerBtn}><i style={(this.state.onDeleteMode ? styles.iconDelete : {})} className="material-icons left">delete</i>Deletar Grupo</a>
                 <hr />
                 <ul className="collapsible collapsibleGroup">
                     {

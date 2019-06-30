@@ -40,6 +40,7 @@ class RegistroComponents extends React.Component {
                             key={key}
                             componentKey={key}
                             component={item}
+                            deleteMode={this.state.onDeleteMode}
                         />
                     );
                 })}
@@ -55,26 +56,10 @@ const styles = {
     headerBtn: {
         margin: "5px"
     },
-    cardSize: {
-        width: "300px",
-        height: "400px"
-    },
-    inputName: {
-        width: "calc(100% - 50px)",
-        height: "35px"
-    },
-    iconNP: {
-        marginRight: "10px"
-    },
-    rowContentCard: {
-        paddingTop: "5px",
-        paddingBottom: "5px"
-    }
 }
 
 const mapStateToProps = (state) => ({
-    components: state.registroComponentsState.components,
-    availableNodePorts: state.registroComponentsState.availableNodePorts
+    components: state.registroComponentsState.components
 })
 
 export default connect(

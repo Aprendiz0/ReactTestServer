@@ -1,4 +1,4 @@
-import { ADD_COMPONENT, DELETE_COMPONENT, CHANGE_COMPONENT_NAME, CHANGE_COMPONENT_NODE, CHANGE_COMPONENT_PORT, CHANGE_NAME_ICON } from '../actions/actionTypes';
+import { ADD_COMPONENT, DELETE_COMPONENT, CHANGE_COMPONENT_NAME, CHANGE_COMPONENT_NODE, CHANGE_COMPONENT_PORT, CHANGE_NAME_ICON, CHANGE_TYPE_VALUE, CHANGE_TYPE_IO } from '../actions/actionTypes';
 import update from 'immutability-helper';
 
 const initialState = {
@@ -6,7 +6,9 @@ const initialState = {
         name: "Component Name",
         node: "01",
         port: "4",
-        nameIcon: "call_split"
+        typeValue: "01",
+        typeIO: "01",
+        nameIcon: "view_carousel"
     }],
     availableNodePorts: [{
         node: "00",
@@ -29,7 +31,7 @@ export const registroComponentsReducer = (state = initialState, action) => {
         case DELETE_COMPONENT:
             return update(state, {
                 components: {
-                    $splice: [[action.componentKey], 1]
+                    $splice: [[action.componentKey, 1]]
                 }
             });
         case CHANGE_COMPONENT_NAME:
@@ -67,6 +69,26 @@ export const registroComponentsReducer = (state = initialState, action) => {
                 components: {
                     [action.componentKey]: {
                         nameIcon: {
+                            $set: action.value
+                        }
+                    }
+                }
+            });
+        case CHANGE_TYPE_VALUE:
+            return update(state, {
+                components: {
+                    [action.componentKey]: {
+                        typeValue: {
+                            $set: action.value
+                        }
+                    }
+                }
+            });
+        case CHANGE_TYPE_IO:
+            return update(state, {
+                components: {
+                    [action.componentKey]: {
+                        typeIO: {
                             $set: action.value
                         }
                     }

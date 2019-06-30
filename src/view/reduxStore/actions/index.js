@@ -13,7 +13,9 @@ import {
     CHANGE_COMPONENT_NAME,
     CHANGE_COMPONENT_NODE,
     CHANGE_COMPONENT_PORT,
-    CHANGE_NAME_ICON
+    CHANGE_NAME_ICON,
+    CHANGE_TYPE_VALUE,
+    CHANGE_TYPE_IO
 } from './actionTypes';
 
 export const alterMainPage = value => {
@@ -180,6 +182,22 @@ export const changeComponentPort = value => {
 export const changeNameIcon = value => {
     return ({
         type: CHANGE_NAME_ICON,
+        componentKey: value.key,
+        value: value.value
+    })
+};
+
+export const changeComponentTypeValue = value => {
+    return ({
+        type: CHANGE_TYPE_VALUE,
+        componentKey: value.key,
+        value: value.value
+    })
+};
+
+export const changeComponentTypeIO = value => {
+    return ({
+        type: CHANGE_TYPE_IO,
         componentKey: value.key,
         value: value.value
     })
