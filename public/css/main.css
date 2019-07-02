@@ -1,4 +1,6 @@
-header, main, footer {
+header,
+main,
+footer {
     padding-left: 300px;
 }
 
@@ -9,34 +11,37 @@ body {
     background-size: cover;
 }
 
-html, body{
-    min-height:100%;
+html,
+body {
+    min-height: 100%;
 }
 
-hr{
+hr {
     margin-bottom: 0
 }
 
-a{
-    cursor:pointer;
+a {
+    cursor: pointer;
 }
 
-#slide-out, .collapsible-body{
+#slide-out,
+.collapsible-body {
     background: transparent !important;
 }
 
-@media only screen and (max-width : 992px) {
-    header, main, footer {
+@media only screen and (max-width: 992px) {
+    header,
+    main,
+    footer {
         padding-left: 0;
     }
 }
 
-@media only screen and (max-width : 600px) {
+@media only screen and (max-width: 600px) {
     h3#titleNav {
         font-size: 1.5rem;
         padding-top: 0.8rem;
     }
-
     .inner {
         margin-left: auto;
         margin-right: auto;
@@ -44,11 +49,11 @@ a{
     }
 }
 
-.side-blur{
+.side-blur {
     filter: blur(2px);
 }
 
-.modal-overlay{
+.modal-overlay {
     filter: blur(2px);
 }
 
@@ -72,12 +77,12 @@ ul.collapsible-accordion .collapsible-body li a {
     height: 100%;
     width: 100%;
 }
-  
+
 .middle {
     display: table-cell;
     vertical-align: middle;
 }
-  
+
 .inner {
     margin-left: auto;
     margin-right: auto;
@@ -89,24 +94,29 @@ ul.collapsible-accordion .collapsible-body li a {
 }
 
 #loadPage {
-    z-index:10000;
+    z-index: 10000;
 }
 
-.material-icons.prefix.posfix{
+.material-icons.prefix.posfix {
     right: 0rem !important
 }
 
-.input-field .prefix ~ input, .input-field .prefix ~ textarea, .input-field .prefix ~ label, .input-field .prefix ~ .validate ~ label, .input-field .prefix ~ .helper-text, .input-field .prefix ~ .autocomplete-content {
+.input-field .prefix~input,
+.input-field .prefix~textarea,
+.input-field .prefix~label,
+.input-field .prefix~.validate~label,
+.input-field .prefix~.helper-text,
+.input-field .prefix~.autocomplete-content {
     margin-left: 3rem;
     margin-right: 1rem;
     width: calc(100% - 65px);
 }
 
-.btnInLine{
+.btnInLine {
     margin-top: 2rem;
 }
 
-.withSelect{
+.withSelect {
     position: relative;
     margin-top: 1rem;
 }
