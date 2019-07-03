@@ -60,7 +60,7 @@ class RoundedValueChart extends React.Component {
             let chart = this.state.chart;
 
             chart.data.datasets[0].data = dataChart;
-            chart.update();
+            chart.update(); // { duration: 0 }
 
             this.setDimensionsChart();
         }
