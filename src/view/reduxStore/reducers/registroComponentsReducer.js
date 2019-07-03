@@ -8,7 +8,8 @@ const initialState = {
         port: "4",
         typeValue: "01",
         typeIO: "01",
-        nameIcon: "view_carousel"
+        nameIcon: "view_carousel",
+        value: 435
     }],
     availableNodePorts: [{
         node: "00",

@@ -9,8 +9,7 @@ class ComponentCard extends React.Component {
         super(props);
 
         this.state = {
-            onDeleteMode: false,
-            testeVal: 100
+            onDeleteMode: false
         }
 
         this.toggleDelete = this.toggleDelete.bind(this);
@@ -61,7 +60,7 @@ class ComponentCard extends React.Component {
                         <RoundedValueChart
                             id={componentKey}
                             maxValue={1023}
-                            value={this.state.testeVal}
+                            value={component.value}
                         />
                         {
                             this.props.deleteMode &&

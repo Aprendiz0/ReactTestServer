@@ -17,6 +17,7 @@ class RegistroComponents extends React.Component {
 
     componentDidMount() {
         $('select').formSelect();
+        
     }
 
     componentDidUpdate() {
