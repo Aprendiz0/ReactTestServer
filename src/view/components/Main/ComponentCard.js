@@ -2,13 +2,15 @@ import React from 'react';
 import Utils from '../../ultils';
 import { connect } from 'react-redux';
 import { deleteComponent, changeComponentName, changeComponentNode, changeComponentPort, changeNameIcon, changeComponentTypeValue, changeComponentTypeIO } from '../../reduxStore/actions';
+import RoundedValueChart from './RoundedValueChart';
 
 class ComponentCard extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            onDeleteMode: false
+            onDeleteMode: false,
+            testeVal: 100
         }
 
         this.toggleDelete = this.toggleDelete.bind(this);
@@ -56,6 +58,11 @@ class ComponentCard extends React.Component {
                                 Port: {component.port}
                             </div>
                         </div>
+                        <RoundedValueChart
+                            id={componentKey}
+                            maxValue={1023}
+                            value={this.state.testeVal}
+                        />
                         {
                             this.props.deleteMode &&
                             <div style={styles.btnDelete}>
