@@ -162,7 +162,6 @@ export const deleteComponent = value => {
 export const changeComponentName = value => {
     return ({
         type: CHANGE_COMPONENT_NAME,
-        componentKey: value.key,
         value: value.value
     })
 };
@@ -170,7 +169,6 @@ export const changeComponentName = value => {
 export const changeComponentNode = value => {
     return ({
         type: CHANGE_COMPONENT_NODE,
-        componentKey: value.key,
         value: value.value
     })
 };
@@ -178,7 +176,6 @@ export const changeComponentNode = value => {
 export const changeComponentPort = value => {
     return ({
         type: CHANGE_COMPONENT_PORT,
-        componentKey: value.key,
         value: value.value
     })
 };
@@ -186,7 +183,6 @@ export const changeComponentPort = value => {
 export const changeNameIcon = value => {
     return ({
         type: CHANGE_NAME_ICON,
-        componentKey: value.key,
         value: value.value
     })
 };
@@ -194,7 +190,6 @@ export const changeNameIcon = value => {
 export const changeComponentTypeValue = value => {
     return ({
         type: CHANGE_TYPE_VALUE,
-        componentKey: value.key,
         value: value.value
     })
 };
@@ -202,7 +197,6 @@ export const changeComponentTypeValue = value => {
 export const changeComponentTypeIO = value => {
     return ({
         type: CHANGE_TYPE_IO,
-        componentKey: value.key,
         value: value.value
     })
 };
