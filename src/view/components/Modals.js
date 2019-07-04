@@ -14,20 +14,27 @@ class Modals extends React.Component {
     }
 
     componentDidUpdate() {
-        $('select').formSelect('destroy').formSelect();
+        $('select').formSelect();
     }
 
     render() {
 
         let { component } = this.props;
 
-        let listNodes = this.props.availableNodePorts;
-        let listPortsOfNode = [];
-        let nodeObj = listNodes.filter(value => value.node === component.node)[0];
+        let listNodes;
+        let listPortsOfNode;
+        let nodeObj;
 
-        if (typeof nodeObj !== "undefined") listPortsOfNode = nodeObj.ports;
-        if (!listPortsOfNode.includes(component.port) && listPortsOfNode[0] !== undefined) this.props.changeComponentPort({ key: componentKey, value: listPortsOfNode[0] });
+        if (component) {
 
+            listNodes = this.props.availableNodePorts;
+            listPortsOfNode = [];
+            nodeObj = listNodes.filter(value => value.node === component.node)[0];
+
+            if (typeof nodeObj !== "undefined") listPortsOfNode = nodeObj.ports;
+            if (!listPortsOfNode.includes(component.port) && listPortsOfNode[0] !== undefined) this.props.changeComponentPort({ key: componentKey, value: listPortsOfNode[0] });
+
+        }
 
         return (
             <>
@@ -36,16 +43,16 @@ class Modals extends React.Component {
                         component &&
                         <>
                             <div className="modal-content">
-                                <h4>{component.name}</h4>
+                                <h4>Configuração do componente</h4>
                                 <div className="row">
                                     <div className="input-field col s12">
-                                        <i className="material-icons prefix">star</i>
+                                        <i className="material-icons prefix">text_format</i>
                                         <input type="text" placeholder="Component Name" style={styles.inputName} value={component.name} onChange={(e) => this.props.changeComponentName({ value: e.target.value })} />
                                     </div>
                                 </div>
                                 <div className="row">
                                     <div className="input-field col s12">
-                                        <i className="material-icons prefix">call_split</i>
+                                        <i className="material-icons prefix">device_hub</i>
                                         <select value={component.node} onChange={(e) => this.props.changeComponentNode({ value: e.target.value })}>
                                             {
                                                 listNodes.map((item, key) => {
@@ -93,7 +100,7 @@ class Modals extends React.Component {
                                 <div className="row">
                                     <div className="input-field col s12">
                                         <i className="material-icons prefix">star</i>
-                                        <input id="nameIcon" type="text" value={component.nameIcon} onChange={(e) => this.props.changeNameIcon({ value: e.target.value })} />
+                                        <input id="nameIcon" value={component.nameIcon} onChange={(e) => this.props.changeNameIcon({ value: e.target.value })} />
                                         <label htmlFor="nameIcon" className="active">Nome do Icone</label>
                                         <a href="https://material.io/tools/icons/" target="_blank">Mais ícones</a>
                                     </div>

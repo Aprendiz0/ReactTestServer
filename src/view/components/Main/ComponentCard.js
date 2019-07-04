@@ -9,7 +9,8 @@ class ComponentCard extends React.Component {
         super(props);
 
         this.state = {
-            onDeleteMode: false
+            onDeleteMode: false,
+            teste: 500
         }
 
         this.toggleDelete = this.toggleDelete.bind(this);
@@ -17,10 +18,10 @@ class ComponentCard extends React.Component {
 
     componentDidMount() {
         $('select').formSelect();
-    }
-
-    componentDidUpdate() {
-        $('select').formSelect('destroy').formSelect();
+        let that = this;
+        setInterval(function() {
+            that.setState({ teste: parseInt(Math.random() * 1023) })
+        }, 500)
     }
 
     toggleDelete() {
@@ -31,6 +32,30 @@ class ComponentCard extends React.Component {
     render() {
 
         let { component, componentKey } = this.props;
+        let iconIO = "warning";
+        let iconTypeVal = "warning";
+
+
+        switch (component.typeIO) {
+            case "01":
+                iconIO = "call_received";
+                break;
+            case "02":
+                iconIO = "call_made";
+                break;
+        }
+
+        switch (component.typeValue) {
+            case "01":
+                iconTypeVal = "space_bar";
+                break;
+            case "02":
+                iconTypeVal = "show_chart";
+                break;
+            case "03":
+                iconTypeVal = "swap_calls";
+                break;
+        }
 
         return (
             <div className="col s12 m6 l4">
@@ -44,19 +69,23 @@ class ComponentCard extends React.Component {
                             <i className="material-icons right" style={{ cursor: "pointer" }} onClick={() => this.props.setOpenCompToModalAdvancedOp({ key: componentKey, component })} >settings</i>
                         </span>
                         <div className="row" style={styles.rowContentCard}>
-                            <div style={styles.rowContentCard}>
-                                <i className="material-icons" style={styles.iconNP}>call_split</i>
+                            <div className="col s6 center">
+                                <i className="material-icons" style={styles.iconNP}>device_hub</i>
                                 Node: {component.node}
                             </div>
-                            <div style={styles.rowContentCard}>
+                            <div className="col s6 center">
                                 <i className="material-icons" style={styles.iconNP}>settings_input_component</i>
                                 Port: {component.port}
                             </div>
                         </div>
+                        <div className="row center">
+                            <span><i className="material-icons" style={styles.iconNP}>{iconIO}</i></span>
+                            <span><i className="material-icons" style={styles.iconNP}>{iconTypeVal}</i></span>
+                        </div>
                         <RoundedValueChart
                             id={componentKey}
                             maxValue={1023}
-                            value={component.value}
+                            value={this.state.teste}//component.value}
                         />
                         {
                             this.props.deleteMode &&
