@@ -1,7 +1,7 @@
 import React from 'react';
 import Utils from '../../ultils';
 import { connect } from 'react-redux';
-import { deleteComponent, changeComponentName, changeComponentNode, changeComponentPort, changeNameIcon, changeComponentTypeValue, changeComponentTypeIO } from '../../reduxStore/actions';
+import { deleteComponent, changeComponentName, changeComponentNode, changeComponentPort, changeNameIcon, changeComponentTypeValue, changeComponentTypeIO, setOpenCompToModalAdvancedOp } from '../../reduxStore/actions';
 import RoundedValueChart from './RoundedValueChart';
 
 class ComponentCard extends React.Component {
@@ -77,6 +77,7 @@ class ComponentCard extends React.Component {
                             </div>
                         </div>
                         <div className="row">
+                            <a className="btn waves-effect waves-light red" onClick={() => this.props.setOpenCompToModalAdvancedOp({ key: componentKey, component })}></a>
                             <div className="input-field col s12">
                                 <i className="material-icons prefix">call_split</i>
                                 <select value={component.node} onChange={(e) => this.props.changeComponentNode({ key: componentKey, value: e.target.value })}>
@@ -190,5 +191,5 @@ const mapStateToProps = (state) => ({
 
 export default connect(
     mapStateToProps,
-    Utils.bindMapDispatchToProps({ deleteComponent, changeComponentName, changeComponentNode, changeComponentPort, changeNameIcon, changeComponentTypeValue, changeComponentTypeIO })
+    Utils.bindMapDispatchToProps({ deleteComponent, changeComponentName, changeComponentNode, changeComponentPort, changeNameIcon, changeComponentTypeValue, changeComponentTypeIO, setOpenCompToModalAdvancedOp })
 )(ComponentCard);

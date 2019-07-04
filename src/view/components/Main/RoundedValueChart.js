@@ -42,6 +42,9 @@ class RoundedValueChart extends React.Component {
                     circumference: 1 * Math.PI,
                     tooltips: {
                         enabled: false
+                    },
+                    animation: {
+                        duration : 2000
                     }
                 }
             }

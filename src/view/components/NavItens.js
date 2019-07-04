@@ -38,10 +38,6 @@ class NavItens extends React.Component {
     }
 }
 
-/*
-
-*/
-
 const mapStateToProps = (state) => ({
     ...state.alterMainPage
 });

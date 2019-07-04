@@ -8,7 +8,7 @@ import Jobs from "./Main/Jobs";
 import ControleGeral from "./Main/ControleGeral";
 import RegistroComponents from "./Main/RegistroComponents";
 
-export class Nav extends React.Component {
+class Nav extends React.Component {
     constructor() {
         super();
 

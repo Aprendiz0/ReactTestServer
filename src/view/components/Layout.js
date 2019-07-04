@@ -4,6 +4,7 @@ import Nav from './Nav';
 import Utils from '../ultils';
 import Login from "./Login";
 import { userTestAuth } from '../reduxStore/actions';
+import Modals from './Modals';
 
 class Layout extends React.Component {
     constructor() {
@@ -54,6 +55,7 @@ class Layout extends React.Component {
                         :
                         <Login triggerLogin={this.triggerLogin} />
                 }
+                <Modals />
             </>
         );
     }

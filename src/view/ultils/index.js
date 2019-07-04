@@ -1,4 +1,5 @@
 import { bindActionCreators } from 'redux';
+
 let Utils = {
     loadPage: {
         hide: () => $("#loadPage").hide(),

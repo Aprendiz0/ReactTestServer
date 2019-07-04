@@ -15,8 +15,12 @@ import {
     CHANGE_COMPONENT_PORT,
     CHANGE_NAME_ICON,
     CHANGE_TYPE_VALUE,
-    CHANGE_TYPE_IO
+    CHANGE_TYPE_IO,
+    UPDATE_COMPONENT,
+    SET_COMP_TO_ADVOP_MODAL,
+    CLEAR_COMP_TO_ADVOP_MODAL
 } from './actionTypes';
+import { modalIds } from '../../components/Modals';
 
 export const alterMainPage = value => {
     return ({
@@ -200,5 +204,39 @@ export const changeComponentTypeIO = value => {
         type: CHANGE_TYPE_IO,
         componentKey: value.key,
         value: value.value
+    })
+};
+
+export const updateComponent = value => {
+    return ({
+        type: UPDATE_COMPONENT,
+        componentKey: value.key,
+        component: value.component
+    })
+};
+
+export const setOpenCompToModalAdvancedOp = value => {
+    $(`#${modalIds.advancedComponentOp}`).modal('open');
+    return ({
+        type: SET_COMP_TO_ADVOP_MODAL,
+        componentKey: value.key,
+        component: value.component
+    })
+};
+
+export const applyModalAdvOpToComp = () => {
+    return (dispatch, getState) => {
+        let componentAdvancOp = getState().modalsState.componentAdvancOp;
+
+        dispatch(updateComponent(componentAdvancOp));
+        dispatch(clearModalAdvOp());
+    }
+};
+
+export const clearModalAdvOp = () => {
+    $(`#${modalIds.advancedComponentOp}`).modal('close');
+
+    return ({
+        type: CLEAR_COMP_TO_ADVOP_MODAL
     })
 };
