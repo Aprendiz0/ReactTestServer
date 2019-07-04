@@ -10,6 +10,11 @@ class Modals extends React.Component {
 
     componentDidMount() {
         $(".modal").modal();
+        $('select').formSelect();
+    }
+
+    componentDidUpdate() {
+        $('select').formSelect('destroy').formSelect();
     }
 
     render() {

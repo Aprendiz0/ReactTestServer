@@ -15,15 +15,6 @@ class RegistroComponents extends React.Component {
         this.toggleDelete = this.toggleDelete.bind(this);
     }
 
-    componentDidMount() {
-        $('select').formSelect();
-        
-    }
-
-    componentDidUpdate() {
-        $('select').formSelect('destroy').formSelect();
-    }
-
     toggleDelete() {
         let deleteMode = !this.state.onDeleteMode; // State não atualiza instantaniamente
         this.setState({ onDeleteMode: deleteMode });
