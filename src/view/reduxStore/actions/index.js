@@ -235,7 +235,6 @@ export const applyModalAdvOpToComp = () => {
 
 export const clearModalAdvOp = () => {
     $(`#${modalIds.advancedComponentOp}`).modal('close');
-
     return ({
         type: CLEAR_COMP_TO_ADVOP_MODAL
     })
