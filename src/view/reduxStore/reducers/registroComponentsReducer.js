@@ -6,7 +6,7 @@ const initialState = {
         name: "Component Name",
         node: "01",
         port: "4",
-        typeValue: "01",
+        typeValue: "03",
         typeIO: "01",
         nameIcon: "view_carousel",
         value: 435

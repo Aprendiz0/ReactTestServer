@@ -2,7 +2,8 @@ import React from 'react';
 import Utils from '../../ultils';
 import { connect } from 'react-redux';
 import { deleteComponent, setOpenCompToModalAdvancedOp } from '../../reduxStore/actions';
-import RoundedValueChart from './RoundedValueChart';
+import AnalogicValueChart from './AnalogicValueChart';
+import DigitalValueChart from './DigitalValueChart';
 
 class ComponentCard extends React.Component {
     constructor(props) {
@@ -19,7 +20,7 @@ class ComponentCard extends React.Component {
     componentDidMount() {
         $('select').formSelect();
         let that = this;
-        setInterval(function() {
+        setInterval(function () {
             that.setState({ teste: parseInt(Math.random() * 1023) })
         }, 500)
     }
@@ -34,7 +35,7 @@ class ComponentCard extends React.Component {
         let { component, componentKey } = this.props;
         let iconIO = "warning";
         let iconTypeVal = "warning";
-
+        let chartValue = "Warning";
 
         switch (component.typeIO) {
             case "01":
@@ -48,12 +49,24 @@ class ComponentCard extends React.Component {
         switch (component.typeValue) {
             case "01":
                 iconTypeVal = "space_bar";
+
+                chartValue = <DigitalValueChart
+                    value={(this.state.teste > 511 ? 1 : 0)}
+                />
+
                 break;
             case "02":
                 iconTypeVal = "show_chart";
                 break;
             case "03":
                 iconTypeVal = "swap_calls";
+
+                chartValue = <AnalogicValueChart
+                    id={componentKey}
+                    maxValue={1023}
+                    value={this.state.teste}//component.value}
+                />;
+
                 break;
         }
 
@@ -82,11 +95,7 @@ class ComponentCard extends React.Component {
                             <span><i className="material-icons" style={styles.iconNP}>{iconIO}</i></span>
                             <span><i className="material-icons" style={styles.iconNP}>{iconTypeVal}</i></span>
                         </div>
-                        <RoundedValueChart
-                            id={componentKey}
-                            maxValue={1023}
-                            value={this.state.teste}//component.value}
-                        />
+                        {chartValue}
                         {
                             this.props.deleteMode &&
                             <div style={styles.btnDelete}>

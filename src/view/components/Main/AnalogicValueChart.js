@@ -1,6 +1,6 @@
 import React from 'react';
 
-class RoundedValueChart extends React.Component {
+class AnalogicValueChart extends React.Component {
     constructor(props) {
         super(props);
 
@@ -122,4 +122,4 @@ const styles = {
     }
 }
 
-export default RoundedValueChart;
+export default AnalogicValueChart;
