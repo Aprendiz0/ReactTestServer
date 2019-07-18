@@ -12,13 +12,14 @@ class Nav extends React.Component {
     constructor() {
         super();
 
-        this.mobileMenuClick = this.mobileMenuClick.bind(this);
+        this.openSivenav = this.openSivenav.bind(this);
+        this.closeSidenav = this.closeSidenav.bind(this);
     }
 
     componentDidMount() {
 
         $('.collapsible').collapsible();
-        $('.sidenav').sidenav();
+        $('#slide-out').sidenav();
 
         let that = this;
         that.ajust();
@@ -45,14 +46,19 @@ class Nav extends React.Component {
         if (margin >= 0) last.css("margin-top", margin);
     }
 
-    mobileMenuClick() {
-        this.ajust()
+    openSivenav() {
+        $('#slide-out').sidenav('open');
+        this.ajust();
+    }
+
+    closeSidenav() {
+        $('#slide-out').sidenav('close');
     }
 
     render() {
         return (
             <header>
-                <ul id="slide-out" className="sidenav sidenav-fixed">
+                <ul id="slide-out" className="sidenav">
                     <li>
                         <div className="center principalcolor">
                             <div>
@@ -77,14 +83,17 @@ class Nav extends React.Component {
                     <NavItens
                         name='Registro de Componentes'
                         toPage={<RegistroComponents />}
+                        onClick={this.closeSidenav}
                     />
                     <NavItens
                         name='Controle Geral'
                         toPage={<ControleGeral />}
+                        onClick={this.closeSidenav}
                     />
                     <NavItens
                         name='Jobs'
                         toPage={<Jobs />}
+                        onClick={this.closeSidenav}
                     />
                     <li>
                         <a id="b_lateral" className="waves-effect btn principalBackgroundColor">
@@ -94,7 +103,7 @@ class Nav extends React.Component {
                 <nav className="top-nav" style={styles.nav}>
                     <div className="container" style={styles.topNavContainer}>
                         <div className="nav-wrapper principalcolor">
-                            <a onClick={this.mobileMenuClick} data-target="slide-out" className="top-nav sidenav-trigger principalcolor" style={styles.mobileMenu}><i className="material-icons" style={{ fontSize: '35px' }}>menu</i></a>
+                            <a onClick={this.openSivenav} className="principalcolor" style={styles.mobileMenu}><i className="material-icons" style={{ fontSize: '35px' }}>menu</i></a>
                             <h3 className="center" id="titleNav"> Room Control </h3>
                         </div>
                     </div>
@@ -131,7 +140,6 @@ const styles = {
         height: '60px',
         width: '60px',
         top: '-5px',
-        left: '-25px',
         zIndex: '2'
     }
 }
