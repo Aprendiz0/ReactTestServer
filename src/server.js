@@ -16,4 +16,9 @@ require('./controller/indexController')(app);
 require('./controller/authController')(app);
 require('./controller/projectController')(app);
 
+app.post('/test', (req, res) => {
+    console.log(req.body)
+    res.json({ "ok": "ok" })
+})
+
 app.listen(port, () => console.log(`\nstarted on port: ${port}`));

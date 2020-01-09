@@ -9,6 +9,7 @@ const initialState = {
 export const mainReducer = (state = initialState, action) => {
     switch (action.type) {
         case ALTER_MAIN_PAGE:
+            console.warn('rwarw')
             return {
                 ...state,
                 page: action.page
